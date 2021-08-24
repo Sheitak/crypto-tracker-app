@@ -12,9 +12,9 @@ class CoinsListRequest extends Equatable {
     includePlatform
   ];
 
-  Map<String, dynamic> toMap() {
+  Map<String, bool> toMap() {
     final queryParameters = {
-      'includePlatform': includePlatform
+      'include_platform': includePlatform
     };
     return queryParameters;
   }

@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 
 class CoinsListResponse extends Equatable {
 
-  final int id;
+  final String id;
   final String name;
   final String symbol;
   final Map<String, dynamic> platforms;

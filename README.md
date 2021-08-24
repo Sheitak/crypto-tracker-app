@@ -15,4 +15,8 @@ API used
 CoinGecko API v3
 https://www.coingecko.com/en/api/documentation
 
+Colors
+Gunmetal : #27323F
+CG Blue : #247494
+
 

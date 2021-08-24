@@ -5,7 +5,7 @@ class Loading extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new Center(
-        child: new CustomText(
+        child: new CustomButtonText(
           "Loading...",
           color: Colors.blue,
           fontSize: 30.0,
