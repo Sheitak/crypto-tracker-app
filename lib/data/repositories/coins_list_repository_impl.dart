@@ -15,7 +15,7 @@ class CoinsListRepositoryImpl extends CoinsListRepository {
   @override
   Future<List<CoinsList>> getCoinsList() {
     return _remoteApi
-        .getCoinsList(CoinsListRequest(includePlatform: true))
+        .getCoinsList(CoinsListRequest(includePlatform: false))
         .then((value) => value.map((element) => element.toEntity()).toList());
   }
 }

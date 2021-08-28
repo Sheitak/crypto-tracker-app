@@ -19,8 +19,9 @@ class Error extends StatelessWidget {
         children: [
           Text(
             message,
+            textAlign: TextAlign.center,
             style: const TextStyle(
-              color: Colors.white,
+              color: Colors.black,
               fontSize: 20.0,
             ),
           ),

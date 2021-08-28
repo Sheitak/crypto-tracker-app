@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:crypto_tracker_app/core/error/failures.dart';
 import 'package:crypto_tracker_app/data/models/request/coins_list_request.dart';
 import 'package:crypto_tracker_app/data/models/response/coins_list_response.dart';
@@ -13,15 +12,6 @@ class RemoteApi {
   static const String coinsListUrl = 'http://api.coingecko.com/api/v3/coins/list';
 
   Future<List<CoinsListResponse>> getCoinsList(CoinsListRequest request) async {
-    // {
-    //   "id"
-    // : "0-5x-long-chainlink-token",
-    // "symbol": "linkhalf",
-    // "name": "0.5X Long Chainlink Token",
-    // "platforms": {
-    // "ethereum": ""
-    // }
-    // },
     try {
       final response = await Dio().get(coinsListUrl, queryParameters: request.toMap());
       if (response.statusCode == 200) {

@@ -1,22 +1,40 @@
 import 'package:crypto_tracker_app/domain/entities/coins_list.dart';
-import 'package:equatable/equatable.dart';
+import 'package:crypto_tracker_app/domain/usecases/coins_list_usecase.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class CoinsListViewModel extends Equatable {
+//TODO: Modifier le typage List<CoinList> en prenant exemple sur coinListUseCase, modèle de la ligne 10
+final coinsListViewModelProvider = FutureProvider.autoDispose<List<CoinsList>>((ref) async {
+  return ref.read(coinsListUseCaseProvider).getCoinsList();
+});
 
-  final List<CoinsList> coinsList;
+// class CoinsListNotifier {
+//
+//   final CoinsListUseCase _coinsListUseCase;
+//
+//   CoinsListNotifier(this. _coinsListUseCase);
+//
+//   Future<List<CoinsList>> getCoinsList() {
+//     return _coinsListUseCase.getCoinsList();
+//   }
+// }
 
-  const CoinsListViewModel({
-    required this.coinsList
-  });
 
-  @override
-  List<Object?> get props => [
-    coinsList
-  ];
-
-  // factory CoinsListViewModel.initial() {
-  //   return CoinsListViewModel(
-  //     coinsList: [],
-  //   );
-  // }
-}
+// class CoinsListViewModel extends Equatable {
+//
+//   final List<CoinsList> coinsList;
+//
+//   const CoinsListViewModel({
+//     required this.coinsList
+//   });
+//
+//   @override
+//   List<Object?> get props => [
+//     coinsList
+//   ];
+//
+//   factory CoinsListViewModel.initial() {
+//     return CoinsListViewModel(
+//       coinsList: [],
+//     );
+//   }
+// }
