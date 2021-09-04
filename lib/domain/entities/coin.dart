@@ -15,6 +15,8 @@ class Coin extends Equatable {
   final Links links;
   final Image image;
   final String genesisDate;
+  final int marketCapRank;
+  final int coinGeckoRank;
   final double coinGeckoScore;
   final double developerScore;
   final double communityScore;
@@ -34,6 +36,8 @@ class Coin extends Equatable {
     required this.links,
     required this.image,
     required this.genesisDate,
+    required this.marketCapRank,
+    required this.coinGeckoRank,
     required this.coinGeckoScore,
     required this.developerScore,
     required this.communityScore,
@@ -55,6 +59,8 @@ class Coin extends Equatable {
     links,
     image,
     genesisDate,
+    marketCapRank,
+    coinGeckoRank,
     coinGeckoScore,
     developerScore,
     communityScore,

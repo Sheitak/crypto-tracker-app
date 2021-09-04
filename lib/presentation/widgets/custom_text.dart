@@ -18,12 +18,14 @@ class CustomButtonText extends Text {
 class CustomCryptoText extends Text {
   CustomCryptoText(String data, {
     color: Colors.white,
-    fontSize: 15.0
+    fontSize: 15.0,
+    fontWeight: FontWeight.w500
   }) : super(
       data,
       style: new TextStyle(
           color: Color(0xff27323F),
-          fontSize: fontSize
+          fontSize: fontSize,
+          fontWeight: fontWeight
       )
   );
 }

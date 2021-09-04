@@ -32,12 +32,12 @@ class CoinsListResponse extends Equatable {
     );
   }
 
-  factory CoinsListResponse.fromMap(Map<String, dynamic> map) {
+  factory CoinsListResponse.fromJson(Map<String, dynamic> data) {
     return CoinsListResponse(
-        id: map['id'] ?? '',
-        name: map['name'] ?? '',
-        symbol: map['symbol'] ?? '',
-        platforms: Map<String, dynamic>.from(map['platforms'] ?? {})
+        id: data['id'] ?? '',
+        name: data['name'] ?? '',
+        symbol: data['symbol'] ?? '',
+        platforms: Map<String, dynamic>.from(data['platforms'] ?? {})
     );
   }
 }

@@ -1,7 +1,7 @@
 # crypto_tracker_app
 
 Cryptocurrencies Tracker Application
-Version 0.6.0
+Version 0.6.1
 
 ## About
 

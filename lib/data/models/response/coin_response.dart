@@ -16,6 +16,8 @@ class CoinResponse extends Equatable {
   final Links links;
   final Image image;
   final String genesisDate;
+  final int marketCapRank;
+  final int coinGeckoRank;
   final double coinGeckoScore;
   final double developerScore;
   final double communityScore;
@@ -36,6 +38,8 @@ class CoinResponse extends Equatable {
     required this.image,
     required this.genesisDate,
     required this.coinGeckoScore,
+    required this.marketCapRank,
+    required this.coinGeckoRank,
     required this.developerScore,
     required this.communityScore,
     required this.liquidityScore,
@@ -57,6 +61,8 @@ class CoinResponse extends Equatable {
     image,
     genesisDate,
     coinGeckoScore,
+    marketCapRank,
+    coinGeckoRank,
     developerScore,
     communityScore,
     liquidityScore,
@@ -77,6 +83,8 @@ class CoinResponse extends Equatable {
       links: links,
       image: image,
       genesisDate: genesisDate,
+      marketCapRank: marketCapRank,
+      coinGeckoRank: coinGeckoRank,
       coinGeckoScore: coinGeckoScore,
       developerScore: developerScore,
       communityScore: communityScore,
@@ -89,7 +97,7 @@ class CoinResponse extends Equatable {
   factory CoinResponse.fromJson(Map<String, dynamic> data) {
     return CoinResponse(
       // id: data['id'] as String ?? '',
-      id: data['id'],
+      id: data['id'] ?? '',
       symbol: data['symbol'] ?? '',
       name: data['name'] ?? '',
       platforms: Map<String, dynamic>.from(data['platforms'] ?? {}),
@@ -100,6 +108,8 @@ class CoinResponse extends Equatable {
       links: Links.fromJson(data['links'] ?? {}),
       image: Image.fromJson(data['image'] ?? {}),
       genesisDate: data['genesis_date'] ?? '',
+      marketCapRank: data['market_cap_rank'] ?? 0,
+      coinGeckoRank: data['coingecko_rank'] ?? 0,
       coinGeckoScore: data['coingecko_score'] ?? 0.000,
       developerScore: data['developer_score'] ?? 0.000,
       communityScore: data['community_score'] ?? 0.000,

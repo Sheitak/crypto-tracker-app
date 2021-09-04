@@ -3,9 +3,6 @@ import 'package:crypto_tracker_app/domain/usecases/coins_list_usecase.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 //TODO: Modifier le typage List<CoinList> en prenant exemple sur coinListUseCase, modèle de la ligne 10
-final coinsListViewModelProvider = FutureProvider.autoDispose<List<CoinsList>>((ref) async {
-  return ref.read(coinsListUseCaseProvider).getCoinsList();
-});
 
 // class CoinsListNotifier {
 //
