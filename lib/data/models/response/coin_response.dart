@@ -1,5 +1,8 @@
-import 'package:crypto_tracker_app/data/models/Image.dart';
-import 'package:crypto_tracker_app/data/models/links.dart';
+import 'package:crypto_tracker_app/data/models/coin_model/Image.dart';
+import 'package:crypto_tracker_app/data/models/coin_model/community_data.dart';
+import 'package:crypto_tracker_app/data/models/coin_model/description.dart';
+import 'package:crypto_tracker_app/data/models/coin_model/developer_data.dart';
+import 'package:crypto_tracker_app/data/models/coin_model/links.dart';
 import 'package:crypto_tracker_app/domain/entities/coin.dart';
 import 'package:equatable/equatable.dart';
 
@@ -12,10 +15,12 @@ class CoinResponse extends Equatable {
   final int blockTimeInMinutes;
   final String algorithm;
   final List<String> categories;
-  final Map<String, dynamic> description;
+  final Description description;
   final Links links;
   final Image image;
   final String genesisDate;
+  final double sentimentVotesUpPercentage;
+  final double sentimentVotesDownPercentage;
   final int marketCapRank;
   final int coinGeckoRank;
   final double coinGeckoScore;
@@ -23,7 +28,9 @@ class CoinResponse extends Equatable {
   final double communityScore;
   final double liquidityScore;
   final double publicInterestScore;
-  final Map<String, dynamic> communityData;
+  final CommunityData communityData;
+  final DeveloperData developerData;
+  final DateTime lastUpdated;
 
   const CoinResponse({
     required this.id,
@@ -37,14 +44,18 @@ class CoinResponse extends Equatable {
     required this.links,
     required this.image,
     required this.genesisDate,
-    required this.coinGeckoScore,
+    required this.sentimentVotesUpPercentage,
+    required this.sentimentVotesDownPercentage,
     required this.marketCapRank,
     required this.coinGeckoRank,
+    required this.coinGeckoScore,
     required this.developerScore,
     required this.communityScore,
     required this.liquidityScore,
     required this.publicInterestScore,
+    required this.developerData,
     required this.communityData,
+    required this.lastUpdated,
   });
 
   @override
@@ -60,14 +71,18 @@ class CoinResponse extends Equatable {
     links,
     image,
     genesisDate,
-    coinGeckoScore,
+    sentimentVotesUpPercentage,
+    sentimentVotesDownPercentage,
     marketCapRank,
     coinGeckoRank,
+    coinGeckoScore,
     developerScore,
     communityScore,
     liquidityScore,
     publicInterestScore,
+    developerData,
     communityData,
+    lastUpdated,
   ];
 
   Coin toEntity() {
@@ -83,6 +98,8 @@ class CoinResponse extends Equatable {
       links: links,
       image: image,
       genesisDate: genesisDate,
+      sentimentVotesUpPercentage: sentimentVotesUpPercentage,
+      sentimentVotesDownPercentage: sentimentVotesDownPercentage,
       marketCapRank: marketCapRank,
       coinGeckoRank: coinGeckoRank,
       coinGeckoScore: coinGeckoScore,
@@ -90,7 +107,9 @@ class CoinResponse extends Equatable {
       communityScore: communityScore,
       liquidityScore: liquidityScore,
       publicInterestScore: publicInterestScore,
+      developerData: developerData,
       communityData: communityData,
+      lastUpdated: lastUpdated,
     );
   }
 
@@ -104,18 +123,22 @@ class CoinResponse extends Equatable {
       blockTimeInMinutes: data['block_time_in_minutes'] ?? 0,
       algorithm: data['hashing_algorithm'] ?? '',
       categories: List<String>.from(data['categories'] ?? []),
-      description: Map<String, dynamic>.from(data['description'] ?? {}),
+      description: Description.fromJson(data['description'] ?? {}),
       links: Links.fromJson(data['links'] ?? {}),
       image: Image.fromJson(data['image'] ?? {}),
       genesisDate: data['genesis_date'] ?? '',
+      sentimentVotesUpPercentage: data['sentiment_votes_up_percentage'] ?? 0.0,
+      sentimentVotesDownPercentage: data['sentiment_votes_down_percentage'] ?? 0.0,
       marketCapRank: data['market_cap_rank'] ?? 0,
       coinGeckoRank: data['coingecko_rank'] ?? 0,
-      coinGeckoScore: data['coingecko_score'] ?? 0.000,
-      developerScore: data['developer_score'] ?? 0.000,
-      communityScore: data['community_score'] ?? 0.000,
-      liquidityScore: data['liquidity_score'] ?? 0.000,
-      publicInterestScore: data['public_interest_score'] ?? 0.000,
-      communityData: Map<String, dynamic>.from(data['community_data'] ?? {}),
+      coinGeckoScore: data['coingecko_score'] ?? 0.0,
+      developerScore: data['developer_score'] ?? 0.0,
+      communityScore: data['community_score'] ?? 0.0,
+      liquidityScore: data['liquidity_score'] ?? 0.0,
+      publicInterestScore: data['public_interest_score'] ?? 0.0,
+      developerData: DeveloperData.fromJson(data['developer_data'] ?? {}),
+      communityData: CommunityData.fromJson(data['community_data'] ?? {}),
+      lastUpdated: DateTime.parse(data['last_updated'])
     );
   }
 }

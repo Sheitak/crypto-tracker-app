@@ -29,3 +29,18 @@ class CustomCryptoText extends Text {
       )
   );
 }
+
+class CustomTitleSection extends Text {
+  CustomTitleSection(String data, {
+    color: Colors.blue,
+    fontSize: 17.0,
+    fontWeight: FontWeight.w600
+  }) : super(
+      data,
+      style: new TextStyle(
+          color: Colors.indigo[700],
+          fontSize: fontSize,
+          fontWeight: fontWeight
+      )
+  );
+}

@@ -41,5 +41,4 @@ class Links extends Equatable {
       reposUrl: Map<String, List<dynamic>>.from(data['repos_url'] ?? {}),
     );
   }
-
 }

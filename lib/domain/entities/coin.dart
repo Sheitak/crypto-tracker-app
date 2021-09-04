@@ -1,5 +1,8 @@
-import 'package:crypto_tracker_app/data/models/links.dart';
-import 'package:crypto_tracker_app/data/models/Image.dart';
+import 'package:crypto_tracker_app/data/models/coin_model/community_data.dart';
+import 'package:crypto_tracker_app/data/models/coin_model/description.dart';
+import 'package:crypto_tracker_app/data/models/coin_model/developer_data.dart';
+import 'package:crypto_tracker_app/data/models/coin_model/links.dart';
+import 'package:crypto_tracker_app/data/models/coin_model/Image.dart';
 import 'package:equatable/equatable.dart';
 
 class Coin extends Equatable {
@@ -11,10 +14,12 @@ class Coin extends Equatable {
   final int blockTimeInMinutes;
   final String algorithm;
   final List<String> categories;
-  final Map<String, dynamic> description;
+  final Description description;
   final Links links;
   final Image image;
   final String genesisDate;
+  final double sentimentVotesUpPercentage;
+  final double sentimentVotesDownPercentage;
   final int marketCapRank;
   final int coinGeckoRank;
   final double coinGeckoScore;
@@ -22,7 +27,9 @@ class Coin extends Equatable {
   final double communityScore;
   final double liquidityScore;
   final double publicInterestScore;
-  final Map<String, dynamic> communityData;
+  final CommunityData communityData;
+  final DeveloperData developerData;
+  final DateTime lastUpdated;
 
   const Coin({
     required this.id,
@@ -36,6 +43,8 @@ class Coin extends Equatable {
     required this.links,
     required this.image,
     required this.genesisDate,
+    required this.sentimentVotesUpPercentage,
+    required this.sentimentVotesDownPercentage,
     required this.marketCapRank,
     required this.coinGeckoRank,
     required this.coinGeckoScore,
@@ -43,7 +52,9 @@ class Coin extends Equatable {
     required this.communityScore,
     required this.liquidityScore,
     required this.publicInterestScore,
+    required this.developerData,
     required this.communityData,
+    required this.lastUpdated,
   });
 
   @override
@@ -59,6 +70,8 @@ class Coin extends Equatable {
     links,
     image,
     genesisDate,
+    sentimentVotesUpPercentage,
+    sentimentVotesDownPercentage,
     marketCapRank,
     coinGeckoRank,
     coinGeckoScore,
@@ -66,6 +79,8 @@ class Coin extends Equatable {
     communityScore,
     liquidityScore,
     publicInterestScore,
+    developerData,
     communityData,
+    lastUpdated,
   ];
 }
