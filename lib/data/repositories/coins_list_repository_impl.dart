@@ -12,7 +12,13 @@ class CoinsListRepositoryImpl extends CoinsListRepository {
   @override
   Future<List<CoinsList>> getCoinsList() {
     return _coinListRemoteApi
-        .getCoinsList(CoinsListRequest(includePlatform: false))
-        .then((value) => value.map((element) => element.toEntity()).toList());
+      .getCoinsList(
+        const CoinsListRequest(
+            includePlatform: false
+        )
+      )
+      .then(
+          (value) => value.map((element) => element.toEntity()).toList()
+      );
   }
 }

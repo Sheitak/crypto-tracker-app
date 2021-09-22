@@ -12,7 +12,19 @@ class CoinRepositoryImpl extends CoinRepository {
   @override
   Future<Coin> getCoinById(String selectedCoin) {
     return _remoteApi
-        .getCoinById(selectedCoin, CoinRequest(localization: 'false', tickers: false, marketData: false, communityData: true, developerData: false, sparkline: false))
-        .then((value) => value.toEntity());
+      .getCoinById(
+        selectedCoin,
+        const CoinRequest(
+            localization: 'false',
+            tickers: false,
+            marketData: false,
+            communityData: true,
+            developerData: false,
+            sparkline: false
+        )
+      )
+      .then(
+          (value) => value.toEntity()
+      );
   }
 }

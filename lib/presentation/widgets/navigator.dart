@@ -7,13 +7,12 @@ class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case '/' :
-        return MaterialPageRoute(builder: (context) => CoinsListScreen());
+        return MaterialPageRoute(builder: (context) => const CoinsListScreen());
       case '/cryptocurrencies':
         var arguments = settings.arguments;
         if (arguments != null) {
           return PageRouteBuilder(
-              pageBuilder: (context, animation, secondaryAnimation) =>
-                  CoinScreen(arguments as String),
+              pageBuilder: (context, animation, secondaryAnimation) => CoinScreen(selectedCoin: arguments as String),
               transitionsBuilder: (context, animation, secondaryAnimation,
                   child) {
                 animation = CurvedAnimation(
@@ -30,7 +29,7 @@ class RouteGenerator {
           return pageNotFound();
         }
       case '/wallet' :
-        return MaterialPageRoute(builder: (context) => WalletScreen());
+        return MaterialPageRoute(builder: (context) => const WalletScreen());
       default:
         return pageNotFound();
     }
@@ -41,10 +40,10 @@ class RouteGenerator {
         builder: (context) =>
             Scaffold(
                 appBar: AppBar(
-                    title: Text("Error"),
+                    title: const Text("Error"),
                     centerTitle: true
                 ),
-                body: Center(
+                body: const Center(
                   child: Text("Page not found"),
                 )
             )

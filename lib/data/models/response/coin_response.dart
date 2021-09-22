@@ -1,4 +1,4 @@
-import 'package:crypto_tracker_app/data/models/coin_model/Image.dart';
+import 'package:crypto_tracker_app/data/models/coin_model/image.dart';
 import 'package:crypto_tracker_app/data/models/coin_model/community_data.dart';
 import 'package:crypto_tracker_app/data/models/coin_model/description.dart';
 import 'package:crypto_tracker_app/data/models/coin_model/developer_data.dart';

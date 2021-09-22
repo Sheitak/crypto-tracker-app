@@ -1,5 +1,5 @@
 # Cryptocurrencies Tracker Application
-#### Version 0.6.2
+#### Version 0.6.3
 
 This application offers a catalog of existing cryptocurrencies.
 It brings together all the details, links and information for each digital asset. 

@@ -6,55 +6,59 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class CoinsListScreen extends StatelessWidget {
+  const CoinsListScreen({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Crypto Tracker App'),
+          title: const Text('Crypto Tracker App'),
           centerTitle: true,
           actions: [
             IconButton(
-              onPressed: () => {Navigator.pushNamed(context, '/wallet')},
-              icon: Icon(Icons.account_balance_wallet_outlined),
+              onPressed: () => {
+                Navigator.pushNamed(context, '/wallet')
+              },
+              icon: const Icon(Icons.account_balance_wallet_outlined),
             )
           ],
         ),
         backgroundColor: Colors.blueGrey[50],
         drawer: _buildDrawerWidget(),
-        body: _BuildBodyListCoinsWidget()
+        body: const _BuildBodyListCoinsWidget()
     );
   }
 }
 
 Widget _buildDrawerWidget() {
-  return new Drawer(
-    child: new Container(
-      color: Color(0xffCFD8DC),
-      child: new ListView.builder(
+  return Drawer(
+    child: Container(
+      color: const Color(0xffCFD8DC),
+      child: ListView.builder(
           itemCount: 5,
           itemBuilder: (context, i) {
             if (i == 0) {
               return DrawerHeader(
-                  child: new Column(
+                  child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  new CustomButtonText(
+                  CustomButtonText(
                     "My Cryptocurrencies",
                     fontSize: 22.0,
                   ),
                 ],
               ));
             } else if (i == 1) {
-              return new ListTile(
-                title: new CustomButtonText('Test'),
+              return ListTile(
+                title: CustomButtonText('Test'),
                 onTap: () {},
               );
             } else {
-              return new ListTile(
-                title: new CustomButtonText('Test'),
-                trailing: new IconButton(
+              return ListTile(
+                title: CustomButtonText('Test'),
+                trailing: IconButton(
                     onPressed: () => {},
-                    icon: new Icon(Icons.delete, color: Colors.white)),
+                    icon: const Icon(Icons.delete, color: Colors.white)),
                 onTap: () {},
               );
             }
@@ -80,24 +84,24 @@ class _BuildBodyListCoinsWidget extends ConsumerWidget {
               return GestureDetector(
                 onTap: () {
                   Navigator.pushNamed(context, '/cryptocurrencies',
-                      arguments: '${coinsList[index].id}');
+                      arguments: coinsList[index].id);
                 },
-                child: new Card(
-                  margin: EdgeInsets.all(0.5),
+                child: Card(
+                  margin: const EdgeInsets.all(0.5),
                   elevation: 8.0,
                   child: Padding(
-                    padding: EdgeInsets.only(left: 2.0),
+                    padding: const EdgeInsets.only(left: 2.0),
                     child: Row(
                       children: [
-                        watch(coinViewModelProvider('${coinsList[index].id}'))
+                        watch(coinViewModelProvider(coinsList[index].id))
                             .when(data: (coin) {
                                   // if (coin.id == '${coinsList[index].id}') {
                                     return Hero(
-                                      tag: "imageCoin" + '${coin.id}',
+                                      tag: "imageCoin" + coin.id,
                                       child: ClipRRect(
                                         borderRadius: BorderRadius.circular(5.0),
                                         child: Image.network(
-                                            '${coin.image.small}',
+                                            coin.image.small,
                                             fit: BoxFit.cover
                                         ),
                                       ),
@@ -110,23 +114,23 @@ class _BuildBodyListCoinsWidget extends ConsumerWidget {
                                 error: (error, _) => Error(
                                     message: error.toString(),
                                     callback: () => {})),
-                        new Padding(
-                          padding: EdgeInsets.all(8.0),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
                           // padding: EdgeInsets.only(left: 8.0, right: 8.0),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              new Padding(
-                                padding: EdgeInsets.only(bottom: 8.0),
-                                child: new Text(
-                                  '${coinsList[index].id.toUpperCase()}',
-                                  style: new TextStyle(
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 8.0),
+                                child: Text(
+                                  coinsList[index].id.toUpperCase(),
+                                  style: const TextStyle(
                                       fontWeight: FontWeight.bold, fontSize: 16),
                                 ),
                               ),
-                              new Text(
-                                '${coinsList[index].symbol.toUpperCase()}',
-                                style: new TextStyle(
+                              Text(
+                                coinsList[index].symbol.toUpperCase(),
+                                style: TextStyle(
                                     color: Colors.grey[500], fontSize: 14),
                               )
                             ],

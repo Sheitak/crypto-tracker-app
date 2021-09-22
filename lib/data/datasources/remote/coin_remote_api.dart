@@ -16,13 +16,11 @@ class CoinRemoteApi {
           return CoinResponse.fromJson(response.data);
         }
       }
-      return CoinResponse.fromJson({});
+      return CoinResponse.fromJson(const {});
     } on DioError catch (error) {
-      print(error);
       throw Failure(message: error.response?.statusMessage ?? 'Something went wrong.');
     } on SocketException catch (error) {
-      print(error);
-      throw Failure(message: 'Please check your connection.');
+      throw const Failure(message: 'Please check your connection.');
     }
   }
 }

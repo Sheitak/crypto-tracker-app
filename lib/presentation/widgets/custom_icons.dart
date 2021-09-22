@@ -34,7 +34,7 @@ class CustomIcons {
   static const IconData reddit = IconData(0xf1a1, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData newspaper = IconData(0xf1ea, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData at = IconData(0xf1fa, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData chart_line = IconData(0xf201, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData rocketchat = IconData(0xf3e8, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData chartLine = IconData(0xf201, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData rocketChat = IconData(0xf3e8, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData pager = IconData(0xf815, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }

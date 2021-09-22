@@ -5,9 +5,10 @@ class CustomButton extends StatelessWidget {
   final VoidCallback onTap;
 
   const CustomButton({
+    Key? key,
     required this.title,
     required this.onTap,
-  }) : super();
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +19,7 @@ class CustomButton extends StatelessWidget {
         height: 50.0,
         width: double.infinity,
         decoration: BoxDecoration(
-          color: Color(0xffE6812F),
+          color: const Color(0xffE6812F),
           borderRadius: BorderRadius.circular(10.0),
         ),
         alignment: Alignment.center,

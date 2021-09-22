@@ -7,9 +7,10 @@ class Error extends StatelessWidget {
   final VoidCallback callback;
 
   const Error({
+    Key? key,
     required this.message,
     required this.callback,
-  }) : super();
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

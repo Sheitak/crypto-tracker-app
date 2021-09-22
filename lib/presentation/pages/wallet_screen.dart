@@ -2,11 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class WalletScreen extends StatelessWidget {
+  const WalletScreen({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: Center(
-        child: new Text('In The Wallet !'),
+        child: Text('In The Wallet !'),
       )
     );
   }
