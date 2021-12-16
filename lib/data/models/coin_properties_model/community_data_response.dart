@@ -1,6 +1,7 @@
+import 'package:crypto_tracker_app/domain/entities/community_data.dart';
 import 'package:equatable/equatable.dart';
 
-class CommunityData extends Equatable {
+class CommunityDataResponse extends Equatable {
   final int facebookLikes;
   final int twitterFollowers;
   final double redditAveragePosts48h;
@@ -9,7 +10,7 @@ class CommunityData extends Equatable {
   final int redditAccountsActive48h;
   final int telegramChannelUserCount;
 
-  const CommunityData({
+  const CommunityDataResponse({
     required this.facebookLikes,
     required this.twitterFollowers,
     required this.redditAveragePosts48h,
@@ -30,8 +31,20 @@ class CommunityData extends Equatable {
     telegramChannelUserCount
   ];
 
-  factory CommunityData.fromJson(Map<String, dynamic> data) {
+  CommunityData toEntity() {
     return CommunityData(
+        facebookLikes: facebookLikes,
+        twitterFollowers: twitterFollowers,
+        redditAveragePosts48h: redditAveragePosts48h,
+        redditAverageComments48h: redditAverageComments48h,
+        redditSubscribers: redditSubscribers,
+        redditAccountsActive48h: redditAccountsActive48h,
+        telegramChannelUserCount: telegramChannelUserCount
+    );
+  }
+
+  factory CommunityDataResponse.fromJson(Map<String, dynamic> data) {
+    return CommunityDataResponse(
         facebookLikes: data['facebook_likes'] ?? 0,
         twitterFollowers: data['twitter_followers'] ?? 0,
         redditAveragePosts48h: data['reddit_average_posts_48h'] ?? 0.0,

@@ -1,4 +1,3 @@
-import 'package:crypto_tracker_app/domain/entities/coin.dart';
 import 'package:crypto_tracker_app/domain/repositories/coin_repository.dart';
 
 class CoinUseCase {
@@ -7,7 +6,7 @@ class CoinUseCase {
 
   CoinUseCase(this._coinRepository);
 
-  Future<Coin> getCoinById(String selectedCoin) {
+  Future<List> getCoinById(String selectedCoin) {
     return _coinRepository.getCoinById(selectedCoin);
   }
 }

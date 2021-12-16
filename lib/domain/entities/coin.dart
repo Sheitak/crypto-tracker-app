@@ -1,22 +1,21 @@
-import 'package:crypto_tracker_app/data/models/coin_model/community_data.dart';
-import 'package:crypto_tracker_app/data/models/coin_model/description.dart';
-import 'package:crypto_tracker_app/data/models/coin_model/developer_data.dart';
-import 'package:crypto_tracker_app/data/models/coin_model/links.dart';
-import 'package:crypto_tracker_app/data/models/coin_model/image.dart';
+import 'dart:convert';
+
+import 'package:crypto_tracker_app/data/models/coin_properties_model/image_response.dart';
+import 'package:crypto_tracker_app/domain/entities/coins_list.dart';
+import 'package:crypto_tracker_app/domain/entities/image.dart';
 import 'package:equatable/equatable.dart';
+import 'package:objectbox/objectbox.dart';
 
+@Entity()
 class Coin extends Equatable {
-
-  final String id;
+  int id;
+  @Index()
+  final String coinId;
   final String symbol;
   final String name;
-  final Map<String, dynamic> platforms;
   final int blockTimeInMinutes;
   final String algorithm;
   final List<String> categories;
-  final Description description;
-  final Links links;
-  final Image image;
   final String genesisDate;
   final double sentimentVotesUpPercentage;
   final double sentimentVotesDownPercentage;
@@ -27,21 +26,19 @@ class Coin extends Equatable {
   final double communityScore;
   final double liquidityScore;
   final double publicInterestScore;
-  final CommunityData communityData;
-  final DeveloperData developerData;
+  @Property(type: PropertyType.date)
   final DateTime lastUpdated;
+  final coinList = ToOne<CoinsList>();
+  final image = ToOne<Image>();
 
-  const Coin({
-    required this.id,
+  Coin({
+    this.id = 0,
+    required this.coinId,
     required this.symbol,
     required this.name,
-    required this.platforms,
     required this.blockTimeInMinutes,
     required this.algorithm,
     required this.categories,
-    required this.description,
-    required this.links,
-    required this.image,
     required this.genesisDate,
     required this.sentimentVotesUpPercentage,
     required this.sentimentVotesDownPercentage,
@@ -52,22 +49,18 @@ class Coin extends Equatable {
     required this.communityScore,
     required this.liquidityScore,
     required this.publicInterestScore,
-    required this.developerData,
-    required this.communityData,
     required this.lastUpdated,
   });
 
   @override
   List<Object?> get props => [
     id,
+    coinId,
     symbol,
     name,
-    platforms,
     blockTimeInMinutes,
     algorithm,
     categories,
-    description,
-    links,
     image,
     genesisDate,
     sentimentVotesUpPercentage,
@@ -79,8 +72,14 @@ class Coin extends Equatable {
     communityScore,
     liquidityScore,
     publicInterestScore,
-    developerData,
-    communityData,
     lastUpdated,
   ];
+  // set dbImage(String element) => image = ImageResponse.fromJson(
+  //     json.decode(element).map((key, value) => MapEntry(key as String, value as dynamic))
+  // ) as String;
+
+  // String get dbDescription => json.encode(description);
+  // set dbDescription(String element) => description = Description.fromJson(
+  //     json.decode(element).map((key, value) => MapEntry(key as String, value as dynamic))
+  // );
 }

@@ -16,22 +16,22 @@ class Error extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            message,
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              color: Colors.black,
-              fontSize: 20.0,
-            ),
-          ),
-          const SizedBox(height: 20.0),
-          CustomButton(
-            title: 'Retry',
-            onTap: () => callback,
-          )
-        ],
+        // mainAxisAlignment: MainAxisAlignment.center,
+        // children: [
+        //   Text(
+        //     message,
+        //     textAlign: TextAlign.center,
+        //     style: const TextStyle(
+        //       color: Colors.black,
+        //       fontSize: 20.0,
+        //     ),
+        //   ),
+        //   const SizedBox(height: 20.0),
+        //   CustomButton(
+        //     title: 'Retry',
+        //     onTap: () => callback,
+        //   )
+        // ],
       ),
     );
   }

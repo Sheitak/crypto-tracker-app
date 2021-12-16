@@ -1,29 +1,28 @@
+import 'package:crypto_tracker_app/domain/entities/coin.dart';
 import 'package:equatable/equatable.dart';
+import 'package:objectbox/objectbox.dart';
 
+@Entity()
 class Image extends Equatable {
-
+  int id;
   final String thumb;
   final String small;
   final String large;
+  final coin = ToOne<Coin>();
 
-  const Image({
+  Image({
+    this.id = 0,
     required this.thumb,
     required this.small,
-    required this.large
+    required this.large,
   });
 
   @override
   List<Object?> get props => [
+    id,
     thumb,
     small,
-    large
+    large,
+    coin
   ];
-
-  factory Image.fromJson(Map<String, dynamic> data) {
-    return Image(
-      thumb: data['thumb'] ?? '',
-      small: data['small'] ?? '',
-      large: data['large'] ?? '',
-    );
-  }
 }

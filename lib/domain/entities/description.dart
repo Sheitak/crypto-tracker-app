@@ -1,6 +1,10 @@
+import 'package:crypto_tracker_app/domain/entities/coin.dart';
 import 'package:equatable/equatable.dart';
+import 'package:objectbox/objectbox.dart';
 
+@Entity()
 class Description extends Equatable {
+  int id;
   final String en;
   final String de;
   final String es;
@@ -21,9 +25,11 @@ class Description extends Equatable {
   final String ko;
   final String ar;
   final String th;
-  final String id;
+  final String idd;
+  final coin = ToOne<Coin>();
 
-  const Description({
+  Description({
+    this.id = 0,
     required this.en,
     required this.de,
     required this.es,
@@ -44,11 +50,12 @@ class Description extends Equatable {
     required this.ko,
     required this.ar,
     required this.th,
-    required this.id
+    required this.idd
   });
 
   @override
   List<Object?> get props => [
+    id,
     en,
     de,
     es,
@@ -69,7 +76,7 @@ class Description extends Equatable {
     ko,
     ar,
     th,
-    id
+    idd
   ];
 
   factory Description.fromJson(Map<String, dynamic> data) {
@@ -94,7 +101,7 @@ class Description extends Equatable {
         ko: data['ko'] ?? '',
         ar: data['ar'] ?? '',
         th: data['th'] ?? '',
-        id: data['id'] ?? ''
+        idd: data['id'] ?? ''
     );
   }
 }

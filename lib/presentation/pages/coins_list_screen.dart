@@ -1,8 +1,6 @@
-import 'package:crypto_tracker_app/core/providers/coin_provider.dart';
-import 'package:crypto_tracker_app/core/providers/coins_list_provider.dart';
-import 'package:crypto_tracker_app/presentation/widgets/custom_text.dart';
-import 'package:crypto_tracker_app/presentation/widgets/error.dart';
 import 'package:flutter/material.dart';
+import 'package:crypto_tracker_app/core/providers/app_provider.dart';
+import 'package:crypto_tracker_app/presentation/widgets/error.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class CoinsListScreen extends StatelessWidget {
@@ -23,7 +21,7 @@ class CoinsListScreen extends StatelessWidget {
             )
           ],
         ),
-        backgroundColor: Colors.blueGrey[50],
+        backgroundColor: Colors.blueGrey[500],
         drawer: _buildDrawerWidget(),
         body: const _BuildBodyListCoinsWidget()
     );
@@ -32,37 +30,39 @@ class CoinsListScreen extends StatelessWidget {
 
 Widget _buildDrawerWidget() {
   return Drawer(
-    child: Container(
-      color: const Color(0xffCFD8DC),
-      child: ListView.builder(
-          itemCount: 5,
-          itemBuilder: (context, i) {
-            if (i == 0) {
-              return DrawerHeader(
-                  child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  CustomButtonText(
-                    "My Cryptocurrencies",
-                    fontSize: 22.0,
-                  ),
-                ],
-              ));
-            } else if (i == 1) {
-              return ListTile(
-                title: CustomButtonText('Test'),
-                onTap: () {},
-              );
-            } else {
-              return ListTile(
-                title: CustomButtonText('Test'),
-                trailing: IconButton(
-                    onPressed: () => {},
-                    icon: const Icon(Icons.delete, color: Colors.white)),
-                onTap: () {},
-              );
-            }
-          }),
+    child: ListView(
+      padding: EdgeInsets.zero,
+      children: const <Widget>[
+        DrawerHeader(
+          decoration: BoxDecoration(
+            color: Colors.indigo,
+          ),
+          child: Text(
+            'My Cryptocurrencies',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 24,
+            ),
+          ),
+        ),
+        ListTile(
+          leading: Icon(Icons.star),
+          title: Text('Favoris'),
+        ),
+        ListTile(
+          leading: Icon(Icons.account_circle),
+          title: Text('Profile'),
+        ),
+        ListTile(
+          leading: Icon(Icons.settings),
+          title: Text('Settings'),
+        ),
+        ListTile(
+          leading: Icon(Icons.ten_k_rounded),
+          title: Text('About'),
+        ),
+      ],
     ),
   );
 }
@@ -71,49 +71,59 @@ class _BuildBodyListCoinsWidget extends ConsumerWidget {
   const _BuildBodyListCoinsWidget({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, ScopedReader watch) {
-    return watch(coinsListViewModelProvider).when(
+  Widget build(BuildContext context, WidgetRef ref) {
+    return ref.watch(coinsListViewModelProvider).when(
         data: (coinsList) {
           if (coinsList.isEmpty) {
             return Error(
                 message: 'No Cryptocurrencies found', callback: () => {});
           }
           return ListView.builder(
-            itemCount: 15,
+            itemCount: 20,
             itemBuilder: (context, index) {
               return GestureDetector(
                 onTap: () {
                   Navigator.pushNamed(context, '/cryptocurrencies',
-                      arguments: coinsList[index].id);
+                      arguments: coinsList[index].coinId);
                 },
                 child: Card(
-                  margin: const EdgeInsets.all(0.5),
+                  margin: const EdgeInsets.all(0.6),
                   elevation: 8.0,
                   child: Padding(
                     padding: const EdgeInsets.only(left: 2.0),
                     child: Row(
                       children: [
-                        watch(coinViewModelProvider(coinsList[index].id))
-                            .when(data: (coin) {
-                                  // if (coin.id == '${coinsList[index].id}') {
-                                    return Hero(
-                                      tag: "imageCoin" + coin.id,
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(5.0),
-                                        child: Image.network(
-                                            coin.image.small,
-                                            fit: BoxFit.cover
-                                        ),
-                                      ),
-                                    );
-                                  // }
-                                  // return Icon(Icons.api);
-                                },
-                                loading: () => const Center(
-                                    child: CircularProgressIndicator()),
-                                error: (error, _) => Error(
-                                    message: error.toString(),
-                                    callback: () => {})),
+                        ref.watch(coinViewModelProvider(coinsList[index].coinId))
+                          .when(data: (coin) {
+                            // return const Center();
+                              return Hero(
+                                  tag: "imageCoin" + coin[0].coinId,
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(5.0),
+
+                                    // child: Image.asset(
+                                    //     'assets/images/blockclean.png',
+                                    //     width: 60.0,
+                                    //     height: 60.0
+                                    //     // coin.image.target!.small,
+                                    //     // fit: BoxFit.fill
+                                    // ),
+
+                                    child: Image.network(
+                                        coin[1].small,
+                                        fit: BoxFit.cover
+                                    ),
+                                  ),
+                                );
+                              },
+                              loading: () => const Center(
+                                  child: CircularProgressIndicator()
+                              ),
+                              error: (error, _) => Error(
+                                  message: error.toString(),
+                                  callback: () => {}
+                              )
+                        ),
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           // padding: EdgeInsets.only(left: 8.0, right: 8.0),
@@ -123,7 +133,7 @@ class _BuildBodyListCoinsWidget extends ConsumerWidget {
                               Padding(
                                 padding: const EdgeInsets.only(bottom: 8.0),
                                 child: Text(
-                                  coinsList[index].id.toUpperCase(),
+                                  coinsList[index].coinId.toUpperCase(),
                                   style: const TextStyle(
                                       fontWeight: FontWeight.bold, fontSize: 16),
                                 ),
@@ -146,6 +156,7 @@ class _BuildBodyListCoinsWidget extends ConsumerWidget {
         },
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (error, _) =>
-            Error(message: error.toString(), callback: () => {}));
+            Error(message: error.toString(), callback: () => {})
+        );
   }
 }

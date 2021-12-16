@@ -1,0 +1,561 @@
+{
+  "_note1": "KEEP THIS FILE! Check it into a version control system (VCS) like git.",
+  "_note2": "ObjectBox manages crucial IDs for your object model. See docs for details.",
+  "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
+  "entities": [
+    {
+      "id": "1:6193276438463297612",
+      "lastPropertyId": "22:3659931250420376919",
+      "name": "Coin",
+      "properties": [
+        {
+          "id": "1:5017258273007788458",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:7076795956542975435",
+          "name": "coinId",
+          "type": 9,
+          "flags": 2048,
+          "indexId": "1:5832461431719071898"
+        },
+        {
+          "id": "3:6123939310622079733",
+          "name": "symbol",
+          "type": 9
+        },
+        {
+          "id": "4:3262693713081100977",
+          "name": "name",
+          "type": 9
+        },
+        {
+          "id": "5:7871589820012612689",
+          "name": "blockTimeInMinutes",
+          "type": 6
+        },
+        {
+          "id": "6:964161399913174314",
+          "name": "algorithm",
+          "type": 9
+        },
+        {
+          "id": "7:685786143366279277",
+          "name": "categories",
+          "type": 30
+        },
+        {
+          "id": "9:8396741533279108070",
+          "name": "genesisDate",
+          "type": 9
+        },
+        {
+          "id": "10:9033810430958583846",
+          "name": "sentimentVotesUpPercentage",
+          "type": 8
+        },
+        {
+          "id": "11:6060143354789831628",
+          "name": "sentimentVotesDownPercentage",
+          "type": 8
+        },
+        {
+          "id": "12:5724936095723914040",
+          "name": "marketCapRank",
+          "type": 6
+        },
+        {
+          "id": "13:7368087809956069269",
+          "name": "coinGeckoRank",
+          "type": 6
+        },
+        {
+          "id": "14:4962295909446195135",
+          "name": "coinGeckoScore",
+          "type": 8
+        },
+        {
+          "id": "15:7987879208257344818",
+          "name": "developerScore",
+          "type": 8
+        },
+        {
+          "id": "16:1578678072499739434",
+          "name": "communityScore",
+          "type": 8
+        },
+        {
+          "id": "17:1460740770570601076",
+          "name": "liquidityScore",
+          "type": 8
+        },
+        {
+          "id": "18:1753603523988848012",
+          "name": "publicInterestScore",
+          "type": 8
+        },
+        {
+          "id": "19:8988057269375170732",
+          "name": "lastUpdated",
+          "type": 10
+        },
+        {
+          "id": "20:7580911722225328345",
+          "name": "coinListId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "2:6816000100471008668",
+          "relationTarget": "CoinsList"
+        },
+        {
+          "id": "21:6886631746809127017",
+          "name": "imageId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "8:7656747457257472588",
+          "relationTarget": "Image"
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "2:6632199770553307156",
+      "lastPropertyId": "4:6184614354308186215",
+      "name": "CoinsList",
+      "properties": [
+        {
+          "id": "1:2069703420439698073",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:3014344141400539316",
+          "name": "coinId",
+          "type": 9,
+          "flags": 2048,
+          "indexId": "3:6545245441961252126"
+        },
+        {
+          "id": "3:3193434812809389051",
+          "name": "name",
+          "type": 9
+        },
+        {
+          "id": "4:6184614354308186215",
+          "name": "symbol",
+          "type": 9
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "3:357480681411467732",
+      "lastPropertyId": "9:7074037480415215065",
+      "name": "CommunityData",
+      "properties": [
+        {
+          "id": "1:1683505985251246670",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:7830532190136255171",
+          "name": "facebookLikes",
+          "type": 6
+        },
+        {
+          "id": "3:3188641741547329989",
+          "name": "twitterFollowers",
+          "type": 6
+        },
+        {
+          "id": "4:660214856078994561",
+          "name": "redditAveragePosts48h",
+          "type": 8
+        },
+        {
+          "id": "5:3964232732211228755",
+          "name": "redditAverageComments48h",
+          "type": 8
+        },
+        {
+          "id": "6:5613357268498432419",
+          "name": "redditSubscribers",
+          "type": 6
+        },
+        {
+          "id": "7:8341962631369909525",
+          "name": "redditAccountsActive48h",
+          "type": 6
+        },
+        {
+          "id": "8:1155153781594281743",
+          "name": "telegramChannelUserCount",
+          "type": 6
+        },
+        {
+          "id": "9:7074037480415215065",
+          "name": "coinId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "4:4365507326996402698",
+          "relationTarget": "Coin"
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "4:7225654346525856802",
+      "lastPropertyId": "23:3072553646524318377",
+      "name": "Description",
+      "properties": [
+        {
+          "id": "1:6717910979259522485",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:7311108809578311639",
+          "name": "en",
+          "type": 9
+        },
+        {
+          "id": "3:3832503413717833292",
+          "name": "de",
+          "type": 9
+        },
+        {
+          "id": "4:4608092625154059544",
+          "name": "es",
+          "type": 9
+        },
+        {
+          "id": "5:1190845058545648600",
+          "name": "fr",
+          "type": 9
+        },
+        {
+          "id": "6:4201461922548285871",
+          "name": "it",
+          "type": 9
+        },
+        {
+          "id": "7:2802257282699636429",
+          "name": "pl",
+          "type": 9
+        },
+        {
+          "id": "8:1803830737387893010",
+          "name": "ro",
+          "type": 9
+        },
+        {
+          "id": "9:2859032645791906346",
+          "name": "hu",
+          "type": 9
+        },
+        {
+          "id": "10:5226006614589143084",
+          "name": "nl",
+          "type": 9
+        },
+        {
+          "id": "11:3705979142822426925",
+          "name": "pt",
+          "type": 9
+        },
+        {
+          "id": "12:3162306083970616345",
+          "name": "sv",
+          "type": 9
+        },
+        {
+          "id": "13:2439716646627458345",
+          "name": "vi",
+          "type": 9
+        },
+        {
+          "id": "14:3084765225233672162",
+          "name": "tr",
+          "type": 9
+        },
+        {
+          "id": "15:5518237550091950536",
+          "name": "ru",
+          "type": 9
+        },
+        {
+          "id": "16:4734182889599834229",
+          "name": "ja",
+          "type": 9
+        },
+        {
+          "id": "17:6256675885060955846",
+          "name": "zh",
+          "type": 9
+        },
+        {
+          "id": "18:5705034842038344480",
+          "name": "zhtw",
+          "type": 9
+        },
+        {
+          "id": "19:6504073529871434606",
+          "name": "ko",
+          "type": 9
+        },
+        {
+          "id": "20:6860275798662060083",
+          "name": "ar",
+          "type": 9
+        },
+        {
+          "id": "21:6625270012188598870",
+          "name": "th",
+          "type": 9
+        },
+        {
+          "id": "22:8155449736948534269",
+          "name": "idd",
+          "type": 9
+        },
+        {
+          "id": "23:3072553646524318377",
+          "name": "coinId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "5:696953307702601305",
+          "relationTarget": "Coin"
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "5:781866031949563546",
+      "lastPropertyId": "11:2580387840246352688",
+      "name": "DeveloperData",
+      "properties": [
+        {
+          "id": "1:7433709540798619268",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:7278129523247465196",
+          "name": "fork",
+          "type": 6
+        },
+        {
+          "id": "3:2877364495049185589",
+          "name": "stars",
+          "type": 6
+        },
+        {
+          "id": "4:8253842557049143014",
+          "name": "subscribers",
+          "type": 6
+        },
+        {
+          "id": "5:3761015566389069230",
+          "name": "totalIssues",
+          "type": 6
+        },
+        {
+          "id": "6:6851133100660622591",
+          "name": "closedIssues",
+          "type": 6
+        },
+        {
+          "id": "7:1033247583297937327",
+          "name": "pullRequestMerged",
+          "type": 6
+        },
+        {
+          "id": "8:6584156498637151590",
+          "name": "pullRequestContributors",
+          "type": 6
+        },
+        {
+          "id": "9:1350287011734238442",
+          "name": "commitCountForWeeks",
+          "type": 6
+        },
+        {
+          "id": "10:8432956763888032952",
+          "name": "last4WeeksCommitActivitySeries",
+          "type": 30
+        },
+        {
+          "id": "11:2580387840246352688",
+          "name": "coinId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "6:6842690188950921014",
+          "relationTarget": "Coin"
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "6:5829931524656353322",
+      "lastPropertyId": "8:2702556469182843910",
+      "name": "Links",
+      "properties": [
+        {
+          "id": "1:265820765405740355",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:7153900739334672758",
+          "name": "homepage",
+          "type": 30
+        },
+        {
+          "id": "3:3533366101887427790",
+          "name": "blockchainSite",
+          "type": 30
+        },
+        {
+          "id": "4:7702131164135486605",
+          "name": "officialForumUrl",
+          "type": 30
+        },
+        {
+          "id": "5:2949916294964849707",
+          "name": "chatUrl",
+          "type": 30
+        },
+        {
+          "id": "6:6544099515272222863",
+          "name": "announcementUrl",
+          "type": 30
+        },
+        {
+          "id": "7:1967942081046169876",
+          "name": "subredditUrl",
+          "type": 9
+        },
+        {
+          "id": "8:2702556469182843910",
+          "name": "coinId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "7:3958937120170717040",
+          "relationTarget": "Coin"
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "7:1832752367468118706",
+      "lastPropertyId": "5:7811490605641683091",
+      "name": "Image",
+      "properties": [
+        {
+          "id": "1:5659996629544653397",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:5399192350528616258",
+          "name": "thumb",
+          "type": 9
+        },
+        {
+          "id": "3:718556457521640918",
+          "name": "small",
+          "type": 9
+        },
+        {
+          "id": "4:7659224315131598720",
+          "name": "large",
+          "type": 9
+        },
+        {
+          "id": "5:7811490605641683091",
+          "name": "coinId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "9:4424829139319457830",
+          "relationTarget": "Coin"
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "9:7396444613987576445",
+      "lastPropertyId": "6:5329463485712614227",
+      "name": "Platforms",
+      "properties": [
+        {
+          "id": "1:161232569571853788",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:1717886375572705853",
+          "name": "kardiachain",
+          "type": 9
+        },
+        {
+          "id": "3:896522303719711069",
+          "name": "moonriver",
+          "type": 9
+        },
+        {
+          "id": "4:3802780896170084838",
+          "name": "sora",
+          "type": 9
+        },
+        {
+          "id": "5:7571991928334926784",
+          "name": "tomochain",
+          "type": 9
+        },
+        {
+          "id": "6:5329463485712614227",
+          "name": "coinId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "11:4785695719512381672",
+          "relationTarget": "Coin"
+        }
+      ],
+      "relations": []
+    }
+  ],
+  "lastEntityId": "9:7396444613987576445",
+  "lastIndexId": "11:4785695719512381672",
+  "lastRelationId": "0:0",
+  "lastSequenceId": "0:0",
+  "modelVersion": 5,
+  "modelVersionParserMinimum": 5,
+  "retiredEntityUids": [
+    6592816394348382066
+  ],
+  "retiredIndexUids": [],
+  "retiredPropertyUids": [
+    6560182426756050840,
+    3659931250420376919,
+    748721286758105800,
+    1853455005514618647,
+    7413862529920502201,
+    3035572113428185633,
+    2276026060127300242,
+    1932585614139609393,
+    1532253019827388927,
+    5398354212016910701
+  ],
+  "retiredRelationUids": [],
+  "version": 1
+}

@@ -1,6 +1,7 @@
+import 'package:crypto_tracker_app/domain/entities/developer_data.dart';
 import 'package:equatable/equatable.dart';
 
-class DeveloperData extends Equatable {
+class DeveloperDataResponse extends Equatable {
   final int fork;
   final int stars;
   final int subscribers;
@@ -8,11 +9,12 @@ class DeveloperData extends Equatable {
   final int closedIssues;
   final int pullRequestMerged;
   final int pullRequestContributors;
-  final Map<String, dynamic> codeAdditionsDeletions4Weeks;
+  // Map<String, int> codeAdditionsDeletions4Weeks;
   final int commitCountForWeeks;
-  final List<int> last4WeeksCommitActivitySeries;
+  final List<String> last4WeeksCommitActivitySeries;
 
-  const DeveloperData({
+  // TODO: codeAdditionsDeletions4Weeks stand-by
+  const DeveloperDataResponse({
     required this.fork,
     required this.stars,
     required this.subscribers,
@@ -20,7 +22,7 @@ class DeveloperData extends Equatable {
     required this.closedIssues,
     required this.pullRequestMerged,
     required this.pullRequestContributors,
-    required this.codeAdditionsDeletions4Weeks,
+    // required this.codeAdditionsDeletions4Weeks,
     required this.commitCountForWeeks,
     required this.last4WeeksCommitActivitySeries
   });
@@ -34,13 +36,27 @@ class DeveloperData extends Equatable {
     closedIssues,
     pullRequestMerged,
     pullRequestContributors,
-    codeAdditionsDeletions4Weeks,
+    // codeAdditionsDeletions4Weeks,
     commitCountForWeeks,
     last4WeeksCommitActivitySeries
   ];
 
-  factory DeveloperData.fromJson(Map<String, dynamic> data) {
+  DeveloperData toEntity() {
     return DeveloperData(
+        fork: fork,
+        stars: stars,
+        subscribers: subscribers,
+        totalIssues: totalIssues,
+        closedIssues: closedIssues,
+        pullRequestMerged: pullRequestMerged,
+        pullRequestContributors: pullRequestContributors,
+        commitCountForWeeks: commitCountForWeeks,
+        last4WeeksCommitActivitySeries: last4WeeksCommitActivitySeries
+    );
+  }
+
+  factory DeveloperDataResponse.fromJson(Map<String, dynamic> data) {
+    return DeveloperDataResponse(
       fork: data['fork'] ?? 0,
       stars: data['stars'] ?? 0,
       subscribers: data['subscribers'] ?? 0,
@@ -48,7 +64,7 @@ class DeveloperData extends Equatable {
       closedIssues: data['closed_issues'] ?? 0,
       pullRequestMerged: data['pull_requests_merged'] ?? 0,
       pullRequestContributors: data['pull_request_contributors'] ?? 0,
-      codeAdditionsDeletions4Weeks: data['code_additions_deletions_4_weeks'] ?? {},
+      // codeAdditionsDeletions4Weeks: data['code_additions_deletions_4_weeks'] ?? {},
       commitCountForWeeks: data['commit_count_4_weeks'] ?? 0,
       last4WeeksCommitActivitySeries: data['last_4_weeks_commit_activity_series'] ?? [],
     );

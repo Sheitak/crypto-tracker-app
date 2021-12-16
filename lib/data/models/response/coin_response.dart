@@ -1,23 +1,30 @@
-import 'package:crypto_tracker_app/data/models/coin_model/image.dart';
-import 'package:crypto_tracker_app/data/models/coin_model/community_data.dart';
-import 'package:crypto_tracker_app/data/models/coin_model/description.dart';
-import 'package:crypto_tracker_app/data/models/coin_model/developer_data.dart';
-import 'package:crypto_tracker_app/data/models/coin_model/links.dart';
+import 'package:crypto_tracker_app/data/models/coin_properties_model/community_data_response.dart';
+import 'package:crypto_tracker_app/data/models/coin_properties_model/description_response.dart';
+import 'package:crypto_tracker_app/data/models/coin_properties_model/developer_data_response.dart';
+import 'package:crypto_tracker_app/data/models/coin_properties_model/image_response.dart';
+import 'package:crypto_tracker_app/data/models/coin_properties_model/links_response.dart';
+import 'package:crypto_tracker_app/data/models/coin_properties_model/platforms_response.dart';
 import 'package:crypto_tracker_app/domain/entities/coin.dart';
+import 'package:crypto_tracker_app/domain/entities/community_data.dart';
+import 'package:crypto_tracker_app/domain/entities/description.dart';
+import 'package:crypto_tracker_app/domain/entities/developer_data.dart';
+import 'package:crypto_tracker_app/domain/entities/image.dart';
+import 'package:crypto_tracker_app/domain/entities/links.dart';
+import 'package:crypto_tracker_app/domain/entities/platforms.dart';
 import 'package:equatable/equatable.dart';
+import 'dart:convert';
 
 class CoinResponse extends Equatable {
-
-  final String id;
+  final String coinId;
   final String symbol;
   final String name;
-  final Map<String, dynamic> platforms;
+  final PlatformsResponse platforms;
   final int blockTimeInMinutes;
   final String algorithm;
   final List<String> categories;
-  final Description description;
-  final Links links;
-  final Image image;
+  final DescriptionResponse description;
+  final LinksResponse links;
+  final ImageResponse image;
   final String genesisDate;
   final double sentimentVotesUpPercentage;
   final double sentimentVotesDownPercentage;
@@ -28,12 +35,12 @@ class CoinResponse extends Equatable {
   final double communityScore;
   final double liquidityScore;
   final double publicInterestScore;
-  final CommunityData communityData;
-  final DeveloperData developerData;
+  final CommunityDataResponse communityData;
+  final DeveloperDataResponse developerData;
   final DateTime lastUpdated;
 
   const CoinResponse({
-    required this.id,
+    required this.coinId,
     required this.symbol,
     required this.name,
     required this.platforms,
@@ -60,7 +67,7 @@ class CoinResponse extends Equatable {
 
   @override
   List<Object?> get props => [
-    id,
+    coinId,
     symbol,
     name,
     platforms,
@@ -87,16 +94,12 @@ class CoinResponse extends Equatable {
 
   Coin toEntity() {
     return Coin(
-      id: id,
+      coinId: coinId,
       symbol: symbol,
       name: name,
-      platforms: platforms,
       blockTimeInMinutes: blockTimeInMinutes,
       algorithm: algorithm,
       categories: categories,
-      description: description,
-      links: links,
-      image: image,
       genesisDate: genesisDate,
       sentimentVotesUpPercentage: sentimentVotesUpPercentage,
       sentimentVotesDownPercentage: sentimentVotesDownPercentage,
@@ -107,25 +110,52 @@ class CoinResponse extends Equatable {
       communityScore: communityScore,
       liquidityScore: liquidityScore,
       publicInterestScore: publicInterestScore,
-      developerData: developerData,
-      communityData: communityData,
       lastUpdated: lastUpdated,
     );
   }
 
+  List<dynamic> toEntities() {
+    final List<dynamic> entities = [];
+
+    final Coin coinEntity = toEntity();
+    final Image imageEntity = image.toEntity();
+    final Links linksEntity = links.toEntity();
+    final Description descriptionEntity = description.toEntity();
+    final CommunityData communityDataEntity = communityData.toEntity();
+    final DeveloperData developerDataEntity = developerData.toEntity();
+    final Platforms platformsEntity = platforms.toEntity();
+
+    entities.add(coinEntity);
+    entities.add(imageEntity);
+    entities.add(linksEntity);
+    entities.add(descriptionEntity);
+    entities.add(communityDataEntity);
+    entities.add(developerDataEntity);
+    entities.add(platformsEntity);
+
+    // print(entities);
+    return entities;
+  }
+
   factory CoinResponse.fromJson(Map<String, dynamic> data) {
+    // var list = data['image'] as List;
+    // List<String> imageList = list.map((element) => ImageResponse.fromJson(element)).toList() as List<String>;
+    // [ERROR:flutter/lib/ui/ui_dart_state.cc(209)] Unhandled Exception: type '(dynamic) => ImageResponse'
+    // is not a subtype of type '(String, dynamic) => MapEntry<dynamic, dynamic>' of 'transform'
+
+    String jsonStringImage = json.encode(Map<String, String>.from(data['image'] ?? {}));
+
     return CoinResponse(
-      // id: data['id'] as String ?? '',
-      id: data['id'] ?? '',
+      coinId: data['id'] ?? '',
       symbol: data['symbol'] ?? '',
       name: data['name'] ?? '',
-      platforms: Map<String, dynamic>.from(data['platforms'] ?? {}),
+      platforms: PlatformsResponse.fromJson(data['platforms'] ?? {}),
       blockTimeInMinutes: data['block_time_in_minutes'] ?? 0,
       algorithm: data['hashing_algorithm'] ?? '',
       categories: List<String>.from(data['categories'] ?? []),
-      description: Description.fromJson(data['description'] ?? {}),
-      links: Links.fromJson(data['links'] ?? {}),
-      image: Image.fromJson(data['image'] ?? {}),
+      description: DescriptionResponse.fromJson(data['description'] ?? {}),
+      links: LinksResponse.fromJson(data['links'] ?? {}),
+      image: ImageResponse.fromJson(data['image'] ?? {}),
       genesisDate: data['genesis_date'] ?? '',
       sentimentVotesUpPercentage: data['sentiment_votes_up_percentage'] ?? 0.0,
       sentimentVotesDownPercentage: data['sentiment_votes_down_percentage'] ?? 0.0,
@@ -136,8 +166,8 @@ class CoinResponse extends Equatable {
       communityScore: data['community_score'] ?? 0.0,
       liquidityScore: data['liquidity_score'] ?? 0.0,
       publicInterestScore: data['public_interest_score'] ?? 0.0,
-      developerData: DeveloperData.fromJson(data['developer_data'] ?? {}),
-      communityData: CommunityData.fromJson(data['community_data'] ?? {}),
+      developerData: DeveloperDataResponse.fromJson(data['developer_data'] ?? {}),
+      communityData: CommunityDataResponse.fromJson(data['community_data'] ?? {}),
       lastUpdated: DateTime.parse(data['last_updated'])
     );
   }
