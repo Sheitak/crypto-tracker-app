@@ -7,7 +7,7 @@ class WalletScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Scaffold(
       body: Center(
-        child: Text('In The Wallet !'),
+        child: Text('4. Wallet'),
       )
     );
   }

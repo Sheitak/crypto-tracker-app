@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:crypto_tracker_app/core/error/failures.dart';
 import 'package:crypto_tracker_app/data/datasources/local/object_box_database.dart';
 import 'package:crypto_tracker_app/data/datasources/remote/coin_remote_api.dart';
 import 'package:crypto_tracker_app/data/models/request/coin_request.dart';
@@ -12,6 +13,7 @@ import 'package:crypto_tracker_app/domain/entities/links.dart';
 import 'package:crypto_tracker_app/domain/entities/platforms.dart';
 import 'package:crypto_tracker_app/domain/repositories/coin_repository.dart';
 import 'package:crypto_tracker_app/objectbox.g.dart';
+import 'package:dartz/dartz.dart';
 
 class CoinRepositoryImpl extends CoinRepository {
 
@@ -24,7 +26,7 @@ class CoinRepositoryImpl extends CoinRepository {
   );
 
   @override
-  Future<List> getCoinById(selectedCoin) async {
+  Future<Either<FailureR, List>> getCoinById(selectedCoin) async {
 
     ConnectivityResult connectivityResult = await (Connectivity().checkConnectivity());
     final _boxCoin = _objectBoxDatabase.store.box<Coin>();
@@ -39,7 +41,7 @@ class CoinRepositoryImpl extends CoinRepository {
       final entitiesList = await getRemoteDataCoin(selectedCoin);
 
       for (var entity in entitiesList) {
-        addEntity(
+        _addEntities(
             entity,
             _boxCoin,
             _boxImage,
@@ -108,7 +110,10 @@ class CoinRepositoryImpl extends CoinRepository {
         queryDeveloperData.findFirst() == null &&
         queryPlatforms.findFirst() == null
     ) {
-      return throw Exception('ERROR : YOU MUST BE CONNECTED TO INTERNET FOR YOUR FIRST USE. PLEASE CHECK YOUR CONNECTION.');
+      return Left(
+          throw const Failure()
+      );
+      // return throw Exception('ERROR : YOU MUST BE CONNECTED TO INTERNET FOR YOUR FIRST USE. PLEASE CHECK YOUR CONNECTION.');
     }
 
 
@@ -132,11 +137,10 @@ class CoinRepositoryImpl extends CoinRepository {
     // print(query3.findFirst());
     //---------------------------------------
 
-    // print(entities);
-    return entities;
+    return Right(entities);
   }
 
-  Future<void> addEntity(
+  Future<void> _addEntities(
       entity,
       Box<Coin> boxCoin,
       Box<Image> boxImage,
@@ -182,7 +186,7 @@ class CoinRepositoryImpl extends CoinRepository {
   }
 
   Future<List> getRemoteDataCoin(selectedCoin) async {
-    return _remoteApi.getCoinById(
+    return await _remoteApi.getCoinById(
         selectedCoin,
         const CoinRequest(
             localization: 'false',

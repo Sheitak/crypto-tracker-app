@@ -133,7 +133,6 @@ class CoinResponse extends Equatable {
     entities.add(developerDataEntity);
     entities.add(platformsEntity);
 
-    // print(entities);
     return entities;
   }
 

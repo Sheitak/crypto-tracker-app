@@ -1,5 +1,7 @@
+import 'package:crypto_tracker_app/core/error/failures.dart';
+import 'package:crypto_tracker_app/core/providers/coin_provider.dart';
+import 'package:crypto_tracker_app/core/providers/coins_list_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:crypto_tracker_app/core/providers/app_provider.dart';
 import 'package:crypto_tracker_app/presentation/widgets/error.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -23,8 +25,7 @@ class CoinsListScreen extends StatelessWidget {
         ),
         backgroundColor: Colors.blueGrey[500],
         drawer: _buildDrawerWidget(),
-        body: const _BuildBodyListCoinsWidget()
-    );
+        body: const _BuildBodyListCoinsWidget());
   }
 }
 
@@ -47,12 +48,12 @@ Widget _buildDrawerWidget() {
           ),
         ),
         ListTile(
-          leading: Icon(Icons.star),
-          title: Text('Favoris'),
-        ),
-        ListTile(
           leading: Icon(Icons.account_circle),
           title: Text('Profile'),
+        ),
+        ListTile(
+          leading: Icon(Icons.star),
+          title: Text('Favoris'),
         ),
         ListTile(
           leading: Icon(Icons.settings),
@@ -73,90 +74,94 @@ class _BuildBodyListCoinsWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return ref.watch(coinsListViewModelProvider).when(
-        data: (coinsList) {
-          if (coinsList.isEmpty) {
-            return Error(
-                message: 'No Cryptocurrencies found', callback: () => {});
-          }
-          return ListView.builder(
-            itemCount: 20,
-            itemBuilder: (context, index) {
-              return GestureDetector(
-                onTap: () {
-                  Navigator.pushNamed(context, '/cryptocurrencies',
-                      arguments: coinsList[index].coinId);
-                },
-                child: Card(
-                  margin: const EdgeInsets.all(0.6),
-                  elevation: 8.0,
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 2.0),
-                    child: Row(
-                      children: [
-                        ref.watch(coinViewModelProvider(coinsList[index].coinId))
-                          .when(data: (coin) {
-                            // return const Center();
-                              return Hero(
-                                  tag: "imageCoin" + coin[0].coinId,
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(5.0),
+        data: (either) {
+          return either.fold(
+              (failure) => throw const Failure(),
+              (coinsList) => ListView.builder(
+                    itemCount: 20,
+                    itemBuilder: (context, index) {
+                      if (coinsList.isEmpty) {
+                        return Error(
+                            message: 'No Cryptocurrencies found',
+                            callback: () => {}
+                            );
+                      }
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(context, '/cryptocurrencies',
+                              arguments: coinsList[index].coinId);
+                        },
+                        child: Card(
+                          margin: const EdgeInsets.all(0.6),
+                          elevation: 8.0,
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 2.0),
+                            child: Row(
+                              children: [
+                                ref.watch(coinViewModelProvider(coinsList[index].coinId)).when(
+                                    data: (either) {
+                                      return either.fold(
+                                        (failure) => throw const Failure(),
+                                        (coin) => Hero(
+                                          tag: "imageCoin" + coin[0].coinId,
+                                            child: ClipRRect(
+                                              borderRadius: BorderRadius.circular(5.0),
 
-                                    // child: Image.asset(
-                                    //     'assets/images/blockclean.png',
-                                    //     width: 60.0,
-                                    //     height: 60.0
-                                    //     // coin.image.target!.small,
-                                    //     // fit: BoxFit.fill
-                                    // ),
+                                              // child: Image.asset(
+                                              //     'assets/images/blockclean.png',
+                                              //     width: 60.0,
+                                              //     height: 60.0
+                                              //     // coin.image.target!.small,
+                                              //     // fit: BoxFit.fill
+                                              // ),
 
-                                    child: Image.network(
-                                        coin[1].small,
-                                        fit: BoxFit.cover
-                                    ),
-                                  ),
-                                );
-                              },
-                              loading: () => const Center(
-                                  child: CircularProgressIndicator()
-                              ),
-                              error: (error, _) => Error(
-                                  message: error.toString(),
-                                  callback: () => {}
-                              )
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          // padding: EdgeInsets.only(left: 8.0, right: 8.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(bottom: 8.0),
-                                child: Text(
-                                  coinsList[index].coinId.toUpperCase(),
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.bold, fontSize: 16),
+                                              child: Image.network(
+                                                  coin[1].small,
+                                                  fit: BoxFit.cover
+                                              ),
+                                            ),
+                                          )
+                                      );
+                                    },
+                                    loading: () => const Center(child: CircularProgressIndicator()),
+                                    error: (error, _) => Error(message: error.toString(), callback: () => {})
                                 ),
-                              ),
-                              Text(
-                                coinsList[index].symbol.toUpperCase(),
-                                style: TextStyle(
-                                    color: Colors.grey[500], fontSize: 14),
-                              )
-                            ],
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  // padding: EdgeInsets.only(left: 8.0, right: 8.0),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(bottom: 8.0),
+                                        child: Text(
+                                          coinsList[index].coinId.toUpperCase(),
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 16),
+                                        ),
+                                      ),
+                                      Text(
+                                        coinsList[index].symbol.toUpperCase(),
+                                        style: TextStyle(
+                                            color: Colors.grey[500],
+                                            fontSize: 14),
+                                      )
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-              );
-            },
-          );
+                        ),
+                      );
+                    },
+                  ));
         },
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (error, _) =>
-            Error(message: error.toString(), callback: () => {})
-        );
+        error: (error, _) => Error(message: error.toString(), callback: () => {})
+    );
   }
 }

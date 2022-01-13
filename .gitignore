@@ -47,4 +47,4 @@ app.*.map.json
 /android/app/release
 
 # Other Files
-.LOCAL.md
+LOCAL.md

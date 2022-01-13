@@ -1,10 +1,14 @@
 import 'package:equatable/equatable.dart';
 
-class Failure extends Equatable {
+abstract class FailureR extends Equatable {
+  const FailureR([List properties = const<dynamic>[]]): super();
+}
+
+class Failure extends FailureR {
   final String message;
 
   const Failure ({
-      this.message = ''
+    this.message = ''
   });
 
   @override
@@ -12,3 +16,16 @@ class Failure extends Equatable {
     message
   ];
 }
+
+// class Failure extends Equatable {
+//   final String message;
+//
+//   const Failure ({
+//       this.message = ''
+//   });
+//
+//   @override
+//   List<Object> get props => [
+//     message
+//   ];
+// }

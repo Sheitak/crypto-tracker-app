@@ -1,5 +1,5 @@
 import 'package:crypto_tracker_app/domain/entities/coins_list.dart';
-import 'package:crypto_tracker_app/domain/usecases/coins_list_usecase.dart';
+import 'package:crypto_tracker_app/domain/usecases/get_coins_list.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 //TODO: Modifier le typage List<CoinList> en prenant exemple sur coinListUseCase, modèle de la ligne 10

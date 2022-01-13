@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:crypto_tracker_app/core/providers/app_provider.dart';
 import 'package:crypto_tracker_app/domain/entities/coin.dart';
-import 'package:crypto_tracker_app/domain/usecases/coin_usecase.dart';
+import 'package:crypto_tracker_app/domain/usecases/get_coin_by_id.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 // final coinViewModelProvider = FutureProvider.autoDispose.family<Coin?, String>((ref, selectedCoin) async {
