@@ -1,52 +1,55 @@
-import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:crypto_tracker_app/core/error/exception.dart';
 import 'package:crypto_tracker_app/core/error/failures.dart';
-import 'package:crypto_tracker_app/data/datasources/local/object_box_database.dart';
-import 'package:crypto_tracker_app/data/datasources/remote/coin_list_remote_api.dart';
+import 'package:crypto_tracker_app/data/datasources/local/crypto_local_data_source.dart';
+import 'package:crypto_tracker_app/data/datasources/remote/crypto_remote_data_source.dart';
 import 'package:crypto_tracker_app/data/models/request/coins_list_request.dart';
 import 'package:crypto_tracker_app/domain/entities/coins_list.dart';
 import 'package:crypto_tracker_app/domain/repositories/coins_list_repository.dart';
+import 'package:crypto_tracker_app/core/network/network_info.dart';
 import 'package:dartz/dartz.dart';
 
 class CoinsListRepositoryImpl extends CoinsListRepository {
 
-  final CoinListRemoteApi _coinListRemoteApi;
-  final ObjectBoxDatabase _objectBoxDatabase;
+  final CryptoRemoteDataSource cryptoRemoteDataSource;
+  final CryptoLocalDataSource cryptoLocalDataSource;
+  final NetworkInfo networkInfo;
   
-  CoinsListRepositoryImpl(
-      this._coinListRemoteApi,
-      this._objectBoxDatabase
-  );
+  CoinsListRepositoryImpl({
+      required this.cryptoRemoteDataSource,
+      required this.cryptoLocalDataSource,
+      required this.networkInfo
+  });
 
   @override
-  Future<Either<FailureR, List<CoinsList>>> getCoinsList() async {
-
-    ConnectivityResult connectivityResult = await (Connectivity().checkConnectivity());
-    final _boxListCoins = _objectBoxDatabase.store.box<CoinsList>();
-
-    if (connectivityResult != ConnectivityResult.none) {
-      final remoteCoinsList = await getRemoteDataListCoins();
-
-      for (var coin in remoteCoinsList) {
-        _boxListCoins.put(coin);
+  Future<Either<Failure, List<CoinsList>>> getCoinsList() async {
+    if (await networkInfo.isConnected) {
+      try {
+        final remoteCoinsList = await _getRemoteDataListCoins();
+        cryptoLocalDataSource.cacheCoinsList(remoteCoinsList);
+        return Right(remoteCoinsList);
+      } on ServerException {
+        return const Left(
+            ServerFailure()
+        );
+      }
+    } else {
+      try {
+        final localCoinsList = await cryptoLocalDataSource.getLastCoinsList();
+        return Right(localCoinsList);
+      } on CacheException {
+        return Left(
+            CacheFailure()
+        );
       }
     }
-    List<CoinsList> coinsList = _boxListCoins.getAll();
-
-    if (connectivityResult == ConnectivityResult.none && coinsList.isEmpty) {
-      return Left(
-          throw const Failure()
-      );
-    }
-
-    return Right(coinsList);
   }
 
-  Future<List<CoinsList>> getRemoteDataListCoins() async {
-    return await _coinListRemoteApi.getCoinsList(
+  Future<List<CoinsList>> _getRemoteDataListCoins() async {
+    return await cryptoRemoteDataSource.getCoinsList(
         const CoinsListRequest(includePlatform: false)
     ).then(
       (value) => value.map(
-              (element) => element.toEntity()
+            (element) => element.toEntity()
       ).toList()
     );
   }

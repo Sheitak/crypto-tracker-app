@@ -1,6 +1,3 @@
-import 'dart:convert';
-
-import 'package:crypto_tracker_app/data/models/coin_properties_model/image_response.dart';
 import 'package:crypto_tracker_app/domain/entities/coins_list.dart';
 import 'package:crypto_tracker_app/domain/entities/image.dart';
 import 'package:equatable/equatable.dart';

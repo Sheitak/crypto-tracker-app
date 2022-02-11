@@ -1,3 +1,4 @@
+import 'package:crypto_tracker_app/data/models/response/coin_response.dart';
 import 'package:crypto_tracker_app/domain/entities/coin.dart';
 import 'package:crypto_tracker_app/domain/entities/coins_list.dart';
 import 'package:crypto_tracker_app/domain/entities/community_data.dart';
@@ -7,6 +8,9 @@ import 'package:crypto_tracker_app/domain/entities/image.dart';
 import 'package:crypto_tracker_app/domain/entities/links.dart';
 import 'package:crypto_tracker_app/domain/entities/platforms.dart';
 import 'package:crypto_tracker_app/objectbox.g.dart';
+
+// TODO : Déplacer la gestion lié à OB dans le crypto local data cache
+// TODO : Vérifier la non-existante de l'image par chargement asynchrone dans les deux screen, remplacer par placeholder si absente ?
 
 class ObjectBoxDatabase {
   late final Store store;

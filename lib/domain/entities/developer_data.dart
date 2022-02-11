@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:crypto_tracker_app/domain/entities/coin.dart';
 import 'package:equatable/equatable.dart';
 import 'package:objectbox/objectbox.dart';

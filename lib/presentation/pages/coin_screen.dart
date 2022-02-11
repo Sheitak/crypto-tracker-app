@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:crypto_tracker_app/core/error/failures.dart';
 import 'package:crypto_tracker_app/core/providers/coin_provider.dart';
 import 'package:flutter/material.dart';
@@ -47,8 +48,18 @@ class CoinScreen extends StatelessWidget {
           body: TabBarView(
             children: [
               _buildProfileCoin(),
-              const Center(child: Text("2. Graphic")),
-              const Center(child: Text("3. Rocket Chat"))
+              Center(
+                  child: Image.asset(
+                    'assets/images/people-tech.png',
+                    fit: BoxFit.cover,
+                  )
+              ),
+              Center(
+                  child: Image.asset(
+                    'assets/images/people-tech.png',
+                    fit: BoxFit.cover,
+                  )
+              ),
             ],
           ),
         ));
@@ -59,7 +70,10 @@ class CoinScreen extends StatelessWidget {
       return ref.watch(coinViewModelProvider(selectedCoin)).when(
           data: (either) {
             return either.fold(
-                (failure) => throw const Failure(),
+                (failure) => throw const StandardFailure(
+                    code: 404,
+                    message: ''
+                ),
                 (coin) => Padding(
                     padding: const EdgeInsets.only(top: 25.0, left: 15.0, right: 15.0),
                     child: ListView(
@@ -73,25 +87,26 @@ class CoinScreen extends StatelessWidget {
                                 children: [
                                   Padding(
                                     padding: const EdgeInsets.all(5.0),
-
-                                    // child: Hero(
-                                    //   tag: "imageCoin" + coin[0].coinId,
-                                    //   child: ClipRRect(
-                                    //     borderRadius: BorderRadius.circular(15.0),
-                                    //     child: Image.asset(
-                                    //         'assets/images/blockclean.png',
-                                    //         width: 125.0
-                                    //     ),
-                                    //   ),
-                                    // ),
-
                                     child: Hero(
                                       tag: "imageCoin" + coin[0].coinId,
+                                      // tag: "imageCoin" + (coin.isNotEmpty ? coin[0].coinId : ''),
                                       child: ClipRRect(
                                         borderRadius:
                                             BorderRadius.circular(15.0),
-                                        child: Image.network(
-                                          coin[1].large,
+                                        // child: Image.network(
+                                        //   // coin[1].large,
+                                        //   (coin.isNotEmpty ? coin[1].large : 'https://picsum.photos/200/200'),
+                                        //   width: 125,
+                                        //   fit: BoxFit.cover,
+                                        // ),
+                                        child: CachedNetworkImage(
+                                          // coin[1].large,
+                                          // imageUrl: (coin.isNotEmpty ? coin[1].large : 'https://picsum.photos/200/200'),
+                                          imageUrl: coin[1].large,
+                                          placeholder: (context, url) => const CircularProgressIndicator(),
+                                          errorWidget: (context, url, error) => const Icon(
+                                              Icons.error
+                                          ),
                                           width: 125,
                                           fit: BoxFit.cover,
                                         ),
@@ -100,28 +115,32 @@ class CoinScreen extends StatelessWidget {
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.only(left: 8.0),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                    child: Column(crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
-                                        CustomTitleSection(coin[0].coinId),
+                                        SizedBox(
+                                          width: MediaQuery.of(context).size.height / 3,
+                                          child: CustomTitleSection(coin[0].coinId)
+                                        ),
                                         Container(height: 10),
                                         CustomCryptoText(
-                                            'Ticker : ${coin[0].symbol.toUpperCase()}'),
+                                            'Ticker : ${coin[0].symbol.toUpperCase()}'
+                                        ),
                                         CustomCryptoText(
-                                            'Algorithm : ${coin[0].algorithm}'),
+                                            'Algorithm : ${coin[0].algorithm}'
+                                        ),
                                         CustomCryptoText(
-                                            'Block Time : ${coin[0].blockTimeInMinutes}'),
+                                            'Block Time : ${coin[0].blockTimeInMinutes}'
+                                        ),
                                         Row(
                                           children: [
                                             CustomCryptoText('Categories : '),
-                                            for (var category
-                                                in coin[0].categories)
+                                            for (var category in coin[0].categories)
                                               Text(category + ' '),
                                           ],
                                         ),
                                         CustomCryptoText(
-                                            'Platforms : Moonriver ${coin[6].moonriver}'),
+                                            'Platforms : Moonriver ${coin[6].moonriver}'
+                                        ),
                                       ],
                                     ),
                                   )
@@ -129,12 +148,14 @@ class CoinScreen extends StatelessWidget {
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(
-                                    top: 20.0, left: 5.0, bottom: 5.0),
+                                    top: 20.0, left: 5.0, bottom: 5.0
+                                ),
                                 child: CustomTitleSection(
                                   'Last Updated : ' +
-                                      DateFormat.yMMMd()
-                                          .add_jm()
-                                          .format(coin[0].lastUpdated),
+                                  DateFormat.yMMMd()
+                                      .add_jm()
+                                      .format(coin[0].lastUpdated
+                                  ),
                                   fontSize: 15.0,
                                 ),
                               ),
@@ -164,13 +185,25 @@ class CoinScreen extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 _buildButtonLinkColumn(
-                                    Colors.blue, CustomIcons.at, "WEBSITE"),
+                                    Colors.blue,
+                                    CustomIcons.at,
+                                    "WEBSITE"
+                                ),
                                 _buildButtonLinkColumn(
-                                    Colors.blue, CustomIcons.link, "EXPLORER"),
+                                    Colors.blue,
+                                    CustomIcons.link,
+                                    "EXPLORER"
+                                ),
                                 _buildButtonLinkColumn(
-                                    Colors.blue, CustomIcons.reddit, "REDDIT"),
+                                    Colors.blue,
+                                    CustomIcons.reddit,
+                                    "REDDIT"
+                                ),
                                 _buildButtonLinkColumn(
-                                    Colors.blue, CustomIcons.github, "GITHUB")
+                                    Colors.blue,
+                                    CustomIcons.github,
+                                    "GITHUB"
+                                )
                               ]),
                         ),
                         Padding(
@@ -185,22 +218,30 @@ class CoinScreen extends StatelessWidget {
                                   CustomTitleSection('Global Information\'s'),
                                   Container(height: 10.0),
                                   CustomCryptoText(
-                                      'Genesis Date : ${coin[0].genesisDate}'),
+                                      'Genesis Date : ${coin[0].genesisDate}'
+                                  ),
                                   CustomCryptoText(
-                                      'Market Cap Rank : ${coin[0].marketCapRank}'),
+                                      'Market Cap Rank : ${coin[0].marketCapRank}'
+                                  ),
                                   CustomCryptoText(
-                                      'CoinGecko Rank : ${coin[0].coinGeckoRank}'),
+                                      'CoinGecko Rank : ${coin[0].coinGeckoRank}'
+                                  ),
                                   Container(height: 10.0),
                                   CustomCryptoText(
-                                      'CoinGecko Score : ${coin[0].coinGeckoScore} %'),
+                                      'CoinGecko Score : ${coin[0].coinGeckoScore} %'
+                                  ),
                                   CustomCryptoText(
-                                      'Developer Score : ${coin[0].developerScore} %'),
+                                      'Developer Score : ${coin[0].developerScore} %'
+                                  ),
                                   CustomCryptoText(
-                                      'Community Score : ${coin[0].communityScore} %'),
+                                      'Community Score : ${coin[0].communityScore} %'
+                                  ),
                                   CustomCryptoText(
-                                      'Liquidity Score : ${coin[0].liquidityScore} %'),
+                                      'Liquidity Score : ${coin[0].liquidityScore} %'
+                                  ),
                                   CustomCryptoText(
-                                      'Public Interest Score : ${coin[0].publicInterestScore} %'),
+                                      'Public Interest Score : ${coin[0].publicInterestScore} %'
+                                  ),
                                 ],
                               ),
                             ),
@@ -216,29 +257,39 @@ class CoinScreen extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   CustomTitleSection(
-                                      'Community Information\'s'),
+                                      'Community Information\'s'
+                                  ),
                                   Container(height: 10.0),
                                   CustomCryptoText(
-                                      'Facebook Like : ${coin[4].facebookLikes}'),
+                                      'Facebook Like : ${coin[4].facebookLikes}'
+                                  ),
                                   CustomCryptoText(
-                                      'Twitter Followers : ${coin[4].twitterFollowers}'),
+                                      'Twitter Followers : ${coin[4].twitterFollowers}'
+                                  ),
                                   CustomCryptoText(
-                                      'Reddit Accounts Posts (48h) : ${coin[4].redditAveragePosts48h}'),
+                                      'Reddit Accounts Posts (48h) : ${coin[4].redditAveragePosts48h}'
+                                  ),
                                   CustomCryptoText(
-                                      'Reddit Accounts Comments (48h) : ${coin[4].redditAverageComments48h}'),
+                                      'Reddit Accounts Comments (48h) : ${coin[4].redditAverageComments48h}'
+                                  ),
                                   CustomCryptoText(
-                                      'Reddit Accounts Active (48h) : ${coin[4].redditAccountsActive48h}'),
+                                      'Reddit Accounts Active (48h) : ${coin[4].redditAccountsActive48h}'
+                                  ),
                                   CustomCryptoText(
-                                      'Reddit Subscribers : ${coin[4].redditSubscribers}'),
+                                      'Reddit Subscribers : ${coin[4].redditSubscribers}'
+                                  ),
                                   CustomCryptoText(
-                                      'Telegram Channel Users : ${coin[4].telegramChannelUserCount}'),
+                                      'Telegram Channel Users : ${coin[4].telegramChannelUserCount}'
+                                  ),
                                 ],
                               ),
                             ),
                           ),
                         ),
                       ],
-                    )));
+                    )
+                )
+            );
           },
           loading: () => const Center(child: CircularProgressIndicator()),
           error: (error, _) => Error(message: error.toString(), callback: () => {})
@@ -258,7 +309,8 @@ class CoinScreen extends StatelessWidget {
               fontSize: 14,
               fontWeight: FontWeight.w400,
               color: color,
-            ))
+            )
+        )
       ],
     );
   }

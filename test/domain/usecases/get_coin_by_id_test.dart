@@ -1,6 +1,7 @@
 import 'package:crypto_tracker_app/domain/entities/coin.dart';
 import 'package:crypto_tracker_app/domain/entities/image.dart';
 import 'package:crypto_tracker_app/domain/repositories/coin_repository.dart';
+import 'package:crypto_tracker_app/domain/repositories/crypto_repository.dart';
 import 'package:crypto_tracker_app/domain/usecases/get_coin_by_id.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -8,17 +9,22 @@ import 'package:mockito/mockito.dart';
 import 'package:mockito/annotations.dart';
 import 'get_coin_by_id_test.mocks.dart';
 
-@GenerateMocks([CoinRepository])
+@GenerateMocks([CoinRepository, CryptoRepository])
 void main() {
   late GetCoinById useCase;
   late MockCoinRepository mockCoinRepository;
+  // late MockCryptoRepository mockCryptoRepository;
   late String tSelectedCoin;
   late List<dynamic> tEntities;
 
 
   setUp(() {
     mockCoinRepository = MockCoinRepository();
-    useCase = GetCoinById(mockCoinRepository);
+    // mockCryptoRepository = MockCryptoRepository();
+    useCase = GetCoinById(
+        // cryptoRepository: mockCryptoRepository
+        coinRepository: mockCoinRepository
+    );
     tSelectedCoin = 'bitcoin';
     tEntities = [
       Coin(
@@ -53,20 +59,31 @@ void main() {
 
   // flutter test test/domain/usecases/get_coin_by_id_test.dart
   test('should get a list of entities corresponding to the ownership of a single cryptocurrency', () async {
-      mockCoinRepository = MockCoinRepository();
-      useCase = GetCoinById(mockCoinRepository);
+    // arrange
+    when(mockCoinRepository.getCoinById(tSelectedCoin))
+        .thenAnswer((_) async => Right(tEntities));
 
-      // arrange
-      when(mockCoinRepository.getCoinById(tSelectedCoin))
-          .thenAnswer((_) async => Right(tEntities));
+    // act
+    final result = await useCase(Params(selectedCoin: tSelectedCoin));
 
-      // act
-      final result = await useCase(Params(selectedCoin: tSelectedCoin));
+    // assert
+    expect(result, Right(tEntities));
+    verify(mockCoinRepository.getCoinById(tSelectedCoin));
+    verifyNoMoreInteractions(mockCoinRepository);
+  });
 
-      // assert
-      expect(result, Right(tEntities));
-      verify(mockCoinRepository.getCoinById(tSelectedCoin));
-      verifyNoMoreInteractions(mockCoinRepository);
-    },
-  );
+  // test('should get a list of entities corresponding to the ownership of a single cryptocurrency', () async {
+  //   // arrange
+  //   when(mockCryptoRepository.getCoinById(tSelectedCoin))
+  //       .thenAnswer((_) async => Right(tEntities));
+  //
+  //   // act
+  //   final result = await useCase(Params(selectedCoin: tSelectedCoin));
+  //
+  //   // assert
+  //   expect(result, Right(tEntities));
+  //   verify(mockCryptoRepository.getCoinById(tSelectedCoin));
+  //   verifyNoMoreInteractions(mockCryptoRepository);
+  // },
+  // );
 }

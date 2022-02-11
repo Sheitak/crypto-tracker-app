@@ -3,15 +3,21 @@ import 'package:crypto_tracker_app/core/usecases/usecase.dart';
 import 'package:crypto_tracker_app/domain/entities/coins_list.dart';
 import 'package:crypto_tracker_app/domain/repositories/coins_list_repository.dart';
 import 'package:dartz/dartz.dart';
+import '../repositories/crypto_repository.dart';
 
 class GetCoinsList implements UseCase<List<CoinsList>, NoParams> {
 
-  final CoinsListRepository _coinsListRepository;
+  final CoinsListRepository coinsListRepository;
+  // final CryptoRepository cryptoRepository;
 
-  GetCoinsList(this._coinsListRepository);
+  GetCoinsList({
+    required this.coinsListRepository
+    // required this.cryptoRepository
+  });
 
   @override
-  Future<Either<FailureR, List<CoinsList>>> call(NoParams params) async {
-    return await _coinsListRepository.getCoinsList();
+  Future<Either<Failure, List<CoinsList>>> call(NoParams params) async {
+    // return await cryptoRepository.getCoinsList();
+    return await coinsListRepository.getCoinsList();
   }
 }

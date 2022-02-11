@@ -1,0 +1,21 @@
+{
+  "id": "bitcoin",
+  "symbol": "btc",
+  "name": "Bitcoin",
+  "block_time_in_minutes": 10,
+  "hashing_algorithm": "SHA-256",
+  "categories": [
+    "Cryptocurrency"
+  ],
+  "genesis_date": "2009-01-03",
+  "sentiment_votes_up_percentage": 74.47,
+  "sentiment_votes_down_percentage": 25.53,
+  "market_cap_rank": 1,
+  "coingecko_rank": 2,
+  "coingecko_score": 80.265,
+  "developer_score": 98.849,
+  "community_score": 70.638,
+  "liquidity_score": 100.062,
+  "public_interest_score": 0,
+  "last_updated": "2021-08-26T14:14:53.028Z"
+}

@@ -5,8 +5,11 @@
 import 'dart:async' as _i4;
 
 import 'package:crypto_tracker_app/core/error/failures.dart' as _i5;
+import 'package:crypto_tracker_app/domain/entities/coins_list.dart' as _i7;
 import 'package:crypto_tracker_app/domain/repositories/coin_repository.dart'
     as _i3;
+import 'package:crypto_tracker_app/domain/repositories/crypto_repository.dart'
+    as _i6;
 import 'package:dartz/dartz.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
 
@@ -30,10 +33,35 @@ class MockCoinRepository<T> extends _i1.Mock implements _i3.CoinRepository<T> {
   }
 
   @override
-  _i4.Future<_i2.Either<_i5.FailureR, List<dynamic>>> getCoinById(
+  _i4.Future<_i2.Either<_i5.Failure, List<dynamic>>> getCoinById(
           String? selectedCoin) =>
       (super.noSuchMethod(Invocation.method(#getCoinById, [selectedCoin]),
-          returnValue: Future<_i2.Either<_i5.FailureR, List<dynamic>>>.value(
-              _FakeEither_0<_i5.FailureR, List<dynamic>>())) as _i4
-          .Future<_i2.Either<_i5.FailureR, List<dynamic>>>);
+              returnValue: Future<_i2.Either<_i5.Failure, List<dynamic>>>.value(
+                  _FakeEither_0<_i5.Failure, List<dynamic>>()))
+          as _i4.Future<_i2.Either<_i5.Failure, List<dynamic>>>);
+}
+
+/// A class which mocks [CryptoRepository].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockCryptoRepository<T> extends _i1.Mock
+    implements _i6.CryptoRepository<T> {
+  MockCryptoRepository() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i4.Future<_i2.Either<_i5.Failure, List<dynamic>>> getCoinById(
+          String? selectedCoin) =>
+      (super.noSuchMethod(Invocation.method(#getCoinById, [selectedCoin]),
+              returnValue: Future<_i2.Either<_i5.Failure, List<dynamic>>>.value(
+                  _FakeEither_0<_i5.Failure, List<dynamic>>()))
+          as _i4.Future<_i2.Either<_i5.Failure, List<dynamic>>>);
+  @override
+  _i4.Future<_i2.Either<_i5.Failure, List<_i7.CoinsList>>> getCoinsList() =>
+      (super.noSuchMethod(Invocation.method(#getCoinsList, []),
+              returnValue:
+                  Future<_i2.Either<_i5.Failure, List<_i7.CoinsList>>>.value(
+                      _FakeEither_0<_i5.Failure, List<_i7.CoinsList>>()))
+          as _i4.Future<_i2.Either<_i5.Failure, List<_i7.CoinsList>>>);
 }

@@ -1,0 +1,9 @@
+{
+  "repos_url": {
+    "github": [
+      "https://github.com/bitcoin/bitcoin",
+      "https://github.com/bitcoin/bips"
+    ],
+    "bitbucket": []
+  }
+}

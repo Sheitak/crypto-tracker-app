@@ -1,0 +1,35 @@
+{
+  "links": {
+    "homepage": [
+      "http://www.bitcoin.org",
+      "",
+      ""
+    ],
+    "blockchain_site": [
+      "https://blockchair.com/bitcoin/",
+      "https://btc.com/",
+      "https://btc.tokenview.com/",
+      "",
+      ""
+    ],
+    "official_forum_url": [
+      "https://bitcointalk.org/",
+      "",
+      ""
+    ],
+    "chat_url": [
+      "",
+      "",
+      ""
+    ],
+    "announcement_url": [
+      "",
+      ""
+    ],
+    "twitter_screen_name": "bitcoin",
+    "facebook_username": "bitcoins",
+    "bitcointalk_thread_identifier": null,
+    "telegram_channel_identifier": "",
+    "subreddit_url": "https://www.reddit.com/r/Bitcoin/"
+  }
+}

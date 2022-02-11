@@ -2,7 +2,7 @@ import 'package:crypto_tracker_app/data/datasources/local/object_box_database.da
 import 'package:crypto_tracker_app/presentation/widgets/navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'core/providers/app_provider.dart';
+import 'package:crypto_tracker_app/core/providers/app_provider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,24 +29,18 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme(
           primary: Colors.indigo.shade800,
-          primaryVariant: Colors.red,
-          secondary: Colors.green,
-          onBackground: Colors.green,
-          onSecondary: Colors.blue,
-          onError: Colors.blue,
+          secondary: Colors.indigo.shade600,
+          onBackground: Colors.blueGrey.shade700,
+          onSecondary: Colors.indigo.shade800,
+          onError: Colors.red.shade800,
           brightness: Brightness.light,
           onPrimary: Colors.white,
-          surface: Colors.blue,
-          onSurface: Colors.blue,
-          background: Colors.blue,
-          error: Colors.red.shade100,
-          secondaryVariant: Colors.blue
+          surface: Colors.deepPurpleAccent.shade400,
+          onSurface: Colors.deepPurpleAccent.shade700,
+          background: Colors.blueGrey.shade900,
+          error: Colors.red.shade300
         )
       ),
-
-      // theme: ThemeData(
-      //   primaryColor: Colors.blueGrey[100],
-      // ),
       debugShowCheckedModeBanner: false,
     );
   }
