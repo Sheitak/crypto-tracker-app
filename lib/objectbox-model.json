@@ -337,7 +337,7 @@
     },
     {
       "id": "5:781866031949563546",
-      "lastPropertyId": "11:2580387840246352688",
+      "lastPropertyId": "12:481091133233864121",
       "name": "DeveloperData",
       "properties": [
         {
@@ -387,17 +387,17 @@
           "type": 6
         },
         {
-          "id": "10:8432956763888032952",
-          "name": "last4WeeksCommitActivitySeries",
-          "type": 30
-        },
-        {
           "id": "11:2580387840246352688",
           "name": "coinId",
           "type": 11,
           "flags": 520,
           "indexId": "6:6842690188950921014",
           "relationTarget": "Coin"
+        },
+        {
+          "id": "12:481091133233864121",
+          "name": "last4WeeksCommitActivitySeries",
+          "type": 30
         }
       ],
       "relations": []
@@ -554,7 +554,8 @@
     2276026060127300242,
     1932585614139609393,
     1532253019827388927,
-    5398354212016910701
+    5398354212016910701,
+    8432956763888032952
   ],
   "retiredRelationUids": [],
   "version": 1

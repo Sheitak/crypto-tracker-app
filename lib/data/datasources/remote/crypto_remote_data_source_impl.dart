@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:crypto_tracker_app/core/error/failures.dart';
-import 'package:crypto_tracker_app/data/models/request/coin_request.dart';
-import 'package:crypto_tracker_app/data/models/request/coins_list_request.dart';
+import 'package:crypto_tracker_app/data/models/request/crypto_request.dart';
 import 'package:crypto_tracker_app/data/models/response/coin_response.dart';
 import 'package:crypto_tracker_app/data/models/response/coins_list_response.dart';
 import 'package:dio/dio.dart';
@@ -13,7 +12,7 @@ class CryptoRemoteDataSourceImpl extends CryptoRemoteDataSource {
   static const String coinUrl = 'http://api.coingecko.com/api/v3/coins/';
 
   @override
-  Future<List<CoinsListResponse>> getCoinsList(CoinsListRequest request) async {
+  Future<List<CoinsListResponse>> getCoinsList(CryptoRequest request) async {
     try {
       final response = await Dio().get(coinsListUrl, queryParameters: request.toMap());
       if (response.statusCode == 200) {
@@ -31,13 +30,13 @@ class CryptoRemoteDataSourceImpl extends CryptoRemoteDataSource {
           message: error.response?.statusMessage ?? 'Failure : Something went wrong.',
           code: 400
       );
-    } on SocketException catch (error) {
+    } on SocketException {
       throw const ServerFailure();
     }
   }
 
   @override
-  Future<CoinResponse> getCoinById(String selectedCoin, CoinRequest request) async {
+  Future<CoinResponse> getCoinById(String selectedCoin, CryptoRequest request) async {
     try {
       final response = await Dio().get(coinUrl + selectedCoin, queryParameters: request.toMap());
       if (response.statusCode == 200) {
@@ -51,7 +50,7 @@ class CryptoRemoteDataSourceImpl extends CryptoRemoteDataSource {
           message: error.response?.statusMessage ?? 'Failure : Something went wrong.',
           code: 400
       );
-    } on SocketException catch (error) {
+    } on SocketException {
       throw const ServerFailure();
     }
   }

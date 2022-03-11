@@ -1,6 +1,6 @@
-import 'package:equatable/equatable.dart';
+import 'package:crypto_tracker_app/data/models/request/crypto_request.dart';
 
-class CoinRequest extends Equatable {
+class CoinRequest extends CryptoRequest {
   final String localization;
   final bool tickers;
   final bool marketData;
@@ -8,7 +8,7 @@ class CoinRequest extends Equatable {
   final bool developerData;
   final bool sparkline;
 
-  const CoinRequest({
+  CoinRequest({
     required this.localization,
     required this.tickers,
     required this.marketData,
@@ -27,6 +27,7 @@ class CoinRequest extends Equatable {
     sparkline
   ];
 
+  @override
   Map<String, dynamic> toMap() {
     final queryParameters = {
       'localization': localization,

@@ -1,9 +1,9 @@
-import 'package:equatable/equatable.dart';
+import 'package:crypto_tracker_app/data/models/request/crypto_request.dart';
 
-class CoinsListRequest extends Equatable {
+class CoinsListRequest extends CryptoRequest {
   final bool includePlatform;
 
-  const CoinsListRequest({
+  CoinsListRequest({
     required this.includePlatform
   });
 
@@ -12,6 +12,7 @@ class CoinsListRequest extends Equatable {
     includePlatform
   ];
 
+  @override
   Map<String, bool> toMap() {
     final queryParameters = {
       'include_platform': includePlatform

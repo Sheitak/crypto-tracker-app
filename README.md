@@ -1,7 +1,7 @@
 # Cryptocurrencies Tracker Application
 - #### Version 0.6.4
 This application offers a catalog of existing cryptocurrencies.
-It brings together all the details, links and information for each digital assets. 
+It brings together all the details, links and information for each digital assets.
 
 ## About
 - Android 11.0 (R) API 30

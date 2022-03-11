@@ -1,3 +1,4 @@
+import 'package:crypto_tracker_app/presentation/pages/about_screen.dart';
 import 'package:crypto_tracker_app/presentation/pages/coin_screen.dart';
 import 'package:crypto_tracker_app/presentation/pages/coins_list_screen.dart';
 import 'package:crypto_tracker_app/presentation/pages/wallet_screen.dart';
@@ -7,14 +8,15 @@ class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case '/' :
-        return MaterialPageRoute(builder: (context) => const CoinsListScreen());
+        return MaterialPageRoute(
+            builder: (context) => const CoinsListScreen()
+        );
       case '/cryptocurrencies':
         var arguments = settings.arguments;
         if (arguments != null) {
           return PageRouteBuilder(
               pageBuilder: (context, animation, secondaryAnimation) => CoinScreen(selectedCoin: arguments as String),
-              transitionsBuilder: (context, animation, secondaryAnimation,
-                  child) {
+              transitionsBuilder: (context, animation, secondaryAnimation, child) {
                 animation = CurvedAnimation(
                     curve: Curves.ease,
                     parent: animation
@@ -29,7 +31,13 @@ class RouteGenerator {
           return pageNotFound();
         }
       case '/wallet' :
-        return MaterialPageRoute(builder: (context) => const WalletScreen());
+        return MaterialPageRoute(
+            builder: (context) => const WalletScreen()
+        );
+      case '/about' :
+        return MaterialPageRoute(
+            builder: (context) => const AboutScreen()
+        );
       default:
         return pageNotFound();
     }

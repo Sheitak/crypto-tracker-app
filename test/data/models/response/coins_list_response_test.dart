@@ -10,13 +10,16 @@ void main() {
   late CoinsListResponse tCoinsListResponse;
 
   setUp(() {
-    // tCoinsListResponse = json.decode(
-    //     getCoinsListFixture('coins_list_response.json')
-    // );
-
-    tCoinsListResponse = const CoinsListResponse(
-        id: 'bitcoin', name: 'bitcoin', symbol: 'BTC'
+    final data = List<Map<String, dynamic>>.from(
+        json.decode(getCoinsListFixture('coins_list_response.json'))
     );
+    data.map(
+        (element) => tCoinsListResponse = CoinsListResponse.fromJson(element)
+    ).toList();
+
+    // tCoinsListResponse = CoinsListResponse.fromJson(
+    //     json.decode(getCoinsListFixture('coins_list_response.json'))
+    // );
   });
 
   test('should be a data model for the coin entity', () async {
@@ -33,6 +36,14 @@ void main() {
       );
       // act
       final result = CoinsListResponse.fromJson(jsonMap);
+
+      // final data = List<Map<String, dynamic>>.from(
+      //     json.decode(getCoinsListFixture('coins_list_response.json'))
+      // );
+      // data.map(
+      //         (element) => result = CoinsListResponse.fromJson(element)
+      // ).toList();
+
       // assert
       expect(result, tCoinsListResponse);
     },

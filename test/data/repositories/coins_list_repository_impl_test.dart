@@ -4,6 +4,7 @@ import 'package:crypto_tracker_app/core/network/network_info.dart';
 import 'package:crypto_tracker_app/data/datasources/local/crypto_local_data_source.dart';
 import 'package:crypto_tracker_app/data/datasources/remote/crypto_remote_data_source.dart';
 import 'package:crypto_tracker_app/data/models/request/coins_list_request.dart';
+import 'package:crypto_tracker_app/data/models/request/crypto_request.dart';
 import 'package:crypto_tracker_app/data/models/response/coin_response.dart';
 import 'package:crypto_tracker_app/data/models/response/coins_list_response.dart';
 import 'package:crypto_tracker_app/data/repositories/coins_list_repository_impl.dart';
@@ -15,24 +16,27 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'coin_repository_impl_test.mocks.dart';
+import 'coins_list_repository_impl_test.mocks.dart';
 
-@GenerateMocks([CryptoRemoteDataSource, CryptoLocalDataSource, NetworkInfo])
+@GenerateMocks([CryptoRemoteDataSource, CryptoLocalDataSource, CryptoRequest, NetworkInfo])
 void main() {
   late CoinsListRepositoryImpl coinsListRepositoryImpl;
   late MockCryptoRemoteDataSource mockCryptoRemoteDataSource;
   late MockCryptoLocalDataSource mockCryptoLocalDataSource;
+  late MockCryptoRequest mockCryptoRequest;
   late MockNetworkInfo mockNetworkInfo;
 
   setUp(() {
     mockCryptoRemoteDataSource = MockCryptoRemoteDataSource();
     mockCryptoLocalDataSource = MockCryptoLocalDataSource();
+    mockCryptoRequest = MockCryptoRequest();
     mockNetworkInfo = MockNetworkInfo();
 
     coinsListRepositoryImpl = CoinsListRepositoryImpl(
         cryptoRemoteDataSource: mockCryptoRemoteDataSource,
         cryptoLocalDataSource: mockCryptoLocalDataSource,
-        networkInfo: mockNetworkInfo
+        cryptoRequest: mockCryptoRequest,
+        networkInfo: mockNetworkInfo,
     );
   });
 
@@ -213,7 +217,7 @@ void main() {
   group('getCoinsList', () {
     // final tNumberTriviaModel = NumberTriviaModel(number: 123, text: 'test trivia');
     // final NumberTrivia tNumberTrivia = tNumberTriviaModel;
-    const tCoinsListRequest = CoinsListRequest(
+    final tCoinsListRequest = CoinsListRequest(
         includePlatform: false
     );
     final tCoinsListResponse = [
@@ -279,7 +283,7 @@ void main() {
           verify(mockCryptoRemoteDataSource.getCoinsList(tCoinsListRequest));
           verifyZeroInteractions(mockCryptoLocalDataSource);
           expect(result, equals(
-              Left(
+              const Left(
                   ServerFailure()
               )
           ));
@@ -314,7 +318,7 @@ void main() {
           verifyZeroInteractions(mockCryptoRemoteDataSource);
           verify(mockCryptoLocalDataSource.getLastCoinsList());
           expect(result, equals(
-              Left(CacheFailure()
+              const Left(CacheFailure()
               ))
           );
         },

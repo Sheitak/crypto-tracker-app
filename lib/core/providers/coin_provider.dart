@@ -6,10 +6,22 @@ import 'package:crypto_tracker_app/domain/usecases/get_coin_by_id.dart';
 import 'package:dartz/dartz.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:crypto_tracker_app/core/providers/app_provider.dart';
+import 'package:crypto_tracker_app/data/models/request/crypto_request.dart';
+import 'package:crypto_tracker_app/data/models/request/coin_request.dart';
+
+final cryptoRequestProvider = Provider<CryptoRequest>((ref) => CoinRequest(
+    communityData: true,
+    sparkline: false,
+    developerData: false,
+    tickers: false,
+    localization: 'false',
+    marketData: false
+));
 
 final coinRepositoryProvider = Provider<CoinRepository>((ref) => CoinRepositoryImpl(
     cryptoRemoteDataSource: ref.read(cryptoRemoteDataSourceProvider),
     cryptoLocalDataSource: ref.read(cryptoLocalDataSourceProvider),
+    cryptoRequest: ref.read(cryptoRequestProvider),
     networkInfo: ref.read(networkInfoProvider)
 ));
 

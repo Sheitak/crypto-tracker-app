@@ -1,4 +1,3 @@
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:crypto_tracker_app/core/error/exception.dart';
 import 'package:crypto_tracker_app/data/datasources/local/crypto_local_data_source.dart';
 import 'package:crypto_tracker_app/domain/entities/coin.dart';
@@ -54,9 +53,6 @@ class CryptoLocalDataSourceImpl extends CryptoLocalDataSource {
 
   @override
   Future<List<dynamic>> getLastCoin(String selectedCoin) async {
-
-    ConnectivityResult connectivityResult = await (Connectivity().checkConnectivity());
-
     final _boxCoin = objectBoxDatabase.store.box<Coin>();
     final _boxImage = objectBoxDatabase.store.box<Image>();
     final _boxLinks = objectBoxDatabase.store.box<Links>();
@@ -76,6 +72,7 @@ class CryptoLocalDataSourceImpl extends CryptoLocalDataSource {
     final Query<Platforms> queryPlatforms = (_boxPlatforms.query(Platforms_.id.equals(idCoin))).build();
 
     List<dynamic> entities = [];
+
     if (queryCoin.findFirst() != null &&
         queryImage.findFirst() != null &&
         queryLinks.findFirst() != null &&
@@ -91,22 +88,9 @@ class CryptoLocalDataSourceImpl extends CryptoLocalDataSource {
       entities.add(queryCommunityData.findFirst());
       entities.add(queryDeveloperData.findFirst());
       entities.add(queryPlatforms.findFirst());
-    }
-    if (connectivityResult == ConnectivityResult.none &&
-        queryCoin.findFirst() == null &&
-        queryImage.findFirst() == null &&
-        queryLinks.findFirst() == null &&
-        queryDescription.findFirst() == null &&
-        queryCommunityData.findFirst() == null &&
-        queryDeveloperData.findFirst() == null &&
-        queryPlatforms.findFirst() == null
-    ) {
-      // return Left(Failure());
-      // return throw Exception('ERROR : YOU MUST BE CONNECTED TO INTERNET FOR YOUR FIRST USE. PLEASE CHECK YOUR CONNECTION.');
+    } else {
       throw CacheException();
     }
-
-    // return Right(entities);
     return entities;
   }
 

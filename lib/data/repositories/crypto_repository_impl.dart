@@ -82,7 +82,7 @@ class CryptoRepositoryImpl extends CryptoRepository {
         }
 
       } on CacheException {
-        return Left(
+        return const Left(
             CacheFailure()
         );
       }
@@ -92,7 +92,7 @@ class CryptoRepositoryImpl extends CryptoRepository {
   Future<List<dynamic>> _getRemoteDataCoinById(String selectedCoin) async {
     return await cryptoRemoteDataSource.getCoinById(
         selectedCoin,
-        const CoinRequest(
+        CoinRequest(
             localization: 'false',
             tickers: false,
             marketData: false,
@@ -107,7 +107,7 @@ class CryptoRepositoryImpl extends CryptoRepository {
 
   Future<List<CoinsList>> _getRemoteDataListCoins() async {
     return await cryptoRemoteDataSource.getCoinsList(
-        const CoinsListRequest(includePlatform: false)
+        CoinsListRequest(includePlatform: false)
     ).then(
         (value) => value.map(
             (element) => element.toEntity()

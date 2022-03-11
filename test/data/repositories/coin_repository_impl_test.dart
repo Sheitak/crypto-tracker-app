@@ -1,21 +1,24 @@
 import 'package:crypto_tracker_app/core/network/network_info.dart';
 import 'package:crypto_tracker_app/data/datasources/local/crypto_local_data_source.dart';
 import 'package:crypto_tracker_app/data/datasources/remote/crypto_remote_data_source.dart';
+import 'package:crypto_tracker_app/data/models/request/crypto_request.dart';
 import 'package:crypto_tracker_app/data/repositories/coin_repository_impl.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'coin_repository_impl_test.mocks.dart';
 
-@GenerateMocks([CoinRepositoryImpl, CryptoRemoteDataSource, CryptoLocalDataSource, NetworkInfo])
+@GenerateMocks([CoinRepositoryImpl, CryptoRemoteDataSource, CryptoLocalDataSource, CryptoRequest, NetworkInfo])
 void main() {
   MockCoinRepositoryImpl mockCoinRepositoryImpl;
   MockCryptoRemoteDataSource mockCryptoRemoteDataSource;
   MockCryptoLocalDataSource mockCryptoLocalDataSource;
+  MockCryptoRequest mockCryptoRequest;
   MockNetworkInfo mockNetworkInfo;
 
   setUp(() {
     mockCryptoRemoteDataSource = MockCryptoRemoteDataSource();
     mockCryptoLocalDataSource = MockCryptoLocalDataSource();
+    mockCryptoRequest = MockCryptoRequest();
     mockNetworkInfo = MockNetworkInfo();
 
     // mockCoinRepositoryImpl = CoinRepositoryImpl(

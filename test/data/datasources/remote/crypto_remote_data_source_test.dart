@@ -5,6 +5,7 @@ import 'package:crypto_tracker_app/data/datasources/local/object_box_database.da
 import 'package:crypto_tracker_app/data/datasources/remote/crypto_remote_data_source_impl.dart';
 import 'package:crypto_tracker_app/data/models/request/coin_request.dart';
 import 'package:crypto_tracker_app/data/models/request/coins_list_request.dart';
+import 'package:crypto_tracker_app/data/models/request/crypto_request.dart';
 import 'package:crypto_tracker_app/data/models/response/coin_response.dart';
 import 'package:crypto_tracker_app/data/models/response/coins_list_response.dart';
 import 'package:crypto_tracker_app/domain/entities/coin.dart';
@@ -20,24 +21,21 @@ import 'package:mockito/mockito.dart';
 
 // Handle Dio For Flutter Test : https://pub.dev/packages/http_mock_adapter
 // https://github.com/flutterchina/dio/issues/374
-@GenerateMocks([Dio, CryptoRemoteDataSourceImpl, CoinRequest, CoinsListRequest])
+@GenerateMocks([Dio, CryptoRemoteDataSourceImpl, CryptoRequest, CoinRequest, CoinsListRequest])
 void main() {
   late CryptoRemoteDataSourceImpl cryptoRemoteDataSourceImpl;
   late CoinRequest tCoinRequest;
   late CoinsListRequest tCoinsListRequest;
   late String tSelectedCoin;
   late MockDio mockDio;
-  // final dio = Dio();
-  // final dioAdapter = DioAdapter(dio: dio);
   late Dio dio;
   late DioAdapter dioAdapter;
-  // Response<dynamic> response;
   late List<dynamic> tEntities;
 
   setUp(() {
     mockDio = MockDio();
     cryptoRemoteDataSourceImpl = CryptoRemoteDataSourceImpl();
-    tCoinRequest = const CoinRequest(
+    tCoinRequest = CoinRequest(
         localization: 'false',
         tickers: false,
         marketData: false,
@@ -45,12 +43,13 @@ void main() {
         developerData: false,
         sparkline: false
     );
-    tCoinsListRequest = const CoinsListRequest(
+    tCoinsListRequest = CoinsListRequest(
         includePlatform: false
     );
     tSelectedCoin = 'bitcoin';
-    // dio.httpClientAdapter = dioAdapter;
-    dio = Dio(BaseOptions(baseUrl: 'http://api.coingecko.com/api/v3/'));
+    dio = Dio(
+        BaseOptions(baseUrl: 'http://api.coingecko.com/api/v3/')
+    );
     dioAdapter = DioAdapter(dio: dio);
     tEntities = [
       Coin(
@@ -83,96 +82,53 @@ void main() {
     ];
   });
 
-  // group('getCoinById', () {
-  //   // final tNumberTriviaModel =
-  //   // NumberTriviaModel.fromJson(json.decode(fixture('trivia.json')));
-  //   // final tCoinRequest = '';
-  //
-  //   test('should preform a GET request on a URL with number being the endpoint and with application/json header', () {
-  //     final path = 'coins/' + tSelectedCoin;
-  //
-  //     //arrange
-  //       // when(mockDio.get(any, headers: anyNamed('headers'))).thenAnswer(
-  //       //       (_) async => http.Response(fixture('trivia.json'), 200),
-  //       // );
-  //       // when(
-  //       //   mockDio.get(
-  //       //       'http://api.coingecko.com/api/v3/coins/' + tSelectedCoin,
-  //       //       queryParameters: tCoinRequest.toMap()
-  //       //   )
-  //       // );
-  //       when(
-  //           dioAdapter.onGet(
-  //             path,
-  //                 (server) => server.reply(
-  //                 200, {'message': 'Successfully mocked GET !'}
-  //             ),
-  //           )
-  //       );
-  //
-  //       // act
-  //       cryptoRemoteDataSourceImpl.getCoinById(tSelectedCoin, tCoinRequest);
-  //
-  //       // assert
-  //       // verify(mockDio.get(
-  //       //     'http://api.coingecko.com/api/v3/coins/' + tSelectedCoin,
-  //       //     queryParameters: tCoinRequest.toMap()
-  //       // ));
-  //       verify(
-  //           dioAdapter.onGet(
-  //             path,
-  //             (server) => server.reply(
-  //                 200, {'message': 'Successfully mocked GET !'}
-  //             ),
-  //           )
-  //       );
-  //     },
-  //   );
-  //
-  //   // test('should return NumberTrivia when the response code is 200 (success)', () async {
-  //   //     // arrange
-  //   //     setUpMockHttpClientSuccess200();
-  //   //     // act
-  //   //     final result = await cryptoRemoteDataSourceImpl.getCoinById(tSelectedCoin, tCoinRequest);
-  //   //     // assert
-  //   //     // expect(result, equals(tNumberTriviaModel));
-  //   //   },
-  //   // );
-  //
-  //   // test('should throw a ServerException when the response code is 404 or other', () async {
-  //   //   final path = 'coins/' + tSelectedCoin;
-  //   //     // arrange
-  //   //     // when(mockDio.get(any, headers: anyNamed('headers'))).thenAnswer(
-  //   //     //       (_) async => http.Response('Something went wrong', 404),
-  //   //     // );
-  //   //     verify(
-  //   //         dioAdapter.onGet(
-  //   //           path,
-  //   //           (server) => server.throws(
-  //   //               404, DioError(
-  //   //                   requestOptions: RequestOptions(
-  //   //                     path: path,
-  //   //                   ),
-  //   //               )
-  //   //           ),
-  //   //         )
-  //   //     );
-  //   //
-  //   //     // act
-  //   //     final call = cryptoRemoteDataSourceImpl.getCoinById(tSelectedCoin, tCoinRequest);
-  //   //
-  //   //     // assert
-  //   //     expect(() => call, throwsA(
-  //   //         // const TypeMatcher<ServerException>())
-  //   //         const TypeMatcher<DioError>())
-  //   //     );
-  //   //     // expect(
-  //   //     //       () async => await dio.post(signInRoute),
-  //   //     //   throwsA(isA<DioError>()),
-  //   //     // );
-  //   //   },
-  //   // );
-  // });
+  group('getCoinById', () {
+    const path = 'coins/bitcoin';
+    final response = json.decode(fixture('coin.json'));
+
+    test('should return CoinById when the response code is 200 (success)', () async {
+      //arrange
+      dioAdapter.onGet(
+          path,
+              (server) => server.reply(
+              200, response
+          )
+      );
+      // act
+      // await cryptoRemoteDataSourceImpl.getCoinById(tSelectedCoin, tCoinRequest);
+      final result = await dio.get(
+          path, queryParameters: tCoinRequest.toMap()
+      );
+      // assert
+      expect(result.statusCode, 200);
+    });
+
+    test('should throw a ServerException when the response code is 404 or other', () async {
+        // arrange
+        dioAdapter.onGet(
+          path,
+              (server) => server.throws(
+              404,
+              DioError(
+                requestOptions: RequestOptions(
+                  path: path,
+                ),
+              )
+          ),
+        );
+
+        // act
+        await cryptoRemoteDataSourceImpl.getCoinById(tSelectedCoin, tCoinRequest);
+
+        // assert
+        expect(() async => await dio.get(path),
+          throwsA(
+              isA<DioError>()
+          ),
+        );
+      },
+    );
+  });
 
   group('getCoinsList', () {
     const path = 'coins/list';
@@ -186,35 +142,39 @@ void main() {
 
     test('should return CoinsList when the response code is 200 (success)', () async {
         // arrange
-        // dioAdapter.onGet(
-        //   path,
-        //   (server) => server.reply(
-        //       200, tCoinsListResponse
-        //   )
-        // );
-        when(
-            mockDio.get(
-                any,
-                queryParameters: anyNamed('queryParameters')
-            )).thenAnswer((realInvocation) async =>
-            Response(
-                data: tCoinsListResponse,
-                requestOptions: RequestOptions(
-                    method: 'GET',
-                    path: 'http://api.coingecko.com/api/v3/coins/list'
-                )
-            )
+        dioAdapter.onGet(
+          path,
+          (server) => server.reply(
+              // 200, tCoinsListResponse
+              200, response
+          )
         );
 
-        // act
-        final result = await cryptoRemoteDataSourceImpl.getCoinsList(tCoinsListRequest);
-        // final result = await dio.get(
-        //     path, queryParameters: tCoinsListRequest.toMap()
+        // Exemple of MockDio with mockito
+        // when(
+        //     mockDio.get(
+        //         any,
+        //         queryParameters: anyNamed('queryParameters')
+        //     )).thenAnswer((realInvocation) async =>
+        //     Response(
+        //         data: tCoinsListResponse,
+        //         requestOptions: RequestOptions(
+        //             method: 'GET',
+        //             path: 'http://api.coingecko.com/api/v3/coins/list'
+        //         )
+        //     )
         // );
 
+        // act
+        // final result = await cryptoRemoteDataSourceImpl.getCoinsList(tCoinsListRequest);
+        final result = await dio.get(
+            path, queryParameters: tCoinsListRequest.toMap()
+        );
+
         // assert
-        // expect(result.statusCode, 200);
-        expect(result, tCoinsListResponse);
+        expect(result.statusCode, 200);
+        // expect(result, tCoinsListResponse);
+
         // verify(
         //     mockDio.get(
         //         'http://api.coingecko.com/api/v3/coins/list',
@@ -238,6 +198,8 @@ void main() {
               )
           ),
         );
+
+        // Exemple of MockDio with mockito
         // when(
         //     mockDio.get(
         //         any,
@@ -262,13 +224,10 @@ void main() {
 
         // assert
         expect(() async => await dio.get(path),
-          throwsA(isA<DioError>()),
+          throwsA(
+              isA<DioError>()
+          ),
         );
-        // expect(() async => result,
-        //     throwsA(
-        //         TypeMatcher<DioError>()
-        //     )
-        // );
       },
     );
   });

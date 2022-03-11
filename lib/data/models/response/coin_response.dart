@@ -164,7 +164,7 @@ class CoinResponse extends Equatable {
       developerScore: data['developer_score'] ?? 0.0,
       communityScore: data['community_score'] ?? 0.0,
       liquidityScore: data['liquidity_score'] ?? 0.0,
-      publicInterestScore: data['public_interest_score'] ?? 0.0,
+      publicInterestScore: data['public_interest_score'] ?? 0,
       developerData: DeveloperDataResponse.fromJson(data['developer_data'] ?? {}),
       communityData: CommunityDataResponse.fromJson(data['community_data'] ?? {}),
       lastUpdated: DateTime.parse(data['last_updated'])

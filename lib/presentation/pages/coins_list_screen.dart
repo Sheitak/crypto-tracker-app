@@ -27,17 +27,18 @@ class CoinsListScreen extends StatelessWidget {
           ],
         ),
         backgroundColor: Colors.blueGrey[500],
-        drawer: _buildDrawerWidget(),
-        body: const _BuildBodyListCoinsWidget());
+        drawer: _buildDrawerWidget(context),
+        body: const _BuildBodyListCoinsWidget()
+    );
   }
 }
 
-Widget _buildDrawerWidget() {
+Widget _buildDrawerWidget(BuildContext context) {
   return Drawer(
     child: ListView(
       padding: EdgeInsets.zero,
-      children: const <Widget>[
-        DrawerHeader(
+      children: <Widget>[
+        const DrawerHeader(
           decoration: BoxDecoration(
             color: Colors.indigo,
           ),
@@ -50,21 +51,26 @@ Widget _buildDrawerWidget() {
             ),
           ),
         ),
-        ListTile(
+        const ListTile(
           leading: Icon(Icons.account_circle),
           title: Text('Profile'),
         ),
-        ListTile(
+        const ListTile(
           leading: Icon(Icons.star),
           title: Text('Favoris'),
         ),
-        ListTile(
+        const ListTile(
           leading: Icon(Icons.settings),
           title: Text('Settings'),
         ),
         ListTile(
-          leading: Icon(Icons.ten_k_rounded),
-          title: Text('About'),
+          leading: const Icon(
+              Icons.assignment_outlined
+          ),
+          onTap: () => {
+            Navigator.pushNamed(context, '/about')
+          },
+          title: const Text('About'),
         ),
       ],
     ),
@@ -81,7 +87,7 @@ class _BuildBodyListCoinsWidget extends ConsumerWidget {
           return either.fold(
               (failure) => throw const StandardFailure(
                 code: 404,
-                message: ''
+                message: 'Failure : No cryptocurrencies available'
               ),
               (coinsList) => ListView.builder(
                           itemCount: 20,
