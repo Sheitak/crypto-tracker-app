@@ -21,9 +21,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 //     return test;
 //   }
 //
-//   set dbImage(String element) => image = ImageResponse.fromJson(
-//       json.decode(element).map((key, value) => MapEntry(key as String, value as dynamic))
-//   );
+//   // set dbImage(String element) => image = ImageResponse.fromJson(
+//   //     json.decode(element).map((key, value) => MapEntry(key as String, value as dynamic))
+//   // );
 //
 // }
 
@@ -48,16 +48,4 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 //     String coin = (await read(coinUseCaseProvider).getCoinById('ethereum')) as String;
 //     state = AsyncData(coin);
 //   }
-// }
-
-// class CoinNotifier {
-//
-//   final CoinUseCase _coinUseCase;
-//
-//   CoinNotifier(this._coinUseCase);
-//
-//   Future<Coin> getCoinById(String selectedCoin) {
-//     return _coinUseCase.getCoinById(selectedCoin);
-//   }
-//
 // }

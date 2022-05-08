@@ -78,30 +78,4 @@ class Description extends Equatable {
     th,
     idd
   ];
-
-  factory Description.fromJson(Map<String, dynamic> data) {
-    return Description(
-        en: data['en'] ?? '',
-        de: data['de'] ?? '',
-        es: data['es'] ?? '',
-        fr: data['fr'] ?? '',
-        it: data['it'] ?? '',
-        pl: data['pl'] ?? '',
-        ro: data['ro'] ?? '',
-        hu: data['hu'] ?? '',
-        nl: data['nl'] ?? '',
-        pt: data['pt'] ?? '',
-        sv: data['sv'] ?? '',
-        vi: data['vi'] ?? '',
-        tr: data['tr'] ?? '',
-        ru: data['ru'] ?? '',
-        ja: data['ja'] ?? '',
-        zh: data['zh'] ?? '',
-        zhtw: data['zh-tw'] ?? '',
-        ko: data['ko'] ?? '',
-        ar: data['ar'] ?? '',
-        th: data['th'] ?? '',
-        idd: data['id'] ?? ''
-    );
-  }
 }

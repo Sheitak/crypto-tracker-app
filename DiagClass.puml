@@ -1,0 +1,765 @@
+@startuml
+set namespaceSeparator ::
+
+class "crypto_tracker_app::objectbox.g.dart::Coin_" {
+  {static} +QueryIntegerProperty<Coin> id
+  {static} +QueryStringProperty<Coin> coinId
+  {static} +QueryStringProperty<Coin> symbol
+  {static} +QueryStringProperty<Coin> name
+  {static} +QueryIntegerProperty<Coin> blockTimeInMinutes
+  {static} +QueryStringProperty<Coin> algorithm
+  {static} +QueryStringVectorProperty<Coin> categories
+  {static} +QueryStringProperty<Coin> genesisDate
+  {static} +QueryDoubleProperty<Coin> sentimentVotesUpPercentage
+  {static} +QueryDoubleProperty<Coin> sentimentVotesDownPercentage
+  {static} +QueryIntegerProperty<Coin> marketCapRank
+  {static} +QueryIntegerProperty<Coin> coinGeckoRank
+  {static} +QueryDoubleProperty<Coin> coinGeckoScore
+  {static} +QueryDoubleProperty<Coin> developerScore
+  {static} +QueryDoubleProperty<Coin> communityScore
+  {static} +QueryDoubleProperty<Coin> liquidityScore
+  {static} +QueryIntegerProperty<Coin> lastUpdated
+  {static} +QueryRelationToOne<Coin, CoinsList> coinList
+  {static} +QueryRelationToOne<Coin, Image> image
+  {static} +QueryIntegerProperty<Coin> publicInterestScore
+}
+
+"crypto_tracker_app::objectbox.g.dart::Coin_" o-- "objectbox::src::native::query::query.dart::QueryIntegerProperty<Coin>"
+"crypto_tracker_app::objectbox.g.dart::Coin_" o-- "objectbox::src::native::query::query.dart::QueryStringProperty<Coin>"
+"crypto_tracker_app::objectbox.g.dart::Coin_" o-- "objectbox::src::native::query::query.dart::QueryStringVectorProperty<Coin>"
+"crypto_tracker_app::objectbox.g.dart::Coin_" o-- "objectbox::src::native::query::query.dart::QueryDoubleProperty<Coin>"
+"crypto_tracker_app::objectbox.g.dart::Coin_" o-- "objectbox::src::native::query::query.dart::QueryRelationToOne<Coin, CoinsList>"
+"crypto_tracker_app::objectbox.g.dart::Coin_" o-- "objectbox::src::native::query::query.dart::QueryRelationToOne<Coin, Image>"
+
+class "crypto_tracker_app::objectbox.g.dart::CoinsList_" {
+  {static} +QueryIntegerProperty<CoinsList> id
+  {static} +QueryStringProperty<CoinsList> coinId
+  {static} +QueryStringProperty<CoinsList> name
+  {static} +QueryStringProperty<CoinsList> symbol
+}
+
+"crypto_tracker_app::objectbox.g.dart::CoinsList_" o-- "objectbox::src::native::query::query.dart::QueryIntegerProperty<CoinsList>"
+"crypto_tracker_app::objectbox.g.dart::CoinsList_" o-- "objectbox::src::native::query::query.dart::QueryStringProperty<CoinsList>"
+
+class "crypto_tracker_app::objectbox.g.dart::CommunityData_" {
+  {static} +QueryIntegerProperty<CommunityData> id
+  {static} +QueryIntegerProperty<CommunityData> facebookLikes
+  {static} +QueryIntegerProperty<CommunityData> twitterFollowers
+  {static} +QueryDoubleProperty<CommunityData> redditAveragePosts48h
+  {static} +QueryDoubleProperty<CommunityData> redditAverageComments48h
+  {static} +QueryIntegerProperty<CommunityData> redditSubscribers
+  {static} +QueryIntegerProperty<CommunityData> redditAccountsActive48h
+  {static} +QueryIntegerProperty<CommunityData> telegramChannelUserCount
+  {static} +QueryRelationToOne<CommunityData, Coin> coin
+}
+
+"crypto_tracker_app::objectbox.g.dart::CommunityData_" o-- "objectbox::src::native::query::query.dart::QueryIntegerProperty<CommunityData>"
+"crypto_tracker_app::objectbox.g.dart::CommunityData_" o-- "objectbox::src::native::query::query.dart::QueryDoubleProperty<CommunityData>"
+"crypto_tracker_app::objectbox.g.dart::CommunityData_" o-- "objectbox::src::native::query::query.dart::QueryRelationToOne<CommunityData, Coin>"
+
+class "crypto_tracker_app::objectbox.g.dart::Description_" {
+  {static} +QueryIntegerProperty<Description> id
+  {static} +QueryStringProperty<Description> en
+  {static} +QueryStringProperty<Description> de
+  {static} +QueryStringProperty<Description> es
+  {static} +QueryStringProperty<Description> fr
+  {static} +QueryStringProperty<Description> it
+  {static} +QueryStringProperty<Description> pl
+  {static} +QueryStringProperty<Description> ro
+  {static} +QueryStringProperty<Description> hu
+  {static} +QueryStringProperty<Description> nl
+  {static} +QueryStringProperty<Description> pt
+  {static} +QueryStringProperty<Description> sv
+  {static} +QueryStringProperty<Description> vi
+  {static} +QueryStringProperty<Description> tr
+  {static} +QueryStringProperty<Description> ru
+  {static} +QueryStringProperty<Description> ja
+  {static} +QueryStringProperty<Description> zh
+  {static} +QueryStringProperty<Description> zhtw
+  {static} +QueryStringProperty<Description> ko
+  {static} +QueryStringProperty<Description> ar
+  {static} +QueryStringProperty<Description> th
+  {static} +QueryStringProperty<Description> idd
+  {static} +QueryRelationToOne<Description, Coin> coin
+}
+
+"crypto_tracker_app::objectbox.g.dart::Description_" o-- "objectbox::src::native::query::query.dart::QueryIntegerProperty<Description>"
+"crypto_tracker_app::objectbox.g.dart::Description_" o-- "objectbox::src::native::query::query.dart::QueryStringProperty<Description>"
+"crypto_tracker_app::objectbox.g.dart::Description_" o-- "objectbox::src::native::query::query.dart::QueryRelationToOne<Description, Coin>"
+
+class "crypto_tracker_app::objectbox.g.dart::DeveloperData_" {
+  {static} +QueryIntegerProperty<DeveloperData> id
+  {static} +QueryIntegerProperty<DeveloperData> stars
+  {static} +QueryIntegerProperty<DeveloperData> subscribers
+  {static} +QueryIntegerProperty<DeveloperData> totalIssues
+  {static} +QueryIntegerProperty<DeveloperData> closedIssues
+  {static} +QueryIntegerProperty<DeveloperData> pullRequestMerged
+  {static} +QueryIntegerProperty<DeveloperData> pullRequestContributors
+  {static} +QueryIntegerProperty<DeveloperData> commitCountForWeeks
+  {static} +QueryRelationToOne<DeveloperData, Coin> coin
+  {static} +QueryIntegerProperty<DeveloperData> forks
+  {static} +QueryStringProperty<DeveloperData> codeAdditionsDeletions4Weeks
+  {static} +QueryStringVectorProperty<DeveloperData> last4WeeksCommitActivitySeries
+}
+
+"crypto_tracker_app::objectbox.g.dart::DeveloperData_" o-- "objectbox::src::native::query::query.dart::QueryIntegerProperty<DeveloperData>"
+"crypto_tracker_app::objectbox.g.dart::DeveloperData_" o-- "objectbox::src::native::query::query.dart::QueryRelationToOne<DeveloperData, Coin>"
+"crypto_tracker_app::objectbox.g.dart::DeveloperData_" o-- "objectbox::src::native::query::query.dart::QueryStringProperty<DeveloperData>"
+"crypto_tracker_app::objectbox.g.dart::DeveloperData_" o-- "objectbox::src::native::query::query.dart::QueryStringVectorProperty<DeveloperData>"
+
+class "crypto_tracker_app::objectbox.g.dart::Links_" {
+  {static} +QueryIntegerProperty<Links> id
+  {static} +QueryStringVectorProperty<Links> homepage
+  {static} +QueryStringVectorProperty<Links> blockchainSite
+  {static} +QueryStringVectorProperty<Links> officialForumUrl
+  {static} +QueryStringVectorProperty<Links> chatUrl
+  {static} +QueryStringVectorProperty<Links> announcementUrl
+  {static} +QueryStringProperty<Links> subredditUrl
+  {static} +QueryRelationToOne<Links, Coin> coin
+}
+
+"crypto_tracker_app::objectbox.g.dart::Links_" o-- "objectbox::src::native::query::query.dart::QueryIntegerProperty<Links>"
+"crypto_tracker_app::objectbox.g.dart::Links_" o-- "objectbox::src::native::query::query.dart::QueryStringVectorProperty<Links>"
+"crypto_tracker_app::objectbox.g.dart::Links_" o-- "objectbox::src::native::query::query.dart::QueryStringProperty<Links>"
+"crypto_tracker_app::objectbox.g.dart::Links_" o-- "objectbox::src::native::query::query.dart::QueryRelationToOne<Links, Coin>"
+
+class "crypto_tracker_app::objectbox.g.dart::Image_" {
+  {static} +QueryIntegerProperty<Image> id
+  {static} +QueryStringProperty<Image> thumb
+  {static} +QueryStringProperty<Image> small
+  {static} +QueryStringProperty<Image> large
+  {static} +QueryRelationToOne<Image, Coin> coin
+}
+
+"crypto_tracker_app::objectbox.g.dart::Image_" o-- "objectbox::src::native::query::query.dart::QueryIntegerProperty<Image>"
+"crypto_tracker_app::objectbox.g.dart::Image_" o-- "objectbox::src::native::query::query.dart::QueryStringProperty<Image>"
+"crypto_tracker_app::objectbox.g.dart::Image_" o-- "objectbox::src::native::query::query.dart::QueryRelationToOne<Image, Coin>"
+
+class "crypto_tracker_app::objectbox.g.dart::Platforms_" {
+  {static} +QueryIntegerProperty<Platforms> id
+  {static} +QueryStringProperty<Platforms> kardiachain
+  {static} +QueryStringProperty<Platforms> moonriver
+  {static} +QueryStringProperty<Platforms> sora
+  {static} +QueryStringProperty<Platforms> tomochain
+  {static} +QueryRelationToOne<Platforms, Coin> coin
+}
+
+"crypto_tracker_app::objectbox.g.dart::Platforms_" o-- "objectbox::src::native::query::query.dart::QueryIntegerProperty<Platforms>"
+"crypto_tracker_app::objectbox.g.dart::Platforms_" o-- "objectbox::src::native::query::query.dart::QueryStringProperty<Platforms>"
+"crypto_tracker_app::objectbox.g.dart::Platforms_" o-- "objectbox::src::native::query::query.dart::QueryRelationToOne<Platforms, Coin>"
+
+abstract class "crypto_tracker_app::domain::repositories::coins_list_repository.dart::CoinsListRepository" {
+  +Future<Either<Failure, List<CoinsList>>> getCoinsList()
+}
+
+abstract class "crypto_tracker_app::domain::repositories::coin_repository.dart::CoinRepository" {
+  +Future<Either<Failure, List<dynamic>>> getCoinById()
+}
+
+abstract class "crypto_tracker_app::domain::repositories::crypto_repository.dart::CryptoRepository" {
+  +Future<Either<Failure, List<dynamic>>> getCoinById()
+  +Future<Either<Failure, List<CoinsList>>> getCoinsList()
+}
+
+class "crypto_tracker_app::domain::entities::description.dart::Description" {
+  +int id
+  +String en
+  +String de
+  +String es
+  +String fr
+  +String it
+  +String pl
+  +String ro
+  +String hu
+  +String nl
+  +String pt
+  +String sv
+  +String vi
+  +String tr
+  +String ru
+  +String ja
+  +String zh
+  +String zhtw
+  +String ko
+  +String ar
+  +String th
+  +String idd
+  +ToOne<Coin> coin
+  +List<Object?> props
+}
+
+"crypto_tracker_app::domain::entities::description.dart::Description" o-- "objectbox::src::relations::to_one.dart::ToOne<Coin>"
+"equatable::src::equatable.dart::Equatable" <|-- "crypto_tracker_app::domain::entities::description.dart::Description"
+
+class "crypto_tracker_app::domain::entities::links.dart::Links" {
+  +int id
+  +List<String> homepage
+  +List<String> blockchainSite
+  +List<String> officialForumUrl
+  +List<String> chatUrl
+  +List<String> announcementUrl
+  +String subredditUrl
+  +ToOne<Coin> coin
+  +List<Object?> props
+}
+
+"crypto_tracker_app::domain::entities::links.dart::Links" o-- "objectbox::src::relations::to_one.dart::ToOne<Coin>"
+"equatable::src::equatable.dart::Equatable" <|-- "crypto_tracker_app::domain::entities::links.dart::Links"
+
+class "crypto_tracker_app::domain::entities::coins_list.dart::CoinsList" {
+  +int id
+  +String coinId
+  +String name
+  +String symbol
+  +ToMany<Coin> coins
+  +List<Object?> props
+}
+
+"crypto_tracker_app::domain::entities::coins_list.dart::CoinsList" o-- "objectbox::src::relations::to_many.dart::ToMany<Coin>"
+"equatable::src::equatable.dart::Equatable" <|-- "crypto_tracker_app::domain::entities::coins_list.dart::CoinsList"
+
+class "crypto_tracker_app::domain::entities::developer_data.dart::DeveloperData" {
+  +int id
+  +int forks
+  +int stars
+  +int subscribers
+  +int totalIssues
+  +int closedIssues
+  +int pullRequestMerged
+  +int pullRequestContributors
+  +String codeAdditionsDeletions4Weeks
+  +int commitCountForWeeks
+  +List<String> last4WeeksCommitActivitySeries
+  +ToOne<Coin> coin
+  +List<Object?> props
+}
+
+"crypto_tracker_app::domain::entities::developer_data.dart::DeveloperData" o-- "objectbox::src::relations::to_one.dart::ToOne<Coin>"
+"equatable::src::equatable.dart::Equatable" <|-- "crypto_tracker_app::domain::entities::developer_data.dart::DeveloperData"
+
+class "crypto_tracker_app::domain::entities::community_data.dart::CommunityData" {
+  +int id
+  +int facebookLikes
+  +int twitterFollowers
+  +double redditAveragePosts48h
+  +double redditAverageComments48h
+  +int redditSubscribers
+  +int redditAccountsActive48h
+  +int telegramChannelUserCount
+  +ToOne<Coin> coin
+  +List<Object?> props
+}
+
+"crypto_tracker_app::domain::entities::community_data.dart::CommunityData" o-- "objectbox::src::relations::to_one.dart::ToOne<Coin>"
+"equatable::src::equatable.dart::Equatable" <|-- "crypto_tracker_app::domain::entities::community_data.dart::CommunityData"
+
+class "crypto_tracker_app::domain::entities::image.dart::Image" {
+  +int id
+  +String thumb
+  +String small
+  +String large
+  +ToOne<Coin> coin
+  +List<Object?> props
+}
+
+"crypto_tracker_app::domain::entities::image.dart::Image" o-- "objectbox::src::relations::to_one.dart::ToOne<Coin>"
+"equatable::src::equatable.dart::Equatable" <|-- "crypto_tracker_app::domain::entities::image.dart::Image"
+
+class "crypto_tracker_app::domain::entities::platforms.dart::Platforms" {
+  +int id
+  +String kardiachain
+  +String moonriver
+  +String sora
+  +String tomochain
+  +ToOne<Coin> coin
+  +List<Object?> props
+}
+
+"crypto_tracker_app::domain::entities::platforms.dart::Platforms" o-- "objectbox::src::relations::to_one.dart::ToOne<Coin>"
+"equatable::src::equatable.dart::Equatable" <|-- "crypto_tracker_app::domain::entities::platforms.dart::Platforms"
+
+class "crypto_tracker_app::domain::entities::coin.dart::Coin" {
+  +int id
+  +String coinId
+  +String symbol
+  +String name
+  +int blockTimeInMinutes
+  +String algorithm
+  +List<String> categories
+  +String genesisDate
+  +double sentimentVotesUpPercentage
+  +double sentimentVotesDownPercentage
+  +int marketCapRank
+  +int coinGeckoRank
+  +double coinGeckoScore
+  +double developerScore
+  +double communityScore
+  +double liquidityScore
+  +int publicInterestScore
+  +DateTime lastUpdated
+  +ToOne<CoinsList> coinList
+  +ToOne<Image> image
+  +List<Object?> props
+}
+
+"crypto_tracker_app::domain::entities::coin.dart::Coin" o-- "objectbox::src::relations::to_one.dart::ToOne<CoinsList>"
+"crypto_tracker_app::domain::entities::coin.dart::Coin" o-- "objectbox::src::relations::to_one.dart::ToOne<Image>"
+"equatable::src::equatable.dart::Equatable" <|-- "crypto_tracker_app::domain::entities::coin.dart::Coin"
+
+class "crypto_tracker_app::domain::usecases::get_coin_by_id.dart::GetCoinById" {
+  +CoinRepository<dynamic> coinRepository
+  +Future<Either<Failure, List<dynamic>>> call()
+}
+
+"crypto_tracker_app::domain::usecases::get_coin_by_id.dart::GetCoinById" o-- "crypto_tracker_app::domain::repositories::coin_repository.dart::CoinRepository<dynamic>"
+"crypto_tracker_app::core::usecases::usecase.dart::UseCase" <|-- "crypto_tracker_app::domain::usecases::get_coin_by_id.dart::GetCoinById"
+
+class "crypto_tracker_app::domain::usecases::get_coin_by_id.dart::Params" {
+  +String selectedCoin
+  +List<Object?> props
+}
+
+"equatable::src::equatable.dart::Equatable" <|-- "crypto_tracker_app::domain::usecases::get_coin_by_id.dart::Params"
+
+class "crypto_tracker_app::domain::usecases::get_coins_list.dart::GetCoinsList" {
+  +CoinsListRepository<dynamic> coinsListRepository
+  +Future<Either<Failure, List<CoinsList>>> call()
+}
+
+"crypto_tracker_app::domain::usecases::get_coins_list.dart::GetCoinsList" o-- "crypto_tracker_app::domain::repositories::coins_list_repository.dart::CoinsListRepository<dynamic>"
+"crypto_tracker_app::core::usecases::usecase.dart::UseCase" <|-- "crypto_tracker_app::domain::usecases::get_coins_list.dart::GetCoinsList"
+
+class "crypto_tracker_app::data::repositories::coins_list_repository_impl.dart::CoinsListRepositoryImpl" {
+  +CryptoRemoteDataSource cryptoRemoteDataSource
+  +CryptoLocalDataSource cryptoLocalDataSource
+  +CryptoRequest cryptoRequest
+  +NetworkInfo networkInfo
+  +Future<Either<Failure, List<CoinsList>>> getCoinsList()
+  -Future<List<CoinsList>> _getRemoteDataListCoins()
+}
+
+"crypto_tracker_app::data::repositories::coins_list_repository_impl.dart::CoinsListRepositoryImpl" o-- "crypto_tracker_app::data::datasources::remote::crypto_remote_data_source.dart::CryptoRemoteDataSource"
+"crypto_tracker_app::data::repositories::coins_list_repository_impl.dart::CoinsListRepositoryImpl" o-- "crypto_tracker_app::data::datasources::local::crypto_local_data_source.dart::CryptoLocalDataSource"
+"crypto_tracker_app::data::repositories::coins_list_repository_impl.dart::CoinsListRepositoryImpl" o-- "crypto_tracker_app::data::models::request::crypto_request.dart::CryptoRequest"
+"crypto_tracker_app::data::repositories::coins_list_repository_impl.dart::CoinsListRepositoryImpl" o-- "crypto_tracker_app::core::network::network_info.dart::NetworkInfo"
+"crypto_tracker_app::domain::repositories::coins_list_repository.dart::CoinsListRepository" <|-- "crypto_tracker_app::data::repositories::coins_list_repository_impl.dart::CoinsListRepositoryImpl"
+
+class "crypto_tracker_app::data::repositories::coin_repository_impl.dart::CoinRepositoryImpl" {
+  +CryptoRemoteDataSource cryptoRemoteDataSource
+  +CryptoLocalDataSource cryptoLocalDataSource
+  +CryptoRequest cryptoRequest
+  +NetworkInfo networkInfo
+  +Future<Either<Failure, List<dynamic>>> getCoinById()
+  -Future<List<dynamic>> _getRemoteDataCoinById()
+}
+
+"crypto_tracker_app::data::repositories::coin_repository_impl.dart::CoinRepositoryImpl" o-- "crypto_tracker_app::data::datasources::remote::crypto_remote_data_source.dart::CryptoRemoteDataSource"
+"crypto_tracker_app::data::repositories::coin_repository_impl.dart::CoinRepositoryImpl" o-- "crypto_tracker_app::data::datasources::local::crypto_local_data_source.dart::CryptoLocalDataSource"
+"crypto_tracker_app::data::repositories::coin_repository_impl.dart::CoinRepositoryImpl" o-- "crypto_tracker_app::data::models::request::crypto_request.dart::CryptoRequest"
+"crypto_tracker_app::data::repositories::coin_repository_impl.dart::CoinRepositoryImpl" o-- "crypto_tracker_app::core::network::network_info.dart::NetworkInfo"
+"crypto_tracker_app::domain::repositories::coin_repository.dart::CoinRepository" <|-- "crypto_tracker_app::data::repositories::coin_repository_impl.dart::CoinRepositoryImpl"
+
+class "crypto_tracker_app::data::datasources::remote::crypto_remote_data_source_impl.dart::CryptoRemoteDataSourceImpl" {
+  {static} +String coinsListUrl
+  {static} +String coinUrl
+  +Future<List<CoinsListResponse>> getCoinsList()
+  +Future<CoinResponse> getCoinById()
+}
+
+"crypto_tracker_app::data::datasources::remote::crypto_remote_data_source.dart::CryptoRemoteDataSource" <|-- "crypto_tracker_app::data::datasources::remote::crypto_remote_data_source_impl.dart::CryptoRemoteDataSourceImpl"
+
+abstract class "crypto_tracker_app::data::datasources::remote::crypto_remote_data_source.dart::CryptoRemoteDataSource" {
+  +Future<List<CoinsListResponse>> getCoinsList()
+  +Future<CoinResponse> getCoinById()
+}
+
+abstract class "crypto_tracker_app::data::datasources::local::crypto_local_data_source.dart::CryptoLocalDataSource" {
+  +Future<List<CoinsList>> getLastCoinsList()
+  +Future<void> cacheCoinsList()
+  +Future<List<dynamic>> getLastCoin()
+  +Future<void> cacheCoin()
+}
+
+class "crypto_tracker_app::data::datasources::local::crypto_local_data_source_impl.dart::CryptoLocalDataSourceImpl" {
+  +ObjectBoxDatabase objectBoxDatabase
+  +Future<void> cacheCoin()
+  +Future<void> cacheCoinsList()
+  +Future<List<dynamic>> getLastCoin()
+  +Future<List<CoinsList>> getLastCoinsList()
+  -Future<void> _addEntities()
+}
+
+"crypto_tracker_app::data::datasources::local::crypto_local_data_source_impl.dart::CryptoLocalDataSourceImpl" o-- "crypto_tracker_app::data::datasources::local::object_box_database.dart::ObjectBoxDatabase"
+"crypto_tracker_app::data::datasources::local::crypto_local_data_source.dart::CryptoLocalDataSource" <|-- "crypto_tracker_app::data::datasources::local::crypto_local_data_source_impl.dart::CryptoLocalDataSourceImpl"
+
+class "crypto_tracker_app::data::datasources::local::object_box_database.dart::ObjectBoxDatabase" {
+  +Store store
+  -Box<CoinsList> _boxListCoin
+  -Box<Coin> _boxCoin
+  -Box<Image> _boxImage
+  -Box<Links> _boxLinks
+  -Box<Description> _boxDescription
+  -Box<CommunityData> _boxCommunityData
+  -Box<DeveloperData> _boxDeveloperData
+  -Box<Platforms> _boxPlatforms
+  {static} +Future<ObjectBoxDatabase> initialization()
+}
+
+"crypto_tracker_app::data::datasources::local::object_box_database.dart::ObjectBoxDatabase" o-- "objectbox::src::native::store.dart::Store"
+"crypto_tracker_app::data::datasources::local::object_box_database.dart::ObjectBoxDatabase" o-- "objectbox::src::native::box.dart::Box<CoinsList>"
+"crypto_tracker_app::data::datasources::local::object_box_database.dart::ObjectBoxDatabase" o-- "objectbox::src::native::box.dart::Box<Coin>"
+"crypto_tracker_app::data::datasources::local::object_box_database.dart::ObjectBoxDatabase" o-- "objectbox::src::native::box.dart::Box<Image>"
+"crypto_tracker_app::data::datasources::local::object_box_database.dart::ObjectBoxDatabase" o-- "objectbox::src::native::box.dart::Box<Links>"
+"crypto_tracker_app::data::datasources::local::object_box_database.dart::ObjectBoxDatabase" o-- "objectbox::src::native::box.dart::Box<Description>"
+"crypto_tracker_app::data::datasources::local::object_box_database.dart::ObjectBoxDatabase" o-- "objectbox::src::native::box.dart::Box<CommunityData>"
+"crypto_tracker_app::data::datasources::local::object_box_database.dart::ObjectBoxDatabase" o-- "objectbox::src::native::box.dart::Box<DeveloperData>"
+"crypto_tracker_app::data::datasources::local::object_box_database.dart::ObjectBoxDatabase" o-- "objectbox::src::native::box.dart::Box<Platforms>"
+
+class "crypto_tracker_app::data::models::request::coins_list_request.dart::CoinsListRequest" {
+  +bool includePlatform
+  +List<Object?> props
+  +Map<String, bool> toMap()
+}
+
+"crypto_tracker_app::data::models::request::crypto_request.dart::CryptoRequest" <|-- "crypto_tracker_app::data::models::request::coins_list_request.dart::CoinsListRequest"
+
+abstract class "crypto_tracker_app::data::models::request::crypto_request.dart::CryptoRequest" {
+  +List<Object?> props
+  +Map<String, dynamic> toMap()
+}
+
+"equatable::src::equatable.dart::Equatable" <|-- "crypto_tracker_app::data::models::request::crypto_request.dart::CryptoRequest"
+
+class "crypto_tracker_app::data::models::request::coin_request.dart::CoinRequest" {
+  +String localization
+  +bool tickers
+  +bool marketData
+  +bool communityData
+  +bool developerData
+  +bool sparkline
+  +List<Object?> props
+  +Map<String, dynamic> toMap()
+}
+
+"crypto_tracker_app::data::models::request::crypto_request.dart::CryptoRequest" <|-- "crypto_tracker_app::data::models::request::coin_request.dart::CoinRequest"
+
+class "crypto_tracker_app::data::models::response::coin_response.dart::CoinResponse" {
+  +String coinId
+  +String symbol
+  +String name
+  +PlatformsResponse platforms
+  +int blockTimeInMinutes
+  +String algorithm
+  +List<String> categories
+  +DescriptionResponse description
+  +LinksResponse links
+  +ImageResponse image
+  +String genesisDate
+  +double sentimentVotesUpPercentage
+  +double sentimentVotesDownPercentage
+  +int marketCapRank
+  +int coinGeckoRank
+  +double coinGeckoScore
+  +double developerScore
+  +double communityScore
+  +double liquidityScore
+  +int publicInterestScore
+  +CommunityDataResponse communityData
+  +DeveloperDataResponse developerData
+  +DateTime lastUpdated
+  +List<Object?> props
+  +Coin toEntity()
+  +List<dynamic> toEntities()
+}
+
+"crypto_tracker_app::data::models::response::coin_response.dart::CoinResponse" o-- "crypto_tracker_app::data::models::coin_properties_model::platforms_response.dart::PlatformsResponse"
+"crypto_tracker_app::data::models::response::coin_response.dart::CoinResponse" o-- "crypto_tracker_app::data::models::coin_properties_model::description_response.dart::DescriptionResponse"
+"crypto_tracker_app::data::models::response::coin_response.dart::CoinResponse" o-- "crypto_tracker_app::data::models::coin_properties_model::links_response.dart::LinksResponse"
+"crypto_tracker_app::data::models::response::coin_response.dart::CoinResponse" o-- "crypto_tracker_app::data::models::coin_properties_model::image_response.dart::ImageResponse"
+"crypto_tracker_app::data::models::response::coin_response.dart::CoinResponse" o-- "crypto_tracker_app::data::models::coin_properties_model::community_data_response.dart::CommunityDataResponse"
+"crypto_tracker_app::data::models::response::coin_response.dart::CoinResponse" o-- "crypto_tracker_app::data::models::coin_properties_model::developer_data_response.dart::DeveloperDataResponse"
+"equatable::src::equatable.dart::Equatable" <|-- "crypto_tracker_app::data::models::response::coin_response.dart::CoinResponse"
+
+class "crypto_tracker_app::data::models::response::coins_list_response.dart::CoinsListResponse" {
+  +String id
+  +String name
+  +String symbol
+  +List<Object?> props
+  +CoinsList toEntity()
+}
+
+"equatable::src::equatable.dart::Equatable" <|-- "crypto_tracker_app::data::models::response::coins_list_response.dart::CoinsListResponse"
+
+class "crypto_tracker_app::data::models::coin_properties_model::community_data_response.dart::CommunityDataResponse" {
+  +int facebookLikes
+  +int twitterFollowers
+  +double redditAveragePosts48h
+  +double redditAverageComments48h
+  +int redditSubscribers
+  +int redditAccountsActive48h
+  +int telegramChannelUserCount
+  +List<Object?> props
+  +CommunityData toEntity()
+}
+
+"equatable::src::equatable.dart::Equatable" <|-- "crypto_tracker_app::data::models::coin_properties_model::community_data_response.dart::CommunityDataResponse"
+
+class "crypto_tracker_app::data::models::coin_properties_model::description_response.dart::DescriptionResponse" {
+  +String en
+  +String de
+  +String es
+  +String fr
+  +String it
+  +String pl
+  +String ro
+  +String hu
+  +String nl
+  +String pt
+  +String sv
+  +String vi
+  +String tr
+  +String ru
+  +String ja
+  +String zh
+  +String zhtw
+  +String ko
+  +String ar
+  +String th
+  +String idd
+  +List<Object?> props
+  +Description toEntity()
+}
+
+"equatable::src::equatable.dart::Equatable" <|-- "crypto_tracker_app::data::models::coin_properties_model::description_response.dart::DescriptionResponse"
+
+class "crypto_tracker_app::data::models::coin_properties_model::links_response.dart::LinksResponse" {
+  +List<String> homepage
+  +List<String> blockchainSite
+  +List<String> officialForumUrl
+  +List<String> chatUrl
+  +List<String> announcementUrl
+  +String subredditUrl
+  +List<Object?> props
+  +Links toEntity()
+}
+
+"equatable::src::equatable.dart::Equatable" <|-- "crypto_tracker_app::data::models::coin_properties_model::links_response.dart::LinksResponse"
+
+class "crypto_tracker_app::data::models::coin_properties_model::platforms_response.dart::PlatformsResponse" {
+  +String kardiachain
+  +String moonriver
+  +String sora
+  +String tomochain
+  +List<Object?> props
+  +Platforms toEntity()
+}
+
+"equatable::src::equatable.dart::Equatable" <|-- "crypto_tracker_app::data::models::coin_properties_model::platforms_response.dart::PlatformsResponse"
+
+class "crypto_tracker_app::data::models::coin_properties_model::developer_data_response.dart::DeveloperDataResponse" {
+  +int forks
+  +int stars
+  +int subscribers
+  +int totalIssues
+  +int closedIssues
+  +int pullRequestMerged
+  +int pullRequestContributors
+  +Map<String, dynamic> codeAdditionsDeletions4Weeks
+  +int commitCountForWeeks
+  +List<String> last4WeeksCommitActivitySeries
+  +List<Object?> props
+  +DeveloperData toEntity()
+}
+
+"equatable::src::equatable.dart::Equatable" <|-- "crypto_tracker_app::data::models::coin_properties_model::developer_data_response.dart::DeveloperDataResponse"
+
+class "crypto_tracker_app::data::models::coin_properties_model::image_response.dart::ImageResponse" {
+  +String thumb
+  +String small
+  +String large
+  +List<Object?> props
+  +Image toEntity()
+}
+
+"equatable::src::equatable.dart::Equatable" <|-- "crypto_tracker_app::data::models::coin_properties_model::image_response.dart::ImageResponse"
+
+abstract class "crypto_tracker_app::core::error::failures.dart::Failure" {
+  +List<Object> props
+}
+
+"equatable::src::equatable.dart::Equatable" <|-- "crypto_tracker_app::core::error::failures.dart::Failure"
+
+class "crypto_tracker_app::core::error::failures.dart::ServerFailure" {
+  +String message
+  +int code
+  +List<Object> props
+}
+
+"crypto_tracker_app::core::error::failures.dart::Failure" <|-- "crypto_tracker_app::core::error::failures.dart::ServerFailure"
+
+class "crypto_tracker_app::core::error::failures.dart::CacheFailure" {
+  +String message
+  +int code
+  +List<Object> props
+}
+
+"crypto_tracker_app::core::error::failures.dart::Failure" <|-- "crypto_tracker_app::core::error::failures.dart::CacheFailure"
+
+class "crypto_tracker_app::core::error::failures.dart::InvalidInputFailure" {
+}
+
+"crypto_tracker_app::core::error::failures.dart::Failure" <|-- "crypto_tracker_app::core::error::failures.dart::InvalidInputFailure"
+
+class "crypto_tracker_app::core::error::failures.dart::InvalidConversionTypeFailure" {
+}
+
+"crypto_tracker_app::core::error::failures.dart::Failure" <|-- "crypto_tracker_app::core::error::failures.dart::InvalidConversionTypeFailure"
+
+class "crypto_tracker_app::core::error::failures.dart::StandardFailure" {
+  +String message
+  +int code
+  +List<Object> props
+}
+
+"crypto_tracker_app::core::error::failures.dart::Failure" <|-- "crypto_tracker_app::core::error::failures.dart::StandardFailure"
+
+class "crypto_tracker_app::core::error::exception.dart::ServerException" {
+}
+
+"dart::core::Exception" <|-- "crypto_tracker_app::core::error::exception.dart::ServerException"
+
+class "crypto_tracker_app::core::error::exception.dart::CacheException" {
+}
+
+"dart::core::Exception" <|-- "crypto_tracker_app::core::error::exception.dart::CacheException"
+
+class "crypto_tracker_app::core::util::data_type_converter.dart::DataTypeConverter" {
+  +Either<Failure, Map<dynamic, dynamic>> stringToMapConvert()
+  +String mapToStringConvert()
+  +Either<Failure, int> stringToUnsignedInteger()
+  +Either<Failure, String> integerToUnsignedString()
+  +List<String> variousListToStringList()
+}
+
+abstract class "crypto_tracker_app::core::usecases::usecase.dart::UseCase" {
+  +Future<Either<Failure, Type>> call()
+}
+
+class "crypto_tracker_app::core::usecases::usecase.dart::NoParams" {
+  +List<Object?> props
+}
+
+"equatable::src::equatable.dart::Equatable" <|-- "crypto_tracker_app::core::usecases::usecase.dart::NoParams"
+
+class "crypto_tracker_app::core::network::network_info_impl.dart::NetworkInfoImpl" {
+  +InternetConnectionChecker connectionChecker
+  +Future<bool> isConnected
+}
+
+"crypto_tracker_app::core::network::network_info_impl.dart::NetworkInfoImpl" o-- "internet_connection_checker::internet_connection_checker.dart::InternetConnectionChecker"
+"crypto_tracker_app::core::network::network_info.dart::NetworkInfo" <|-- "crypto_tracker_app::core::network::network_info_impl.dart::NetworkInfoImpl"
+
+abstract class "crypto_tracker_app::core::network::network_info.dart::NetworkInfo" {
+  +Future<bool> isConnected
+}
+
+class "crypto_tracker_app::main.dart::MyApp" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "crypto_tracker_app::main.dart::MyApp"
+
+class "crypto_tracker_app::presentation::widgets::custom_button.dart::CustomButton" {
+  +String title
+  +void Function() onTap
+  +Widget build()
+}
+
+"crypto_tracker_app::presentation::widgets::custom_button.dart::CustomButton" o-- "dart::ui::void Function()"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "crypto_tracker_app::presentation::widgets::custom_button.dart::CustomButton"
+
+class "crypto_tracker_app::presentation::widgets::navigator.dart::RouteGenerator" {
+  {static} +Route<dynamic> generateRoute()
+  {static} +MaterialPageRoute<dynamic> pageNotFound()
+}
+
+class "crypto_tracker_app::presentation::widgets::custom_text.dart::CustomButtonText" {
+}
+
+"flutter::src::widgets::text.dart::Text" <|-- "crypto_tracker_app::presentation::widgets::custom_text.dart::CustomButtonText"
+
+class "crypto_tracker_app::presentation::widgets::custom_text.dart::CustomCryptoText" {
+}
+
+"flutter::src::widgets::text.dart::Text" <|-- "crypto_tracker_app::presentation::widgets::custom_text.dart::CustomCryptoText"
+
+class "crypto_tracker_app::presentation::widgets::custom_text.dart::CustomTitleSection" {
+}
+
+"flutter::src::widgets::text.dart::Text" <|-- "crypto_tracker_app::presentation::widgets::custom_text.dart::CustomTitleSection"
+
+class "crypto_tracker_app::presentation::widgets::error.dart::Error" {
+  +String message
+  +void Function() callback
+  +Widget build()
+}
+
+"crypto_tracker_app::presentation::widgets::error.dart::Error" o-- "dart::ui::void Function()"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "crypto_tracker_app::presentation::widgets::error.dart::Error"
+
+class "crypto_tracker_app::presentation::widgets::loading.dart::Loading" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "crypto_tracker_app::presentation::widgets::loading.dart::Loading"
+
+class "crypto_tracker_app::presentation::widgets::custom_icons.dart::CustomIcons" {
+  {static} -String _kFontFam
+  {static} -String? _kFontPkg
+  {static} +IconData link
+  {static} +IconData github
+  {static} +IconData reddit
+  {static} +IconData newspaper
+  {static} +IconData at
+  {static} +IconData chartLine
+  {static} +IconData rocketChat
+  {static} +IconData pager
+}
+
+"crypto_tracker_app::presentation::widgets::custom_icons.dart::CustomIcons" o-- "flutter::src::widgets::icon_data.dart::IconData"
+
+class "crypto_tracker_app::presentation::pages::coins_list_screen.dart::CoinsListScreen" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "crypto_tracker_app::presentation::pages::coins_list_screen.dart::CoinsListScreen"
+
+class "crypto_tracker_app::presentation::pages::coins_list_screen.dart::_BuildBodyListCoinsWidget" {
+  +Widget build()
+}
+
+"flutter_riverpod::src::consumer.dart::ConsumerWidget" <|-- "crypto_tracker_app::presentation::pages::coins_list_screen.dart::_BuildBodyListCoinsWidget"
+
+class "crypto_tracker_app::presentation::pages::coin_screen.dart::CoinScreen" {
+  +String selectedCoin
+  +Widget build()
+  -Widget _buildProfileCoin()
+  -Column _buildButtonLinkColumn()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "crypto_tracker_app::presentation::pages::coin_screen.dart::CoinScreen"
+
+class "crypto_tracker_app::presentation::pages::wallet_screen.dart::WalletScreen" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "crypto_tracker_app::presentation::pages::wallet_screen.dart::WalletScreen"
+
+class "crypto_tracker_app::presentation::pages::about_screen.dart::AboutScreen" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "crypto_tracker_app::presentation::pages::about_screen.dart::AboutScreen"
+
+
+@enduml

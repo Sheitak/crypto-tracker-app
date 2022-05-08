@@ -10,12 +10,12 @@ import 'package:crypto_tracker_app/data/models/request/crypto_request.dart';
 import 'package:crypto_tracker_app/data/models/request/coin_request.dart';
 
 final cryptoRequestProvider = Provider<CryptoRequest>((ref) => CoinRequest(
-    communityData: true,
-    sparkline: false,
-    developerData: false,
-    tickers: false,
     localization: 'false',
-    marketData: false
+    tickers: false,
+    marketData: false,
+    communityData: true,
+    developerData: true,
+    sparkline: false
 ));
 
 final coinRepositoryProvider = Provider<CoinRepository>((ref) => CoinRepositoryImpl(

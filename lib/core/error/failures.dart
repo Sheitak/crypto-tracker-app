@@ -43,6 +43,8 @@ class CacheFailure extends Failure {
 
 class InvalidInputFailure extends Failure {}
 
+class InvalidConversionTypeFailure extends Failure {}
+
 class StandardFailure extends Failure {
   final String message;
   final int code;

@@ -3,9 +3,8 @@
 // Do not manually edit this file.
 
 import 'package:crypto_tracker_app/data/datasources/local/object_box_database.dart'
-    as _i3;
+    as _i2;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:objectbox/objectbox.dart' as _i2;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -17,21 +16,16 @@ import 'package:objectbox/objectbox.dart' as _i2;
 // ignore_for_file: unnecessary_parenthesis
 // ignore_for_file: camel_case_types
 
-class _FakeStore_0 extends _i1.Fake implements _i2.Store {}
-
 /// A class which mocks [ObjectBoxDatabase].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockObjectBoxDatabase extends _i1.Mock implements _i3.ObjectBoxDatabase {
+class MockObjectBoxDatabase extends _i1.Mock implements _i2.ObjectBoxDatabase {
   MockObjectBoxDatabase() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i2.Store get store => (super.noSuchMethod(Invocation.getter(#store),
-      returnValue: _FakeStore_0()) as _i2.Store);
-  @override
-  set store(_i2.Store? _store) =>
+  set store(dynamic _store) =>
       super.noSuchMethod(Invocation.setter(#store, _store),
           returnValueForMissingStub: null);
 }

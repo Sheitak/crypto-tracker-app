@@ -1,3 +1,4 @@
+import 'package:crypto_tracker_app/core/util/data_type_converter.dart';
 import 'package:crypto_tracker_app/data/models/coin_properties_model/community_data_response.dart';
 import 'package:crypto_tracker_app/data/models/coin_properties_model/description_response.dart';
 import 'package:crypto_tracker_app/data/models/coin_properties_model/developer_data_response.dart';
@@ -12,7 +13,6 @@ import 'package:crypto_tracker_app/domain/entities/image.dart';
 import 'package:crypto_tracker_app/domain/entities/links.dart';
 import 'package:crypto_tracker_app/domain/entities/platforms.dart';
 import 'package:equatable/equatable.dart';
-import 'dart:convert';
 
 class CoinResponse extends Equatable {
   final String coinId;
@@ -34,7 +34,7 @@ class CoinResponse extends Equatable {
   final double developerScore;
   final double communityScore;
   final double liquidityScore;
-  final double publicInterestScore;
+  final int publicInterestScore;
   final CommunityDataResponse communityData;
   final DeveloperDataResponse developerData;
   final DateTime lastUpdated;
@@ -137,13 +137,7 @@ class CoinResponse extends Equatable {
   }
 
   factory CoinResponse.fromJson(Map<String, dynamic> data) {
-    // var list = data['image'] as List;
-    // List<String> imageList = list.map((element) => ImageResponse.fromJson(element)).toList() as List<String>;
-    // [ERROR:flutter/lib/ui/ui_dart_state.cc(209)] Unhandled Exception: type '(dynamic) => ImageResponse'
-    // is not a subtype of type '(String, dynamic) => MapEntry<dynamic, dynamic>' of 'transform'
-
-    String jsonStringImage = json.encode(Map<String, String>.from(data['image'] ?? {}));
-
+    final DataTypeConverter dataTypeConverter = DataTypeConverter();
     return CoinResponse(
       coinId: data['id'] ?? '',
       symbol: data['symbol'] ?? '',
@@ -151,7 +145,7 @@ class CoinResponse extends Equatable {
       platforms: PlatformsResponse.fromJson(data['platforms'] ?? {}),
       blockTimeInMinutes: data['block_time_in_minutes'] ?? 0,
       algorithm: data['hashing_algorithm'] ?? '',
-      categories: List<String>.from(data['categories'] ?? []),
+      categories: List<String>.from(dataTypeConverter.variousListToStringList(data['categories'])),
       description: DescriptionResponse.fromJson(data['description'] ?? {}),
       links: LinksResponse.fromJson(data['links'] ?? {}),
       image: ImageResponse.fromJson(data['image'] ?? {}),

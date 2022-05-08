@@ -9,20 +9,17 @@ import 'package:mockito/mockito.dart';
 import 'package:mockito/annotations.dart';
 import 'get_coin_by_id_test.mocks.dart';
 
-@GenerateMocks([CoinRepository, CryptoRepository])
+@GenerateMocks([CoinRepository])
 void main() {
   late GetCoinById useCase;
   late MockCoinRepository mockCoinRepository;
-  // late MockCryptoRepository mockCryptoRepository;
   late String tSelectedCoin;
   late List<dynamic> tEntities;
 
 
   setUp(() {
     mockCoinRepository = MockCoinRepository();
-    // mockCryptoRepository = MockCryptoRepository();
     useCase = GetCoinById(
-        // cryptoRepository: mockCryptoRepository
         coinRepository: mockCoinRepository
     );
     tSelectedCoin = 'bitcoin';
@@ -71,19 +68,4 @@ void main() {
     verify(mockCoinRepository.getCoinById(tSelectedCoin));
     verifyNoMoreInteractions(mockCoinRepository);
   });
-
-  // test('should get a list of entities corresponding to the ownership of a single cryptocurrency', () async {
-  //   // arrange
-  //   when(mockCryptoRepository.getCoinById(tSelectedCoin))
-  //       .thenAnswer((_) async => Right(tEntities));
-  //
-  //   // act
-  //   final result = await useCase(Params(selectedCoin: tSelectedCoin));
-  //
-  //   // assert
-  //   expect(result, Right(tEntities));
-  //   verify(mockCryptoRepository.getCoinById(tSelectedCoin));
-  //   verifyNoMoreInteractions(mockCryptoRepository);
-  // },
-  // );
 }

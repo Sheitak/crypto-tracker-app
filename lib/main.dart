@@ -3,6 +3,7 @@ import 'package:crypto_tracker_app/presentation/widgets/navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:crypto_tracker_app/core/providers/app_provider.dart';
+import 'package:dcdg/dcdg.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

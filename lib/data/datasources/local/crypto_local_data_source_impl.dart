@@ -99,6 +99,10 @@ class CryptoLocalDataSourceImpl extends CryptoLocalDataSource {
     final _boxListCoins = objectBoxDatabase.store.box<CoinsList>();
     List<CoinsList> coinsList = _boxListCoins.getAll();
 
+    // Query<CoinsList> query  = (_boxListCoins.query()..order(CoinsList_.symbol, flags: Order.descending)) as Query<CoinsList>;
+    // QueryBuilder<CoinsList> query = _boxListCoins.query()..order(CoinsList_.symbol, flags: Order.descending);
+    // List<CoinsList> coinsList = query.build();
+
     return coinsList.isEmpty ? throw CacheException() : coinsList;
   }
 

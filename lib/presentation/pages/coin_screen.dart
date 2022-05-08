@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:crypto_tracker_app/core/error/failures.dart';
+import 'package:crypto_tracker_app/core/util/data_type_converter.dart';
 import 'package:crypto_tracker_app/core/providers/coin_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:crypto_tracker_app/presentation/widgets/custom_icons.dart';
@@ -67,6 +68,8 @@ class CoinScreen extends StatelessWidget {
 
   Widget _buildProfileCoin() {
     return Consumer(builder: (BuildContext context, WidgetRef ref, child) {
+      // final DataTypeConverter dataTypeConverter = DataTypeConverter();
+      // print(ref.watch(coinViewModelProvider(selectedCoin)));
       return ref.watch(coinViewModelProvider(selectedCoin)).when(
           data: (either) {
             return either.fold(
@@ -280,6 +283,32 @@ class CoinScreen extends StatelessWidget {
                                   ),
                                   CustomCryptoText(
                                       'Telegram Channel Users : ${coin[4].telegramChannelUserCount}'
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 30.0),
+                          child: Card(
+                            elevation: 3.0,
+                            child: Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  CustomTitleSection(
+                                      'Developer Data\'s'
+                                  ),
+                                  Container(height: 10.0),
+                                  CustomCryptoText(
+                                      'Forks : ${coin[5].forks}'
+                                  ),
+                                  CustomCryptoText(
+                                      'CodeAdditionsDel : ${coin[5].codeAdditionsDeletions4Weeks}'
+                                    // TODO: Exemple du convertisseur de données en sortie sur la couche de présentation, avec Either.
+                                    //   'CodeAdditionsDel : ${dataTypeConverter.stringToMapConvert(coin[5].codeAdditionsDeletions4Weeks).fold((l) => '', (r) => r['additions'])}'
                                   ),
                                 ],
                               ),

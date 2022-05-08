@@ -65,8 +65,7 @@ void main() {
   );
 
   group('fromJson', () {
-    // TODO: Modifier last4WeeksCommitActivitySeries pour List<int> puis dynamic
-    // TODO: Modifier publicInterestScore pour int plutôt que double
+    // TODO: Modifier last4WeeksCommitActivitySeries pour List<int> puis dynamic / Non pris en charge
     test('should return a valid template of JSON data', () async {
         // arrange
         final Map<String, dynamic> jsonMap = json.decode(

@@ -27,12 +27,4 @@ class Platforms extends Equatable {
     sora,
     tomochain
   ];
-
-// "platforms": {
-//     "": "",
-//     "kardiachain": "0x1540020a94aa8bc189aa97639da213a4ca49d9a7",
-//     "moonriver": "0x639a647fbe20b6c8ac19e48e2de44ea792c62c5c",
-//     "sora": "0x0200070000000000000000000000000000000000000000000000000000000000 ",
-//     "tomochain": "0x2eaa73bd0db20c64f53febea7b5f5e5bccc7fb8b"
-// },
 }

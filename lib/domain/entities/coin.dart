@@ -22,7 +22,9 @@ class Coin extends Equatable {
   final double developerScore;
   final double communityScore;
   final double liquidityScore;
-  final double publicInterestScore;
+  // @Property(uid: 7994850202424846190)
+  @Property(uid: 5577530271533150485)
+  final int publicInterestScore;
   @Property(type: PropertyType.date)
   final DateTime lastUpdated;
   final coinList = ToOne<CoinsList>();
@@ -71,12 +73,4 @@ class Coin extends Equatable {
     publicInterestScore,
     lastUpdated,
   ];
-  // set dbImage(String element) => image = ImageResponse.fromJson(
-  //     json.decode(element).map((key, value) => MapEntry(key as String, value as dynamic))
-  // ) as String;
-
-  // String get dbDescription => json.encode(description);
-  // set dbDescription(String element) => description = Description.fromJson(
-  //     json.decode(element).map((key, value) => MapEntry(key as String, value as dynamic))
-  // );
 }
