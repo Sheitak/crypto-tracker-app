@@ -34,7 +34,7 @@ class CoinResponse extends Equatable {
   final double developerScore;
   final double communityScore;
   final double liquidityScore;
-  final int publicInterestScore;
+  final double publicInterestScore;
   final CommunityDataResponse communityData;
   final DeveloperDataResponse developerData;
   final DateTime lastUpdated;

@@ -23,8 +23,8 @@ class Coin extends Equatable {
   final double communityScore;
   final double liquidityScore;
   // @Property(uid: 7994850202424846190)
-  @Property(uid: 5577530271533150485)
-  final int publicInterestScore;
+  @Property(uid: 518945614990935428)
+  final double publicInterestScore;
   @Property(type: PropertyType.date)
   final DateTime lastUpdated;
   final coinList = ToOne<CoinsList>();

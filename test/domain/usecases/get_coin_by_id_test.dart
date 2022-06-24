@@ -1,7 +1,6 @@
 import 'package:crypto_tracker_app/domain/entities/coin.dart';
 import 'package:crypto_tracker_app/domain/entities/image.dart';
 import 'package:crypto_tracker_app/domain/repositories/coin_repository.dart';
-import 'package:crypto_tracker_app/domain/repositories/crypto_repository.dart';
 import 'package:crypto_tracker_app/domain/usecases/get_coin_by_id.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';

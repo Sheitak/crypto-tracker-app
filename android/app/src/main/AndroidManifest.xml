@@ -1,8 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.crypto.tracker.crypto_tracker_app">
+    <uses-permission
+        android:name="android.permission.INTERNET" />
    <application
-        android:label="crypto_tracker_app"
-        android:icon="@mipmap/ic_launcher">
+        android:label="CryptoTracker"
+        android:icon="@mipmap/crypto_tracker_launcher">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
