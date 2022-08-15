@@ -43,7 +43,8 @@ void main() {
           communityScore: 70.638,
           liquidityScore: 100.062,
           publicInterestScore: 0,
-          lastUpdated: DateTime(2021)
+          lastUpdated: DateTime(2021),
+          isFavorite: false
       ),
       Image(
           thumb: 'https://assets.coingecko.com/coins/images/1/thumb/bitcoin.png?1547033579',

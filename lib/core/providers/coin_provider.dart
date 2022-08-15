@@ -1,8 +1,9 @@
 import 'package:crypto_tracker_app/core/error/failures.dart';
-import 'package:crypto_tracker_app/core/usecases/usecase.dart';
+import 'package:crypto_tracker_app/domain/usecases/usecase.dart';
 import 'package:crypto_tracker_app/data/repositories/coin_repository_impl.dart';
 import 'package:crypto_tracker_app/domain/repositories/coin_repository.dart';
 import 'package:crypto_tracker_app/domain/usecases/get_coin_by_id.dart';
+import 'package:crypto_tracker_app/domain/usecases/update_favorites.dart' as update_favorites;
 import 'package:dartz/dartz.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:crypto_tracker_app/core/providers/app_provider.dart';
@@ -29,6 +30,10 @@ final getCoinByIdProvider = Provider<UseCase>((ref) => GetCoinById(
     coinRepository: ref.read(coinRepositoryProvider)
     // cryptoRepository: ref.read(cryptoRepositoryProvider)
 ));
+
+// final updateFavoritesProvider = Provider<UseCase>((ref) => update_favorites.UpdateFavorites(
+//     coinRepository: ref.read(coinRepositoryProvider)
+// ));
 
 final coinViewModelProvider = FutureProvider.autoDispose.family<Either<Failure, List>, String>((ref, selectedCoin) async {
   return await ref.read(getCoinByIdProvider).call(Params(selectedCoin: selectedCoin)) as Either<Failure, List>;

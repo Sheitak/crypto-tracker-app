@@ -4,4 +4,8 @@ import 'package:dartz/dartz.dart';
 
 abstract class CoinsListRepository<T> {
   Future<Either<Failure, List<CoinsList>>> getCoinsList();
+
+  Future<Either<Failure, List<CoinsList>>> getFavoritesCoinsList();
+  Future<bool> updateFavorites(String selectedCoin);
+  Future<int> getCoinsFavoritesNumbers();
 }

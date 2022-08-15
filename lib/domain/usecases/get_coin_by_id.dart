@@ -1,5 +1,5 @@
 import 'package:crypto_tracker_app/core/error/failures.dart';
-import 'package:crypto_tracker_app/core/usecases/usecase.dart';
+import 'package:crypto_tracker_app/domain/usecases/usecase.dart';
 import 'package:crypto_tracker_app/domain/repositories/coin_repository.dart';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';

@@ -1,4 +1,4 @@
-import 'package:crypto_tracker_app/core/usecases/usecase.dart';
+import 'package:crypto_tracker_app/domain/usecases/usecase.dart';
 import 'package:crypto_tracker_app/domain/entities/coins_list.dart';
 import 'package:crypto_tracker_app/domain/repositories/coins_list_repository.dart';
 import 'package:crypto_tracker_app/domain/repositories/crypto_repository.dart';

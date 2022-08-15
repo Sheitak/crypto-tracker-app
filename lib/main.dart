@@ -1,13 +1,25 @@
+import 'dart:io';
+
 import 'package:crypto_tracker_app/data/datasources/local/object_box_database.dart';
+import 'package:crypto_tracker_app/presentation/pages/auth_checker.dart';
+import 'package:crypto_tracker_app/presentation/pages/error_screen.dart';
+import 'package:crypto_tracker_app/presentation/pages/loading_screen.dart';
 import 'package:crypto_tracker_app/presentation/widgets/navigator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:crypto_tracker_app/core/providers/app_provider.dart';
 import 'package:dcdg/dcdg.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   final objectBox = await ObjectBoxDatabase.initialization();
+  HttpOverrides.global = MyHttpOverrides();
   runApp(
       ProviderScope(
           overrides: [
@@ -18,15 +30,27 @@ Future<void> main() async {
   );
 }
 
-class MyApp extends StatelessWidget {
+//!\ TODO: This should be used while in development mode, do NOT do this when you want to release to production.
+// Enabled globally in project.
+// https://stackoverflow.com/questions/54285172/how-to-solve-flutter-certificate-verify-failed-error-while-performing-a-post-req
+class MyHttpOverrides extends HttpOverrides{
+  @override
+  HttpClient createHttpClient(SecurityContext? context){
+    return super.createHttpClient(context)
+      ..badCertificateCallback = (X509Certificate cert, String host, int port) => true;
+  }
+}
+
+class MyApp extends ConsumerWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final initialize = ref.watch(firebaseInitializerProvider);
     return MaterialApp(
       title: 'Crypto Tracker App',
       initialRoute: '/',
-      onGenerateRoute: (settings) => RouteGenerator.generateRoute(settings),
+      onGenerateRoute: (settings) => RouteGenerator.generateRoute(settings, initialize),
       theme: ThemeData(
         colorScheme: ColorScheme(
           primary: Colors.indigo.shade800,
@@ -43,6 +67,13 @@ class MyApp extends StatelessWidget {
         )
       ),
       debugShowCheckedModeBanner: false,
+      // home: initialize.when(
+      //     data: (data) {
+      //       return const AuthChecker();
+      //     },
+      //     loading: () => const LoadingScreen(),
+      //     error: (e, stackTrace) => ErrorScreen(e, stackTrace!)
+      // ),
     );
   }
 }

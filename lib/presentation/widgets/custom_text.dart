@@ -38,7 +38,7 @@ class CustomTitleSection extends Text {
   CustomTitleSection(String data, {
     Key? key,
     color = Colors.blue,
-    fontSize = 17.0,
+    fontSize = 15.0,
     fontWeight = FontWeight.w600
   }) : super(
       data,

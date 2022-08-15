@@ -5,7 +5,7 @@
   "entities": [
     {
       "id": "1:6193276438463297612",
-      "lastPropertyId": "28:518945614990935428",
+      "lastPropertyId": "29:8961665600328444579",
       "name": "Coin",
       "properties": [
         {
@@ -116,13 +116,18 @@
           "id": "28:518945614990935428",
           "name": "publicInterestScore",
           "type": 8
+        },
+        {
+          "id": "29:8961665600328444579",
+          "name": "isFavorite",
+          "type": 1
         }
       ],
       "relations": []
     },
     {
       "id": "2:6632199770553307156",
-      "lastPropertyId": "4:6184614354308186215",
+      "lastPropertyId": "5:197493130056012563",
       "name": "CoinsList",
       "properties": [
         {
@@ -147,6 +152,11 @@
           "id": "4:6184614354308186215",
           "name": "symbol",
           "type": 9
+        },
+        {
+          "id": "5:197493130056012563",
+          "name": "isFavorite",
+          "type": 1
         }
       ],
       "relations": []

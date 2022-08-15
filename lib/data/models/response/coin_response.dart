@@ -62,7 +62,7 @@ class CoinResponse extends Equatable {
     required this.publicInterestScore,
     required this.developerData,
     required this.communityData,
-    required this.lastUpdated,
+    required this.lastUpdated
   });
 
   @override
@@ -89,7 +89,7 @@ class CoinResponse extends Equatable {
     publicInterestScore,
     developerData,
     communityData,
-    lastUpdated,
+    lastUpdated
   ];
 
   Coin toEntity() {
@@ -111,6 +111,7 @@ class CoinResponse extends Equatable {
       liquidityScore: liquidityScore,
       publicInterestScore: publicInterestScore,
       lastUpdated: lastUpdated,
+      isFavorite: false
     );
   }
 

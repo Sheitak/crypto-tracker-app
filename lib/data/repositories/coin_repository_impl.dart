@@ -28,7 +28,9 @@ class CoinRepositoryImpl extends CoinRepository {
       try {
         final entitiesList = await _getRemoteDataCoinById(selectedCoin);
         cryptoLocalDataSource.cacheCoin(entitiesList);
-        return Right(entitiesList);
+        final localCoin = await cryptoLocalDataSource.getLastCoin(selectedCoin);
+        return Right(localCoin);
+        // return Right(entitiesList);
       } on ServerException {
         return const Left(
             ServerFailure()
@@ -50,5 +52,17 @@ class CoinRepositoryImpl extends CoinRepository {
     return await cryptoRemoteDataSource.getCoinById(selectedCoin, cryptoRequest).then(
         (value) => value.toEntities()
     );
+  }
+
+  @override
+  Future<Either<Failure, int>> getCoinsFavoritesNumbers() async {
+    try {
+      final numberFavorites = await cryptoLocalDataSource.getCoinsFavoritesNumbers();
+      return Right(numberFavorites);
+    } on ServerException {
+      return const Left(
+        ServerFailure()
+      );
+    }
   }
 }

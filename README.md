@@ -29,3 +29,5 @@ Example test specific : ```flutter test test/domain/usecases```
 For shaders compilation on android 11, it's better to make the emulator compatible with ```OpenGL ES 1.1/2.0```.
 Once the emulator is started, go to the side panel and select : "```... > Settings > Advanced > Compatibility OpenGL ES 1.1 / 2.0```"
 This fixes problem of shared compilation error when starting Android with : Flutter Version >= 2.
+
+Localhost ```https://10.0.2.2:8000/```

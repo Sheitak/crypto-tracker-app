@@ -6,4 +6,8 @@ abstract class CryptoLocalDataSource {
 
   Future<List<dynamic>> getLastCoin(String selectedCoin);
   Future<void> cacheCoin(List<dynamic> entitiesListToCache);
+
+  Future<List<CoinsList>> getFavoritesCoinsList();
+  Future<bool> updateFavorites(String selectedCoin);
+  Future<int> getCoinsFavoritesNumbers();
 }

@@ -28,7 +28,9 @@ class CoinsListRepositoryImpl extends CoinsListRepository {
       try {
         final remoteCoinsList = await _getRemoteDataListCoins();
         cryptoLocalDataSource.cacheCoinsList(remoteCoinsList);
-        return Right(remoteCoinsList);
+        final localCoinsList = await cryptoLocalDataSource.getLastCoinsList();
+        return Right(localCoinsList);
+        // return Right(remoteCoinsList);
       } on ServerException {
         return const Left(
             ServerFailure()
@@ -53,4 +55,29 @@ class CoinsListRepositoryImpl extends CoinsListRepository {
       ).toList()
     );
   }
+
+  @override
+  Future<Either<Failure, List<CoinsList>>> getFavoritesCoinsList() async {
+    try {
+      final localCoinsList = await cryptoLocalDataSource.getFavoritesCoinsList();
+      return Right(localCoinsList);
+    } on ServerException {
+      return const Left(
+          ServerFailure()
+      );
+    }
+  }
+
+  @override
+  Future<bool> updateFavorites(String selectedCoin) async {
+    return await cryptoLocalDataSource.updateFavorites(selectedCoin);
+  }
+
+  @override
+  Future<int> getCoinsFavoritesNumbers() {
+    // TODO: implement getCoinsFavoritesNumbers
+    throw UnimplementedError();
+  }
+
+
 }

@@ -2,12 +2,15 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:crypto_tracker_app/core/error/failures.dart';
 import 'package:crypto_tracker_app/core/util/data_type_converter.dart';
 import 'package:crypto_tracker_app/core/providers/coin_provider.dart';
+import 'package:crypto_tracker_app/presentation/widgets/favorites_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:crypto_tracker_app/presentation/widgets/custom_icons.dart';
 import 'package:crypto_tracker_app/presentation/widgets/custom_text.dart';
 import 'package:crypto_tracker_app/presentation/widgets/error.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
+
+import '../viewmodel/favorites_screen_controller.dart';
 
 class CoinScreen extends StatelessWidget {
   final String selectedCoin;
@@ -68,8 +71,6 @@ class CoinScreen extends StatelessWidget {
 
   Widget _buildProfileCoin() {
     return Consumer(builder: (BuildContext context, WidgetRef ref, child) {
-      // final DataTypeConverter dataTypeConverter = DataTypeConverter();
-      // print(ref.watch(coinViewModelProvider(selectedCoin)));
       return ref.watch(coinViewModelProvider(selectedCoin)).when(
           data: (either) {
             return either.fold(
@@ -91,7 +92,7 @@ class CoinScreen extends StatelessWidget {
                                   Padding(
                                     padding: const EdgeInsets.all(5.0),
                                     child: Hero(
-                                      tag: "imageCoin" + coin[0].coinId,
+                                      tag: 'imageCoin ${coin[0].coinId}',
                                       // tag: "imageCoin" + (coin.isNotEmpty ? coin[0].coinId : ''),
                                       child: ClipRRect(
                                         borderRadius:
@@ -149,19 +150,39 @@ class CoinScreen extends StatelessWidget {
                                   )
                                 ],
                               ),
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    top: 20.0, left: 5.0, bottom: 5.0
-                                ),
-                                child: CustomTitleSection(
-                                  'Last Updated : ' +
-                                  DateFormat.yMMMd()
-                                      .add_jm()
-                                      .format(coin[0].lastUpdated
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              top: 20.0, left: 5.0, bottom: 5.0
+                                          ),
+                                          child: CustomTitleSection(
+                                            'Last Updated : ${DateFormat.yMMMd()
+                                                .add_jm()
+                                                .format(coin[0].lastUpdated
+                                            )}',
+                                          ),
+                                        )
+                                      ],
+                                    ),
                                   ),
-                                  fontSize: 15.0,
-                                ),
-                              ),
+                                  const Padding(
+                                      padding: EdgeInsets.only(
+                                          top: 20.0, left: 5.0, bottom: 5.0
+                                      ),
+                                      // child: FavoritesWidget(
+                                      //     isFavorite: false,
+                                      //     favoriteCount: 44
+                                      // ),
+                                    // child: FavoritesWidget(),
+                                    child: Center(),
+                                  )
+                                ],
+                              )
                             ],
                           ),
                         ),

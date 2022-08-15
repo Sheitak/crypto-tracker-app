@@ -29,6 +29,7 @@ class Coin extends Equatable {
   final DateTime lastUpdated;
   final coinList = ToOne<CoinsList>();
   final image = ToOne<Image>();
+  bool isFavorite = false;
 
   Coin({
     this.id = 0,
@@ -49,6 +50,7 @@ class Coin extends Equatable {
     required this.liquidityScore,
     required this.publicInterestScore,
     required this.lastUpdated,
+    required this.isFavorite,
   });
 
   @override
@@ -72,5 +74,6 @@ class Coin extends Equatable {
     liquidityScore,
     publicInterestScore,
     lastUpdated,
+    isFavorite
   ];
 }
