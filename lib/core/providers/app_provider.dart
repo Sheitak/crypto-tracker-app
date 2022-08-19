@@ -12,14 +12,15 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import '../../data/datasources/remote/firebase_authentication.dart';
+import '../../firebase_options.dart';
 
 final objectBoxDatabaseProvider = Provider<ObjectBoxDatabase>((ref) => throw UnimplementedError());
 
-
-
-final firebaseInitializerProvider = FutureProvider<FirebaseApp>((ref) async {
-  return await Firebase.initializeApp();
-});
+// final firebaseInitializerProvider = FutureProvider<FirebaseApp>((ref) async {
+//   return await Firebase.initializeApp(
+//     options: DefaultFirebaseOptions.currentPlatform
+//   );
+// });
 
 final firebaseAuthenticationProvider = Provider<FirebaseAuthentication>((ref) => FirebaseAuthentication());
 
@@ -27,9 +28,7 @@ final cloudFirestoreDatabaseProvider = Provider<CloudFirestoreDatabase>((ref) =>
 
 final authStateProvider = StreamProvider<User?>((ref) => ref.read(firebaseAuthenticationProvider).authStateChange);
 
-final fireBaseAuthProvider = Provider<FirebaseAuth>((ref) => FirebaseAuth.instance);
-
-
+final firebaseAuthProvider = Provider<FirebaseAuth>((ref) => FirebaseAuth.instance);
 
 final networkInfoProvider = Provider<NetworkInfo>((ref) => NetworkInfoImpl(
     InternetConnectionChecker()

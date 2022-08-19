@@ -1,12 +1,7 @@
 import 'dart:io';
-
 import 'package:crypto_tracker_app/data/datasources/local/object_box_database.dart';
-import 'package:crypto_tracker_app/presentation/pages/auth_checker.dart';
-import 'package:crypto_tracker_app/presentation/pages/error_screen.dart';
-import 'package:crypto_tracker_app/presentation/pages/loading_screen.dart';
 import 'package:crypto_tracker_app/presentation/widgets/navigator.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:crypto_tracker_app/core/providers/app_provider.dart';
 import 'package:dcdg/dcdg.dart';
@@ -46,11 +41,11 @@ class MyApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final initialize = ref.watch(firebaseInitializerProvider);
+    // final initialize = ref.watch(firebaseInitializerProvider);
     return MaterialApp(
       title: 'Crypto Tracker App',
       initialRoute: '/',
-      onGenerateRoute: (settings) => RouteGenerator.generateRoute(settings, initialize),
+      onGenerateRoute: (settings) => RouteGenerator.generateRoute(settings),
       theme: ThemeData(
         colorScheme: ColorScheme(
           primary: Colors.indigo.shade800,
@@ -66,14 +61,7 @@ class MyApp extends ConsumerWidget {
           error: Colors.red.shade300
         )
       ),
-      debugShowCheckedModeBanner: false,
-      // home: initialize.when(
-      //     data: (data) {
-      //       return const AuthChecker();
-      //     },
-      //     loading: () => const LoadingScreen(),
-      //     error: (e, stackTrace) => ErrorScreen(e, stackTrace!)
-      // ),
+      debugShowCheckedModeBanner: false
     );
   }
 }

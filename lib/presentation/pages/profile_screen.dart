@@ -24,7 +24,7 @@ class ProfileScreen extends StatelessWidget {
       drawer: DrawerWidget(context),
       body: Consumer(
         builder: (BuildContext context, WidgetRef ref, Widget? child) {
-          final data = ref.watch(fireBaseAuthProvider);
+          final data = ref.watch(firebaseAuthProvider);
           final String username = data.currentUser!.displayName ?? 'unknown';
           return SafeArea(
             child: Column(

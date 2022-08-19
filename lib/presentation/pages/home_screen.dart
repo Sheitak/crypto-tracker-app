@@ -32,18 +32,14 @@ class HomeScreen extends StatelessWidget {
       drawer: DrawerWidget(context),
       body: Consumer(
         builder: (BuildContext context, WidgetRef ref, Widget? child) {
-
-          final data = ref.watch(fireBaseAuthProvider);
-          // final data1 = ref.watch(apiAuthenticationProvider).getAuthenticateUser(userEmail);
-          // print(data1);
-
+          final auth = ref.watch(firebaseAuthProvider);
           return SafeArea(
             child: Column(
               children: [
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    'Glad to see you here, ${data.currentUser!.email}',
+                    'Glad to see you here, ${auth.currentUser!.email}',
                     style: const TextStyle(
                         fontWeight: FontWeight.w400,
                         fontSize: 15
@@ -55,7 +51,7 @@ class HomeScreen extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
-                          data.currentUser!.displayName ?? 'Great you have Completed this step',
+                          auth.currentUser!.displayName ?? 'Great you have Completed this step',
                           style: const TextStyle(
                             fontWeight: FontWeight.w400,
                             fontSize: 15

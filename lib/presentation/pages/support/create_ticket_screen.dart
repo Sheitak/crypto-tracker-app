@@ -1,10 +1,8 @@
-import 'package:crypto_tracker_app/data/datasources/remote/cloud_firestore_database.dart';
-import 'package:crypto_tracker_app/data/datasources/remote/crypto_remote_data_source_impl.dart';
-import 'package:crypto_tracker_app/data/datasources/remote/firebase_authentication.dart';
+import 'package:crypto_tracker_app/core/providers/ticket_provider.dart';
 import 'package:crypto_tracker_app/presentation/widgets/drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import '../../../core/providers/app_provider.dart';
+import 'package:crypto_tracker_app/core/providers/app_provider.dart';
 
 class CreateTicketScreen extends StatefulWidget {
   const CreateTicketScreen({Key? key}) : super(key: key);
@@ -24,7 +22,8 @@ class _CreateTicketState extends State<CreateTicketScreen> {
     super.dispose();
   }
 
-  Future<void> _submit(authFirebase) async {
+  Future<void> _submit(ref) async {
+    final authFirebase = ref.watch(firebaseAuthProvider);
     Map<String, dynamic> parameters = {
       'username': authFirebase.currentUser!.displayName,
       'email': authFirebase.currentUser!.email,
@@ -34,10 +33,7 @@ class _CreateTicketState extends State<CreateTicketScreen> {
       'updatedAt': DateTime.now().toString(),
       'createdAt': DateTime.now().toString()
     };
-    // print(parameters);
-    // TODO: Injecter ici vers RealTimeDatabase/Firestore
-    CloudFirestoreDatabase().createTicket(parameters);
-    // CryptoRemoteDataSourceImpl().postTicket(parameters);
+    return ref.watch(createTicketProvider(parameters));
   }
 
   @override
@@ -71,7 +67,6 @@ class _CreateTicketState extends State<CreateTicketScreen> {
               ),
               Consumer(
                 builder: (BuildContext context, WidgetRef ref, Widget? child) {
-                  final authFirebase = ref.watch(fireBaseAuthProvider);
                   return Form(
                     key: _formKey,
                     child: Column(
@@ -113,7 +108,7 @@ class _CreateTicketState extends State<CreateTicketScreen> {
                         ElevatedButton(
                           onPressed: () {
                             if (_formKey.currentState!.validate()) {
-                              _submit(authFirebase);
+                              _submit(ref);
                               ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
                                   backgroundColor: Colors.green,

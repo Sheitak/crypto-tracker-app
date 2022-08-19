@@ -20,10 +20,9 @@ import '../pages/settings_screen.dart';
 import '../pages/support/tickets_details_screen.dart';
 
 class RouteGenerator {
-  static Route<dynamic> generateRoute(RouteSettings settings, AsyncValue<FirebaseApp> initialize) {
+  static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case '/' :
-        // final initialize = ref.watch(firebaseInitializerProvider);
         return MaterialPageRoute(
             builder: (context) => const AuthChecker()
 
