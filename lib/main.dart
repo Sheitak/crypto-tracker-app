@@ -42,6 +42,7 @@ class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // final initialize = ref.watch(firebaseInitializerProvider);
+    final authState = ref.watch(authStateProvider);
     return MaterialApp(
       title: 'Crypto Tracker App',
       initialRoute: '/',

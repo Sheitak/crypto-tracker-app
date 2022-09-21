@@ -51,7 +51,7 @@ class HomeScreen extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
-                          auth.currentUser!.displayName ?? 'Great you have Completed this step',
+                          auth.currentUser!.displayName ?? '',
                           style: const TextStyle(
                             fontWeight: FontWeight.w400,
                             fontSize: 15
@@ -69,7 +69,7 @@ class HomeScreen extends StatelessWidget {
                     ),
                     ElevatedButton(
                       onPressed: () => {
-                        Navigator.pushNamed(context, '/create-support-ticket')
+                        Navigator.pushNamed(context, '/create-ticket-support')
                       },
                       child: const Text(
                         'Submit Ticket',
@@ -85,7 +85,7 @@ class HomeScreen extends StatelessWidget {
                   margin: const EdgeInsets.symmetric(horizontal: 16),
                   width: double.infinity,
                   child: MaterialButton(
-                    onPressed: () => ref.watch(firebaseAuthenticationProvider).signOut(),
+                    onPressed: () => ref.watch(firebaseAuthenticationProvider).signOut(context),
                     textColor: Colors.blue.shade700,
                     textTheme: ButtonTextTheme.primary,
                     minWidth: 100,

@@ -16,6 +16,7 @@ import '../pages/auth_checker.dart';
 import '../pages/error_screen.dart';
 import '../pages/favorites_screen.dart';
 import '../pages/loading_screen.dart';
+import '../pages/login_screen.dart';
 import '../pages/settings_screen.dart';
 import '../pages/support/tickets_details_screen.dart';
 

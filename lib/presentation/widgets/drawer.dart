@@ -73,7 +73,7 @@ class DrawerWidget extends StatelessWidget {
                   margin: const EdgeInsets.symmetric(horizontal: 16),
                   width: double.infinity,
                   child: MaterialButton(
-                    onPressed: () => ref.watch(firebaseAuthenticationProvider).signOut(),
+                    onPressed: () => ref.watch(firebaseAuthenticationProvider).signOut(context),
                     textColor: Colors.blue.shade700,
                     textTheme: ButtonTextTheme.primary,
                     minWidth: 100,

@@ -62,7 +62,6 @@ class _BuildBodyListCoinsWidget extends ConsumerWidget {
                       }
                       return GestureDetector(
                         onTap: () {
-                          // Navigator.pushNamed(context, '/cryptocurrencies',
                           Navigator.pushNamed(
                               context, '/cryptocurrency',
                               arguments: coinsList[index].coinId
@@ -109,7 +108,8 @@ class _BuildBodyListCoinsWidget extends ConsumerWidget {
                                                   CircularProgressIndicator()),
                                           error: (error, _) => Error(
                                               message: error.toString(),
-                                              callback: () => {})),
+                                              callback: () => {})
+                                  ),
                                   Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: Column(
@@ -117,8 +117,7 @@ class _BuildBodyListCoinsWidget extends ConsumerWidget {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Padding(
-                                          padding: const EdgeInsets.only(
-                                              bottom: 8.0),
+                                          padding: const EdgeInsets.only(bottom: 8.0),
                                           child: Text(
                                             coinsList[index].coinId.toUpperCase(),
                                             style: const TextStyle(
@@ -132,14 +131,15 @@ class _BuildBodyListCoinsWidget extends ConsumerWidget {
                                               coinsList[index].symbol.toUpperCase(),
                                               style: TextStyle(
                                                   color: Colors.grey[500],
-                                                  fontSize: 14),
+                                                  fontSize: 14
+                                              ),
                                             ),
-                                            Padding(
-                                                padding: const EdgeInsets.only(
-                                                    top: 0, left: 0, bottom: 0
-                                                ),
-                                                child: FavoritesWidget(coinsList[index])
-                                            )
+                                            // Padding(
+                                            //     padding: const EdgeInsets.only(
+                                            //         top: 0, left: 0, bottom: 0
+                                            //     ),
+                                            //     child: FavoritesWidget(coinsList[index])
+                                            // )
                                           ],
                                         )
                                       ],
@@ -162,6 +162,7 @@ class _BuildBodyListCoinsWidget extends ConsumerWidget {
             )
         ),
         error: (error, _) =>
-            Error(message: error.toString(), callback: () => {}));
+            Error(message: error.toString(), callback: () => {})
+    );
   }
 }

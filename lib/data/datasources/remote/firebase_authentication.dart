@@ -1,3 +1,4 @@
+import 'package:crypto_tracker_app/presentation/pages/login_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -51,13 +52,37 @@ class FirebaseAuthentication {
     }
   }
 
-  // SignUp the user using Email and Password
   Future<void> signUpWithEmailAndPassword(String email, String password, BuildContext context) async {
     try {
       _auth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
+    } on FirebaseAuthException catch (e) {
+      await showDialog(
+          context: context,
+          builder: (ctx) => AlertDialog(
+              title: const Text('Error Occured'),
+              content: Text(e.toString()),
+              actions: [
+                TextButton(
+                    onPressed: () {
+                      Navigator.of(ctx).pop();
+                    },
+                    child: const Text("OK"))
+              ]));
+    } catch (e) {
+      if (e == 'email-already-in-use') {
+        print('Email already in use.');
+      } else {
+        print('Error: $e');
+      }
+    }
+  }
+
+  Future<void> sendPasswordResetEmail(String email, BuildContext context) async {
+    try {
+      _auth.sendPasswordResetEmail(email: email);
     } on FirebaseAuthException catch (e) {
       await showDialog(
           context: context,
@@ -116,9 +141,13 @@ class FirebaseAuthentication {
   }
 
   //  SignOut the current user
-  Future<void> signOut() async {
-    await _auth.signOut();
-    // await _firebaseAuth.signOut().then((value) => Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => LoginPage()),(route) => false)));
+  Future<void> signOut(context) async {
+    // await _auth.signOut();
+    await _auth.signOut().then((value) => Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(builder:
+            (context) => const LoginScreen()),
+            (route) => false
+    ));
     // _googleSignIn.signOut()
   }
 }

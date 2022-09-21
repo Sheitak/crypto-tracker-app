@@ -77,7 +77,6 @@ class LoginScreenState extends State<LoginScreen> {
         type = Status.signUp;
       });
     }
-    // print(type);
   }
 
   @override
@@ -86,24 +85,11 @@ class LoginScreenState extends State<LoginScreen> {
       resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Consumer(builder: (context, ref, child) {
-          // Consommer un fournisseur en utilisant la méthode watch et le stocker dans une variable
-          // Nous allons maintenant utiliser cette variable pour accéder à toutes les fonctions du
-          // authentification
           final auth = ref.watch(firebaseAuthenticationProvider);
-          // final auth2 = ref.watch(apiAuthenticationProvider);
-
-          // Au lieu de créer un encombrement sur la fonction onPressed
-          // J'ai décidé de créer une fonction séparée et de les passer dans le
-          // paramètres respectifs.
-          // si vous voulez vous pouvez écrire le code exact dans la fonction onPressed
-          // tout dépend des préférences personnelles et de la lisibilité du code
           Future<void> _onPressedFunction() async {
             if (!_formKey.currentState!.validate()) {
               return;
             }
-            // print(_email.text); // C'est votre meilleur ami pour le débogage
-            // sans oublier les outils de débogage
-            // print(_password.text);
             if (type == Status.login) {
               loading();
               await auth.signInWithEmailAndPassword(_email.text, _password.text, context)
@@ -115,12 +101,6 @@ class LoginScreenState extends State<LoginScreen> {
                   }));
             } else {
               loading();
-              // await auth2.signUpWithEmailAndPassword(_email.text, _password.text, context).whenComplete(() => {
-              //     Navigator.push(
-              //         context,
-              //         MaterialPageRoute(builder: (context) => HomeScreen(_email.text))
-              //     )
-              // });
               await auth.signUpWithEmailAndPassword(_email.text, _password.text, context)
                   .whenComplete(() => auth.authStateChange.listen((event) async {
                     if (event == null) {
@@ -130,6 +110,8 @@ class LoginScreenState extends State<LoginScreen> {
                   }));
             }
           }
+
+          // Future<void> _resetPassword() async {
 
           Future<void> _loginWithGoogle() async {
             loading2();
@@ -349,7 +331,16 @@ class LoginScreenState extends State<LoginScreen> {
                                       recognizer: TapGestureRecognizer()
                                         ..onTap = () {
                                           _switchType();
-                                        })
+                                        }
+                                  ),
+                                  TextSpan(
+                                      text: 'Forgot password ?',
+                                      style: TextStyle(color: Colors.blue.shade700),
+                                      recognizer: TapGestureRecognizer()
+                                        ..onTap = () {
+                                          // auth.sendPasswordResetEmail(email, context);
+                                        }
+                                  )
                                 ],
                               ),
                             ),
